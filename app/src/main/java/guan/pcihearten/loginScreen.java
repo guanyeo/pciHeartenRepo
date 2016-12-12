@@ -14,6 +14,7 @@ public class loginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         loginProceed();
+        regProceed();
     }
 
     public void loginProceed(){
