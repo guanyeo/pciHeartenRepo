@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="guan.pcihearten">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:name=".pciHearten">
+        <activity android:name=".languageSceen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".loginScreen">
+            <intent-filter>
+                <action android:name="guan.pcihearten.loginScreen" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".mainPage"
+            android:label="@string/title_activity_main_page"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.mainPage" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:parentActivityName=".mainPage"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.ScrollingActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.mainPage" />
+        </activity>
+        <activity
+            android:name=".preProcedure"
+            android:label="@string/title_activity_pre_procedure"
+            android:parentActivityName=".mainPage"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.preProcedure" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.mainPage" />
+        </activity>
+        <activity
+            android:name=".procedure"
+            android:label="@string/title_activity_procedure"
+            android:parentActivityName=".mainPage"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.procedure" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.mainPage" />
+        </activity>
+        <activity
+            android:name=".post_procedure"
+            android:label="@string/title_activity_post_procedure"
+            android:parentActivityName=".mainPage"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.post_procedure" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.mainPage" />
+        </activity>
+        <activity
+            android:name=".health"
+            android:label="@string/title_activity_health"
+            android:parentActivityName=".mainPage"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.health" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.mainPage" />
+        </activity>
+        <activity android:name=".dashboard">
+            <intent-filter>
+                <action android:name="guan.pcihearten.dashboard" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".firebase_test">
+            <intent-filter>
+                <action android:name="guan.pcihearten.firebase_test" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+    </application>
+
+</manifest>

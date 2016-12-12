@@ -1,0 +1,432 @@
+<resources>
+    <!-- Language page -->
+    <string name="app_name">PCIHearten</string>
+    <string name="btn_english_string">English</string>
+    <string name="btn_bm_string">Bahasa Malaysia</string>
+    <string name="title_activity_login_screen">Sign in</string>
+
+    <!-- login -->
+    <string name="login_button_string">login</string>
+    <string name="et_email_string">Email</string>
+    <string name="et_password_string">Password</string>
+    <string name="reg_btn_string">Register</string>
+
+    <!-- Main page -->
+    <string name="title_activity_main_page">mainPage</string>
+    <!-- Slide Menu -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- On Create Options Menu -->
+    <string name="action_settings">Settings</string>
+    <!-- Nav -->
+    <string name="nav_bar_title_string">PCIHearten</string>
+    <string name="nav_information_string">What is PCI?</string>
+    <string name="nav_prepci_string">Preparation before PCI</string>
+    <string name="nav_pciprocedure_string">How is PCI done?</string>
+    <string name="nav_postpci_string">Post PCI Procedure</string>
+    <string name="nav_status_string">Status</string>
+    <string name="nav_mock_string">Mock Test</string>
+    <string name="nav_dash_string">Dashboard</string>
+    <string name="nav_prevent_string">What should I do to prevent another heart attack?</string>
+    <!--Scroll -->
+    <string name="title_activity_scrolling">What is PCI?</string>
+    <string name="title_info_1"><b>"Percutaneous Coronary Intervention (PCI)"</b></string>
+    <string name="information_text_1">
+        "Percutaneous Coronary Intervention (PCI) also knows as coronary angioplasty."
+        "Its purpose is to open up blocked coronary arteries caused by coronary artery disease and restore blood flow to the heart muscle.\n\n"
+
+        "It is an invasive procedure involving X-rays taking, which use a special thin tubing"
+        "instrument with an attached deflated balloon and is threaded up to the coronary"
+        "arteries. The cardiologist will inflate the balloon to widen blocked artery area where"
+        "blood flow to the heart muscle has been reduced or cut off. Sometimes, it is combined"
+        "with the implantation of a stent to help to keep the artery open and decrease the risk of"
+        "another blockage."
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts."
+    </string>
+
+    <string name="title_info_2"> <b>"Why do you need PCI?"</b></string>
+    <string name="information_text_2">
+        "Your heart is a muscle that pumps blood to your body, delivering oxygen and"
+        "nutrients to all the cells. Your heart needs its own supply of oxygen and nutrient. "
+        "Coronary arteries play an important role in supplying blood to your heart muscles."
+    </string>
+
+    <string name="title_info_3"><b>"Coronary Artery Disease"</b></string>
+    <string name="information_text_3">
+        "Your heart’s arteries can become blocked or narrowed by a buildup of cholesterol"
+        "(atheroma), cells, or other substances (plaque). This build up process is called"
+        "atherosclerosis. Atheroma will reduce blood flow to your heart and causes chest pain"
+        "(angina). If blood clot formed or get worse where it completely block blood flow, it"
+        "can cause a heart attack (myocardial infarction)."
+    </string>
+
+    <!--Preprocedure -->
+    <string name="title_activity_pre_procedure">Preparation before PCI</string>
+    <string name="preprocedure_title_string1">Step 1</string>
+    <string name="preprocedure_desc_string1">
+        "You will need to come be in the hospital a day earlier before the procedure. Blood"
+        "test and electrocardiogram (ECG) will be conducted."
+    </string>
+    <string name="preprocedure_title_string2">Step 2</string>
+    <string name="preprocedure_desc_string2">
+        "Tell the doctor or nurse if you are hypersensitive to any contrast dye, medication,"
+        "iodine, seafood or shellfish used as X-ray contrast during PCI."
+    </string>
+    <string name="preprocedure_title_string3">Step 3</string>
+    <string name="preprocedure_desc_string3">
+        "Inform doctor if you are pregnant or think you may be pregnant because you will"
+        "be exposed to radiation during PCI."
+    </string>
+    <string name="preprocedure_title_string4">Step 4</string>
+    <string name="preprocedure_desc_string4">
+        "Inform doctor if you are taking any over the counter medication, vitamins, herbs"
+        "and supplements."
+    </string>
+
+    <string name="preprocedure_title_string5">Step 5</string>
+    <string name="preprocedure_desc_string5">
+        "You will be asked not to eat or drink for at least six hours before PCI to prevent"
+        "nausea or vomiting, because painkiller may be given during procedure."
+    </string>
+
+    <string name="preprocedure_title_string6">Step 6</string>
+    <string name="preprocedure_desc_string6">
+        "You will be asked to remove jewelry that you are wearing and to shave in the area"
+        "of your body and where the catheter will be inserted. Catheters are usually put in"
+        "through your wrist or at your groin site."
+    </string>
+
+    <string name="preprocedure_title_string7">Step 7</string>
+    <string name="preprocedure_desc_string7">
+        "You will be asked to empty your bladder prior to the procedure."
+    </string>
+
+    <string name="preprocedure_title_string8">Step 8</string>
+    <string name="preprocedure_desc_string8">
+        "An intravenous (IV) line will be inserted into a vein for administration of"
+        "painkillers or sedatives."
+    </string>
+    <!-- How is PCI done> -->
+    <string name="title_activity_procedure">How is PCI done?</string>
+    <string name="cardview_procedure_list_title1_string">
+        "Step 1"
+    </string>
+    <string name="short_procedure_description1_string">
+        "You will be taken to the cardiac catheterization laboratory and asked to lie on an"
+        "examination table. You will be connect to monitor to monitor your ECG, heart rate,"
+        "blood pressure, breathing rate and oxygen level."
+    </string>
+
+      <string name="cardview_procedure_list_title2_string">
+        "Step 2"
+    </string>
+    <string name="short_procedure_description2_string">
+        "The site to perform the procedure will be cleaned."
+    </string>
+
+       <string name="cardview_procedure_list_title3_string">
+        "Step 3"
+    </string>
+    <string name="short_procedure_description3_string">
+        "During the procedure, <b>you will be awake and alert.</b> Doctor will numbs a spot on your wrist or groin before the starting of the procedure."
+    </string>
+
+       <string name="cardview_procedure_list_title4_string">
+        "Step 4"
+    </string>
+    <string name="short_procedure_description4_string">
+        "A small incision will be make in the skin of your wrist or groin over an artery"
+        "where your pulse can be felt. A needle is inserted into the artery followed by a wire. A"
+        "small tube called s sheath is inserted into the artery to keep it open.\n\n"
+        <b>"*Tell the doctor if you feel pain during incision."</b>
+    </string>
+
+       <string name="cardview_procedure_list_title5_string">
+        "Step 5"
+    </string>
+    <string name="short_procedure_description5_string">
+        "Doctor will insert a small catheter (a fine, flexible, hollow tube) into the artery at the sheath.\n\n"
+        <b>"*You may be asked to take a deep breath and hold it for a few seconds to allow"
+            "the catheter to pass through some point in your artery."</b>
+    </string>
+
+       <string name="cardview_procedure_list_title6_string">
+        "Step 6"
+    </string>
+    <string name="short_procedure_description6_string">
+        "There is an X-ray monitor screen in the procedure room. Special fluid (radio-opaque dye)"
+        "will be injected through the catheter so arteries show up well on the X-ray.\n\n"
+        <b>"*You might feel a hot, flushing sensation, a salty or metallic taste in the mouth,"
+            "or brief headache when dye passes through.\n\n"</b>
+        <b>"*Rarely, you may feel some chest discomfort, nausea or urge to urinate as the"
+            "fluid goes in.\n\n"</b>
+        <b>"*If you feel any breathing difficulties, sweating, numbness, itching, nausea or"
+            "vomiting, chills, or heart palpitation, tell the doctor."</b>
+    </string>
+
+       <string name="cardview_procedure_list_title7_string">
+        "Step 7"
+    </string>
+    <string name="short_procedure_description7_string">
+        "X-rays are taken as the fluid goes through the artery. Doctor can see exactly where"
+        "the narrowing of the artery, and how severe they are."
+    </string>
+
+       <string name="cardview_procedure_list_title8_string">
+        "Step 8"
+    </string>
+    <string name="short_procedure_description8_string">
+        "By watching on the screen, catheter with a thin, expandable balloon on the end is"
+        "passed to the blockage.\n\n"
+        <b>"*You shouldn’t feel anything as the catheter moves through the heart artery, but"
+            "you may feel an occasional missed or extra heartbeat."</b>
+    </string>
+
+       <string name="cardview_procedure_list_title9_string">
+        "Step 9"
+    </string>
+    <string name="short_procedure_description9_string">
+        "The balloon is inflated. It pushes plaque to the side and stretches the artery open, so"
+        "that blood can flow more easily.\n\n"
+        <b>"*You may feel some chest pain when the balloon is inflated as the artery will be"
+            "completely blocked. However, this is normal and is nothing to worry about.\n\n"
+            "*But if you notice continued discomfort or pain, such as chest pain, neck or jaw"
+            "pain, back pain, arm pain, shortness of breath, or breathing difficulty, tell your"
+            "doctor immediately."</b>
+    </string>
+
+       <string name="cardview_procedure_list_title10_string">
+        "Step 10"
+    </string>
+    <string name="short_procedure_description10_string">
+        "If needed, a stent (collapsed wire mesh tube) mounted on a special balloon, is"
+        "moved over the wire to the blocked area. As the balloon inflated, it opens the stent"
+        "against the artery walls. <b>The stent is locked in this position and is placed inside your artery</b> to keep the artery open."
+    </string>
+
+       <string name="cardview_procedure_list_title11_string">
+        "Step 11"
+    </string>
+    <string name="short_procedure_description11_string">
+        "When the procedure finished, the cardiologist will check that your artery is wide"
+        "enough to allow blood to flow through by monitoring a small amount of contrast dye"
+        "as it flows through the artery."
+    </string>
+
+       <string name="cardview_procedure_list_title12_string">
+        "Step 12"
+    </string>
+    <string name="short_procedure_description12_string">
+        "The balloon and catheters are taken out. Now the artery has been opened, and your"
+        "heart will get the blood it needs."
+    </string>
+    <string name="cardview_procedure_list_title_string_stent">
+        "Stent"
+    </string>
+    <string name="short_procedure_description_string_stent">
+        "A stent is a short, wire-mesh scaffold that is spring-like which expands and locks into"
+        "place to help keep your artery open. It stays in your heart artery after procedure.\n\n"
+        "There are two main types of stent:\n\n"
+        "- Bare metal (uncoated) stent\n"
+        "- Drug-eluting stent (coated with medication that reduces the risk of the artery becoming blocked again)\n\n"
+        "If you have a stent, you will need to take certain medication to help <b>reduce the risk of blood clots forming around the stent.</b> These include Aspirin, Clopidogrel or Prasugrel."
+    </string>
+    <!--
+    
+                                        Postprocedure 
+                                                                                                                                -->
+    <string name="title_activity_post_procedure">Post PCI procedure</string>
+    <string name="cardview_post_procedure_list_title1_string">
+        "Step 1"
+    </string>
+    
+    <string name="short_post_procedure_description1_string">
+        "After PCI\n\n"
+        "- If your PCI is done through wrist, the sheath will be removed and you will go back"
+        "to ward with a TR band around the wound to stop bleeding.\n\n"
+        <b>"*Tell the doctor or nurse if you feel numbness or pain on your arm.\n\n"</b>
+    </string>
+
+    <string name="short_post_procedure_description1_2_string">
+        "- If PCI is done through groin area, PCI sheath will be left in the femoral artery for 6"
+        "hours. It will be stitched to your skin and cover with bandage.\n\n"
+        <b>"*Do not bend the leg where the sheath was inserted.\n\n"</b>
+    </string>
+    
+    <string name="cardview_post_procedure_list_title2_string">
+        "Step 2"
+    </string>
+
+    <string name="short_post_procedure_description2_string">
+        "Bed rest may vary from 2 to 6 hours depending on your condition.\n\n"
+        "- If PCI is performed from the wrist artery, but you should not bend your arm and"
+        "should rest on bed for 2 hours. The wrist compression device will be removed from"
+        "your arm after 2 hours if there is no bleeding seen on your arm.\n\n"
+        "- If it is done through groin area, you would need to lie quietly on your back for 6"
+        "hours. PCI sheath on your groin will be removed by your doctor. Nurse or doctor will"
+        "apply direct pressure for 15 minutes or longer to the place where the catheter was"
+        "inserted to ensure that there is no internal bleeding."
+    </string>
+
+    <string name="cardview_post_procedure_list_title4_string">
+        "Step 3"
+    </string>
+
+    <string name="short_post_procedure_description4_string">
+        "Doctor or nurses will check for signs of bleeding or chest discomfort. Your blood"
+        "pressure, heart rate, breathing rate and oxygenation level will be monitored.\n\n"
+        <b>"*You need to inform the nurse if you feel any pressure in your chest or shortness"
+        "of breath during your hospital stay after procedure.\n\n"
+        "*Cover your PCI site gently if you need to cough or sneeze to prevent bleeding."</b>
+    </string>
+
+     <string name="cardview_post_procedure_list_title5_string">
+         "Step 4"
+     </string>
+
+    <string name="short_post_procedure_description5_string">
+        "Move slowly when getting up from bed to avoid any dizziness from the long period of bed rest."
+    </string>
+
+     <string name="cardview_post_procedure_list_title6_string">
+         "Step 5"
+     </string>
+
+    <string name="short_post_procedure_description6_string">
+        "You will need to drink plenty of fluids. This will help your kidneys to flush out the contrast dye from your body."
+    </string>
+
+     <string name="cardview_post_procedure_list_title7_string">
+         "Step 6"
+     </string>
+
+    <string name="short_post_procedure_description7_string">
+        "You will need to stay in the hospital for a night to rest or longer if required depending on your situation."
+    </string>
+
+    <string name="cardview_post_procedure_list_title8_string">
+        "\nCare of groin site"
+    </string>
+
+    <string name="short_post_procedure_description8_string">
+        "It is normal to have a small bruise or lump at the site.\n\n"
+        "1. Do not scrub the site.\n\n"
+        "2. For the first 2 days: do not stoop or squat. When you cough, sneeze or move your"
+        "bowels, hold your hand over the puncture site and press gently.\n\n"
+        "3. Do not lift more than 4.5kg for at least 3 to 5 days.\n\n"
+        "4. If you start bleeding from the site, lie down flat and press firmly on the site. Call for an ambulance."
+    </string>
+
+     <string name="cardview_post_procedure_list_title9_string">
+        "\nCare of wrist or arm site"
+    </string>
+
+    <string name="short_post_procedure_description9_string">
+        "It is normal to have soreness at the punctured site and mild tingling in your hand for up to 3 days.\n\n"
+        "1. For 2 days, do not use your hand or arm to support your weight (rising from a"
+        "chair) or bend your wrist.\n\n"
+        "2. For 2 days, do not lift more than 2kg or exercise your arm.\n\n"
+        "3. If you start bleeding from the site, sit down and press firmly on the site with your"
+        "fingers for 10 minutes. If the bleeding stops, sit still and keep your wrist straight for 2"
+        "hours. If bleeding does not stop, go to a hospital."
+    </string>
+
+      <string name="cardview_post_procedure_list_title10_string">
+        "\n*When to seek medical advice"
+    </string>
+
+     <string name="short_post_procedure_description10_string">
+         "1. When you have chills or a fever greater than 38 degree Celsius.\n\n"
+         "2. New swelling or the bruising becomes widespread at the PCI site.\n\n"
+         "3. Site become hard and painful."
+    </string>
+
+        <string name="cardview_post_procedure_list_title11_string">
+        "\n*Go to hospital immediately"
+    </string>
+
+     <string name="short_post_procedure_description11_string">
+         "4. Bleeding from wound that does not stop or restarts after applying pressure for 10 minutes. \n\n"
+         "5. Arm or leg changes colour or becomes numb or cool to touch"
+    </string>
+
+    <!-- Health -->
+
+    <string name="title_activity_health">What should I do to prevent another heart attack?</string>
+    <string name="health_title_string1">"Step 1"</string>
+    <string name="health_desc_string1">
+       <b>"Stop smoking because smoking causes:\n\n"</b>
+        "- Reduction of oxygen to the heart muscle.\n"
+        "- Heart-rhythm problem.\n"
+        "- Harms to the artery walls.\n"
+        "- Increased in heart rate and blood pressure.\n"
+        "- Lowering of “good” cholesterol (HDL)."
+    </string>
+
+    <string name="health_title_string2">"Step 2"</string>
+    <string name="health_desc_string2">
+        <b>"Eat a healthy diet\n\n"</b>
+        "- Eat at least five portions of a variety of fruit and vegetables a day.\n\n"
+        "- Cut down on saturated fats. These are found mostly in foods from animal"
+        "sources such as organ meat, fatty meat, and high-fat dairy products such as"
+        "butter, ghee, cheese and cream.\n\n"
+        "- Eat low-fat protein such as cooked dried beans and peas, fish, poultry and lean red meats.\n\n"
+        "- Replace saturated fat with small amount of unsaturated fats such as olive,"
+        "rapeseed, sunflower oils, as well as oily fish and some nuts and seeds.\n\n"
+        "- Eat less salt. Possible not to add salt when you are cooking or eating. Use"
+        "alternatives such as herbs and spices to flavor your food. Look at the food"
+        "labels to help you choose food that are lower in salt."
+    </string>
+
+    <string name="health_title_string3">"Step 3"</string>
+    <string name="health_desc_string3">
+        <b>"Watch your weight\n\n"</b>
+        "- Reduce weight will help to lower &quot;bad&quot; cholesterol (LDL), lower"
+        "triglycerides, raise &quot;good&quot; cholesterol (HDL), help control high blood"
+        "pressure, control or prevent diabetes, reduce the risk of heart attack and stroke."
+    </string>
+
+    <string name="health_title_string4">"Step 4"</string>
+    <string name="health_desc_string4">
+        <b>"Watch your cholesterol level\n\n"</b>
+        "- Keep your cholesterol level low as it is the main reason causing"
+        "atherosclerosis. Doctor will prescribed a medication call statin to help lower"
+        "your cholesterol level and protect your heart."
+    </string>
+
+    <string name="health_title_string5">"Step 5"</string>
+    <string name="health_desc_string5">
+        <b>"Watch your blood pressure\n\n"</b>
+        "- Monitor blood pressure and have a lifestyle changes to keep blood pressure"
+        "under control: regular physical activity, keeping to a healthy weight, cutting"
+        "down on salt and alcohol, and taking prescribed medication."
+    </string>
+
+    <string name="health_title_string6">"Step 6"</string>
+    <string name="health_desc_string6">
+        <b>"Keep physically active\n\n"</b>
+        "- For post PCI, do not try to push yourself too hard at first in activity. Build up"
+        "your activity gradually. Follow the cardiac rehabilitation team advice, try to"
+        "build up at least 150 minutes of moderate-intensity physical activity in a week."
+    </string>
+
+    <string name="health_title_string7">"Step 7"</string>
+    <string name="health_desc_string7">
+        <b>"Take your medication as prescribed\n\n"</b>
+       "- Doctor will give medication that help reduce the risk of having a heart attack"
+        "and slow down the progression of your coronary heart disease. It is important"
+        "to take the medication as advised and do not stop without first checking with your doctor."
+    </string>
+
+    <string name="health_title_string8">"Step 8"</string>
+    <string name="health_desc_string8">
+        <b>"Reduce stress\n\n"</b>
+        "- Long periods of stress are common factors in high blood pressure, high"
+        "cholesterol and heart disease. Plan time to relax, learn relaxation techniques,"
+        "and set goals to relieve your stress."
+    </string>
+
+
+</resources>

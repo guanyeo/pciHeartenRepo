@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="guan.pcihearten.preProcedure"
+    tools:showIn="@layout/activity_pre_procedure">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/android_card_view_example"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="16dp">
+
+
+                <TextView
+                    android:id="@+id/cardview_list_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="5dp"
+                    android:text="@string/preprocedure_title_string1"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/short_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_list_title"
+                    android:text="@string/preprocedure_desc_string1"
+                    android:textColor="#8b8b8b" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_example1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="16dp">
+
+
+                    <TextView
+                        android:id="@+id/cardview_list_title1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:paddingBottom="5dp"
+                        android:text="@string/preprocedure_title_string2"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/short_description1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_list_title1"
+                         android:text="@string/preprocedure_desc_string2"
+                        android:textColor="#8b8b8b" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/android_card_view_example2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="16dp">
+
+
+                <TextView
+                    android:id="@+id/cardview_list_title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="5dp"
+                    android:text="@string/preprocedure_title_string3"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/short_description2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_list_title2"
+                    android:text="@string/preprocedure_desc_string3"
+                    android:textColor="#8b8b8b" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/android_card_view_example3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/cardview_list_title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="5dp"
+                    android:text="@string/preprocedure_title_string4"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/short_description3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_list_title3"
+                    android:text="@string/preprocedure_desc_string4"
+                    android:textColor="#8b8b8b" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/android_card_view_example4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="16dp">
+
+
+                <TextView
+                    android:id="@+id/cardview_list_title4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="5dp"
+                    android:text="@string/preprocedure_title_string5"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/short_description4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_list_title4"
+                    android:text="@string/preprocedure_desc_string5"
+                    android:textColor="#8b8b8b" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/android_card_view_example5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="16dp">
+
+
+                <TextView
+                    android:id="@+id/cardview_list_title5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="5dp"
+                    android:text="@string/preprocedure_title_string6"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/short_description5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_list_title5"
+                    android:text="@string/preprocedure_desc_string6"
+                    android:textColor="#8b8b8b" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/preprocedure_two_person"
+            android:scaleType="matrix"
+            android:layout_gravity="center"
+            android:id="@+id/img_preprocedure_two_person"
+            android:layout_margin="10dp"
+            android:cropToPadding="true"
+            android:adjustViewBounds="false" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/android_card_view_example6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/cardview_list_title6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="5dp"
+                    android:text="@string/preprocedure_title_string7"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/short_description6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_list_title6"
+                    android:text="@string/preprocedure_desc_string7"
+                    android:textColor="#8b8b8b" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/android_card_view_example7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="16dp">
+
+
+                <TextView
+                    android:id="@+id/cardview_list_title7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:paddingBottom="5dp"
+                    android:text="@string/preprocedure_title_string8"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/short_description7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_list_title7"
+                    android:text="@string/preprocedure_desc_string8"
+                    android:textColor="#8b8b8b" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

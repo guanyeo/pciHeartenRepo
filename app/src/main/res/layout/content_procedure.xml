@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="guan.pcihearten.procedure"
+    tools:showIn="@layout/activity_procedure">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_procedure1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:elevation="4dp"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/cardview_procedure_image1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="18dp"
+            android:src="@drawable/procedure_1" />
+
+        <TextView
+            android:id="@+id/cardview_procedure_list_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardview_procedure_image1"
+            android:paddingBottom="5dp"
+            android:text="@string/cardview_procedure_list_title1_string"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/short_procedure_description1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardview_procedure_list_title1"
+            android:text="@string/short_procedure_description1_string"
+            android:textColor="#8b8b8b" />
+
+
+    </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_procedure2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/cardview_procedure_image2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="18dp"
+                android:src="@drawable/procedure_2" />
+
+            <TextView
+                android:id="@+id/cardview_procedure_list_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_image2"
+                android:paddingBottom="5dp"
+                android:text="@string/cardview_procedure_list_title2_string"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/short_procedure_description2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_list_title2"
+                android:text="@string/short_procedure_description2_string"
+                android:textColor="#8b8b8b" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_procedure3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/cardview_procedure_image3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="18dp"
+                android:src="@drawable/procedure_3" />
+
+            <TextView
+                android:id="@+id/cardview_procedure_list_title3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_image3"
+                android:paddingBottom="5dp"
+                android:text="@string/cardview_procedure_list_title3_string"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/short_procedure_description3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_list_title3"
+                android:text="@string/short_procedure_description3_string"
+                android:textColor="#8b8b8b" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_procedure4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/cardview_procedure_image4_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="18dp"
+                android:src="@drawable/procedure_4" />
+
+            <ImageView
+                android:id="@+id/cardview_procedure_image4_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_image4_1"
+                android:layout_marginRight="18dp"
+                android:src="@drawable/procedure_5" />
+
+            <TextView
+                android:id="@+id/cardview_procedure_list_title4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_image4_2"
+                android:paddingBottom="5dp"
+                android:text="@string/cardview_procedure_list_title4_string"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/short_procedure_description4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_list_title4"
+                android:text="@string/short_procedure_description4_string"
+                android:textColor="#8b8b8b" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_procedure5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/cardview_procedure_list_title5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="@string/cardview_procedure_list_title5_string"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/short_procedure_description5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_list_title5"
+                android:text="@string/short_procedure_description5_string"
+                android:textColor="#8b8b8b" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_procedure6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/cardview_procedure_image6_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="18dp"
+                android:src="@drawable/procedure_6" />
+
+            <ImageView
+                android:id="@+id/cardview_procedure_image6_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cardview_procedure_image6_1"
+                android:layout_marginRight="18dp"
+                android:src="@drawable/procedure_7" />
+
+            <TextView
+                android:id="@+id/cardview_procedure_list_title6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_image6_2"
+                android:paddingBottom="5dp"
+                android:text="@string/cardview_procedure_list_title6_string"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/short_procedure_description6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_list_title6"
+                android:text="@string/short_procedure_description6_string"
+                android:textColor="#8b8b8b" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_procedure7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/cardview_procedure_image7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="18dp"
+                android:src="@drawable/procedure_8" />
+
+            <TextView
+                android:id="@+id/cardview_procedure_list_title7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_image7"
+                android:paddingBottom="5dp"
+                android:text="@string/cardview_procedure_list_title7_string"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/short_procedure_description7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_list_title7"
+                android:text="@string/short_procedure_description7_string"
+                android:textColor="#8b8b8b" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_procedure8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+
+
+            <TextView
+                android:id="@+id/cardview_procedure_list_title8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="@string/cardview_procedure_list_title8_string"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/short_procedure_description8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_list_title8"
+                android:text="@string/short_procedure_description8_string"
+                android:textColor="#8b8b8b" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_procedure9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/cardview_procedure_image9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="18dp"
+                android:src="@drawable/procedure_9" />
+
+            <TextView
+                android:id="@+id/cardview_procedure_list_title9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_image9"
+                android:paddingBottom="5dp"
+                android:text="@string/cardview_procedure_list_title9_string"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/short_procedure_description9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_list_title9"
+                android:text="@string/short_procedure_description9_string"
+                android:textColor="#8b8b8b" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_procedure10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/cardview_procedure_list_title10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="@string/cardview_procedure_list_title10_string"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/short_procedure_description10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_list_title10"
+                android:text="@string/short_procedure_description10_string"
+                android:textColor="#8b8b8b" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_procedure11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/cardview_procedure_list_title11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="@string/cardview_procedure_list_title11_string"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/short_procedure_description11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_list_title11"
+                android:text="@string/short_procedure_description11_string"
+                android:textColor="#8b8b8b" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_procedure12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+
+            <TextView
+                android:id="@+id/cardview_procedure_list_title12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="@string/cardview_procedure_list_title12_string"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/short_procedure_description12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_list_title12"
+                android:text="@string/short_procedure_description12_string"
+                android:textColor="#8b8b8b" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_procedure_stent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/cardview_procedure_list_title_stent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="@string/cardview_procedure_list_title_string_stent"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/short_procedure_description_stent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview_procedure_list_title_stent"
+                android:text="@string/short_procedure_description_string_stent"
+                android:textColor="#8b8b8b" />
+
+            <ImageView
+                android:id="@+id/cardview_procedure_image_stent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/short_procedure_description_stent"
+                android:layout_marginRight="18dp"
+                android:src="@drawable/procedure_11" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+
+
+
+
+
+</LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
