@@ -17,9 +17,10 @@
         android:layout_below="@+id/btn_login"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:id="@+id/reg_btn" />
+        android:id="@+id/reg_btn"
+        android:visibility="gone" />
 
-    <Button
+    <com.google.android.gms.common.SignInButton
         android:text="@string/login_button_string"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,27 +29,4 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/et_email"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/et_email_string"
-        android:layout_above="@+id/et_password"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberPassword"
-        android:ems="10"
-        android:layout_marginBottom="11dp"
-        android:id="@+id/et_password"
-        android:hint="@string/et_password_string"
-        android:layout_above="@+id/btn_login"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 </RelativeLayout>

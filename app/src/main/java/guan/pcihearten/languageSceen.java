@@ -20,7 +20,7 @@ public class languageSceen extends AppCompatActivity {
         btnEnglish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent("guan.pcihearten.loginScreen");
+                Intent intent = new Intent("guan.pcihearten.mainPage");
                 startActivity(intent);
             }
         });
