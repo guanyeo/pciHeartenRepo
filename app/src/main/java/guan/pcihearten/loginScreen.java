@@ -141,7 +141,7 @@ public class loginScreen extends AppCompatActivity implements
 
 
 
-
+//Everything below is unused and kept for reference
     public void regProceed(){
         Button registerButton = (Button) findViewById(R.id.reg_btn);
 

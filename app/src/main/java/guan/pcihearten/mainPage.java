@@ -107,8 +107,7 @@ public class mainPage extends AppCompatActivity
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        //New Child Entry
-        // New child entries
+        // New child entries (Creates the database)
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseAdapter = new FirebaseRecyclerAdapter<FriendlyMessage,
                 MessageViewHolder>(
@@ -264,20 +263,13 @@ public class mainPage extends AppCompatActivity
             mFirebaseAuth.signOut();
             Auth.GoogleSignInApi.signOut(mGoogleApiClient);
             mUsername = ANONYMOUS;
+            finish();
             startActivity(new Intent(this, loginScreen.class));
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-   /** public void chatBot(){
-        WebView wvChatbot = (WebView) findViewById(R.id.pci_bot);
-        wvChatbot.loadUrl("http://www.twitch.tv/Selectormonkey/chat");
-        WebSettings webSettings = wvChatbot.getSettings();
-        wvChatbot.getSettings().setPluginState(WebSettings.PluginState.ON);
-        webSettings.setJavaScriptEnabled(true);
-    }**/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -305,8 +297,8 @@ public class mainPage extends AppCompatActivity
             startActivity(intent);
         }
         else if (id == R.id.nav_mock) {
-            Intent intent = new Intent("guan.pcihearten.firebase_test");
-            startActivity(intent);
+            startActivity(new Intent(this, guan_test.class));
+
         } else if (id == R.id.nav_dash) {
             Intent intent = new Intent("guan.pcihearten.dashboard");
             startActivity(intent);
