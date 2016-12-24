@@ -9,6 +9,7 @@ public class guanTesto {
 
 
     public guanTesto() {
+        //Constructor needed
     }
 
     public guanTesto(String name, String score) {

@@ -11,27 +11,19 @@
     tools:context="guan.pcihearten.guan_test"
     android:background="@color/colorPrimary">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/messageRecyclerView_guanTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:text="Name;"
+        android:id="@+id/andromeda"
+        android:layout_below="@+id/messageRecyclerView_guanTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/guan_name"
-        android:textSize="18sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="15dp" />
+        android:text="wood work"/>
 
-    <TextView
-        android:text="Score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/guan_score"
-        android:textSize="18sp"
-        android:layout_alignBaseline="@+id/guan_name"
-        android:layout_alignBottom="@+id/guan_name"
-        android:layout_centerHorizontal="true" />
+
+
+
 </RelativeLayout>
