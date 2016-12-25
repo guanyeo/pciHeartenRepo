@@ -75,6 +75,7 @@ public class mainPage extends AppCompatActivity
     private static final String MESSAGE_URL = "https://pcihearten.firebaseio.com/messages";
 
     //Variable declare
+
     private Button mSendButton;
     private RecyclerView mMessageRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
@@ -91,7 +92,15 @@ public class mainPage extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        languageSceen mainFlag = new languageSceen();
+        if (mainFlag.getLanguageSelected()=="bm") {
+            setContentView(R.layout.activity_main_page_bm);
+        }
+        else
         setContentView(R.layout.activity_main_page);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -204,9 +213,16 @@ public class mainPage extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        //Set a flag for language
+        languageSceen navFlag = new languageSceen();
+        if (navFlag.getLanguageSelected() == "bm") {
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_bm);
+            navigationView.setNavigationItemSelectedListener(this);
+        }
+        else{
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+        }
 
         checkUserStatus();
     }
@@ -302,7 +318,7 @@ public class mainPage extends AppCompatActivity
             startActivity(intent);
         }
         else if (id == R.id.nav_mock) {
-            startActivity(new Intent(this, guan_test.class));
+            startActivity(new Intent(this, pci_mcq.class));
 
         } else if (id == R.id.nav_dash) {
             Intent intent = new Intent("guan.pcihearten.dashboard");

@@ -8,11 +8,16 @@ import android.widget.Button;
 
 public class languageSceen extends AppCompatActivity {
 
+    private static String languageSelected;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language_sceen);
+
         selectLanguage();
+
     }
 
     public void selectLanguage(){
@@ -24,5 +29,31 @@ public class languageSceen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button btnBM = (Button) findViewById(R.id.btn_bm);
+        btnBM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeLanguante();
+                getLanguageSelected();
+                Intent intent = new Intent("guan.pcihearten.mainPage");
+                startActivity(intent);
+
+            }
+        });
+
     }
+
+    private void changeLanguante(){
+        languageSelected = "bm";
+    }
+
+    public static String getLanguageSelected(){
+        return languageSelected;
+    }
+
+
+
+
+
 }

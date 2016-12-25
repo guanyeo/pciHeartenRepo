@@ -3,6 +3,7 @@ package guan.pcihearten;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -71,6 +72,7 @@ public class guan_test extends AppCompatActivity
     private DatabaseReference mFirebaseDatabaseReference;
     private FirebaseRecyclerAdapter<guanTesto, guan_test.MessageViewHolder>
             mFirebaseAdapter;
+    private DatabaseReference guanReference;
 
 
     @Override
@@ -102,6 +104,8 @@ public class guan_test extends AppCompatActivity
                 R.layout.guan_item,
                 MessageViewHolder.class,
                 mFirebaseDatabaseReference.child("guanTest/User/guan")
+                .orderByChild("score")
+
 
         ) {
             @Override
@@ -158,10 +162,13 @@ public class guan_test extends AppCompatActivity
     }
 
     public void guanTest(){
+
         //set text to current username
        //  guanName.setText(mUsername);
 
-     /**   //Another data retrieval method
+       //Another data retrieval method
+        guanReference = FirebaseDatabase.getInstance().getReference()
+                .child("guanTest/User/2guan");
         guanRetrieval = (TextView) findViewById(R.id.andromeda);
 
         ValueEventListener postListener = new ValueEventListener() {
@@ -171,6 +178,7 @@ public class guan_test extends AppCompatActivity
                 guanTesto post = dataSnapshot.getValue(guanTesto.class);
                 // [START_EXCLUDE]
                 guanRetrieval.setText(post.getScore());
+
 
                 // [END_EXCLUDE]
             }
@@ -185,7 +193,7 @@ public class guan_test extends AppCompatActivity
                 // [END_EXCLUDE]
             }
         };
-        mFirebaseDatabaseReference.addValueEventListener(postListener);
+        guanReference.addValueEventListener(postListener);
         //[End of Data] **/
 
         //Data Insertion

@@ -121,7 +121,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".guan_test"></activity>
+        <activity android:name=".guan_test" />
+        <activity android:name=".pci_mcq"></activity>
     </application>
 
 </manifest>
