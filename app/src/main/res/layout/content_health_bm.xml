@@ -5,18 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="guan.pcihearten.post_procedure"
-    tools:showIn="@layout/activity_post_procedure">
+    tools:context="guan.pcihearten.health_bm"
+    tools:showIn="@layout/activity_health_bm">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:padding="16dp"
+        android:orientation="vertical"
         >
-
         <android.support.v7.widget.CardView
-            android:id="@+id/android_card_view_post_procedure1"
+            android:id="@+id/android_card_view_health1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -26,53 +25,83 @@
                 android:background="#fff"
                 android:padding="16dp">
 
+
                 <TextView
-                    android:id="@+id/cardview_post_procedure_list_title1"
+                    android:id="@+id/cardview_health_list_title1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:paddingBottom="5dp"
-                    android:text="@string/cardview_post_procedure_list_title1_string"
+                    android:text="@string/langkah_1"
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/short_post_procedure_description1"
+                    android:id="@+id/short_health_description1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cardview_post_procedure_list_title1"
-                    android:text="@string/short_post_procedure_description1_string"
+                    android:layout_below="@+id/cardview_health_list_title1"
+                    android:text="@string/health_desc_string1_bm"
                     android:textColor="#8b8b8b" />
 
                 <ImageView
-                    android:id="@+id/cardview_post_procedure_image1"
+                    android:id="@+id/cardview_health_image1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/short_post_procedure_description1"
+                    android:layout_below="@id/short_health_description1"
                     android:layout_marginRight="18dp"
-                    android:src="@drawable/post_1" />
+                    android:src="@drawable/health_2" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/android_card_view_health2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="16dp">
+
 
                 <TextView
-                    android:id="@+id/short_post_procedure_description1_2"
+                    android:id="@+id/cardview_health_list_title2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cardview_post_procedure_image1"
-                    android:text="@string/short_post_procedure_description1_2_string"
+                    android:paddingBottom="5dp"
+                    android:text="@string/langkah_2"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/short_health_description2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_health_list_title2"
+                    android:text="@string/health_desc_string2_bm"
                     android:textColor="#8b8b8b" />
 
                 <ImageView
-                    android:id="@+id/cardview_post_procedure_image1_2"
+                    android:id="@+id/cardview_health_image2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/short_post_procedure_description1_2"
+                    android:layout_below="@id/short_health_description2"
                     android:layout_marginRight="18dp"
-                    android:src="@drawable/post_2" />
+                    android:src="@drawable/health_3" />
+
 
 
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
+
+
         <android.support.v7.widget.CardView
-            android:id="@+id/android_card_view_post_procedure2"
+            android:id="@+id/android_card_view_health3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp">
@@ -83,29 +112,30 @@
                 android:background="#fff"
                 android:padding="16dp">
 
+
                 <TextView
-                    android:id="@+id/cardview_post_procedure_list_title2"
+                    android:id="@+id/cardview_health_list_title3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
-                    android:text="@string/cardview_post_procedure_list_title2_string"
+                    android:text="@string/langkah_3"
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/short_post_procedure_description2"
+                    android:id="@+id/short_health_description3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cardview_post_procedure_list_title2"
-                    android:text="@string/short_post_procedure_description2_string"
+                    android:layout_below="@+id/cardview_health_list_title3"
+                    android:text="@string/health_desc_string3_bm"
                     android:textColor="#8b8b8b" />
 
                 <ImageView
-                    android:id="@+id/cardview_post_procedure_image2"
+                    android:id="@+id/cardview_health_image3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/short_post_procedure_description2"
+                    android:layout_below="@id/short_health_description3"
                     android:layout_marginRight="18dp"
-                    android:src="@drawable/post_3" />
+                    android:src="@drawable/health_4" />
 
 
 
@@ -114,7 +144,7 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:id="@+id/android_card_view_post_procedure4"
+            android:id="@+id/android_card_view_health4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp">
@@ -125,204 +155,37 @@
                 android:background="#fff"
                 android:padding="16dp">
 
+
                 <TextView
-                    android:id="@+id/cardview_post_procedure_list_title4"
+                    android:id="@+id/cardview_health_list_title4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
-                    android:text="@string/cardview_post_procedure_list_title4_string"
+                    android:text="@string/langkah_4"
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/short_post_procedure_description4"
+                    android:id="@+id/short_health_description4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cardview_post_procedure_list_title4"
-                    android:text="@string/short_post_procedure_description4_string"
+                    android:layout_below="@+id/cardview_health_list_title4"
+                    android:text="@string/health_desc_string4_bm"
                     android:textColor="#8b8b8b" />
-
-
-
-
-
-
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/android_card_view_post_procedure5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/cardview_post_procedure_list_title5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:text="@string/cardview_post_procedure_list_title5_string"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/short_post_procedure_description5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/cardview_post_procedure_list_title5"
-                    android:text="@string/short_post_procedure_description5_string"
-                    android:textColor="#8b8b8b" />
-
-
-
-
-
-
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/android_card_view_post_procedure6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/cardview_post_procedure_list_title6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:text="@string/cardview_post_procedure_list_title6_string"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/short_post_procedure_description6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/cardview_post_procedure_list_title6"
-                    android:text="@string/short_post_procedure_description6_string"
-                    android:textColor="#8b8b8b" />
-
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/android_card_view_post_procedure7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/cardview_post_procedure_list_title7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:text="@string/cardview_post_procedure_list_title7_string"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/short_post_procedure_description7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/cardview_post_procedure_list_title7"
-                    android:text="@string/short_post_procedure_description7_string"
-                    android:textColor="#8b8b8b" />
-
-
-
-
-
-
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/android_card_view_post_procedure8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
-                android:padding="16dp">
 
                 <ImageView
-                    android:id="@+id/cardview_post_procedure_image8"
+                    android:id="@+id/cardview_health_image4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/short_health_description4"
                     android:layout_marginRight="18dp"
-                    android:src="@drawable/post_4" />
+                    android:src="@drawable/health_5" />
 
-                <TextView
-                android:id="@+id/cardview_post_procedure_list_title8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:layout_below="@id/cardview_post_procedure_image8"
-                android:text="@string/cardview_post_procedure_list_title8_string"
-                android:textSize="24sp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
-                <TextView
-                    android:id="@+id/short_post_procedure_description8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/cardview_post_procedure_list_title8"
-                    android:text="@string/short_post_procedure_description8_string"
-                    android:textColor="#8b8b8b" />
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:id="@+id/android_card_view_post_procedure23"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/cardview_post_procedure_list_title9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:text="@string/cardview_post_procedure_list_title9_string"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/short_post_procedure_description9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/cardview_post_procedure_list_title9"
-                    android:text="@string/short_post_procedure_description9_string"
-                    android:textColor="#8b8b8b" />
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            android:id="@+id/android_card_view_post_procedure22"
+            android:id="@+id/android_card_view_health5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp">
@@ -335,51 +198,28 @@
 
 
                 <TextView
-                    android:id="@+id/cardview_post_procedure_list_title10"
+                    android:id="@+id/cardview_health_list_title5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
-                    android:text="@string/cardview_post_procedure_list_title10_string"
+                    android:text="@string/langkah_5"
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/short_post_procedure_description10"
+                    android:id="@+id/short_health_description5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cardview_post_procedure_list_title10"
-                    android:text="@string/short_post_procedure_description10_string"
-                    android:textColor="#8b8b8b" />
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            android:id="@+id/android_card_view_post_procedure21"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/cardview_post_procedure_list_title11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:text="@string/cardview_post_procedure_list_title11_string"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/short_post_procedure_description11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/cardview_post_procedure_list_title11"
-                    android:text="@string/short_post_procedure_description11_string"
+                    android:layout_below="@+id/cardview_health_list_title5"
+                    android:text="@string/health_desc_string5_bm"
                     android:textColor="#8b8b8b" />
 
-
+                <ImageView
+                    android:id="@+id/cardview_health_image5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/short_health_description5"
+                    android:layout_marginRight="18dp"
+                    android:src="@drawable/health_6" />
 
 
 
@@ -387,6 +227,138 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/android_card_view_health6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="16dp">
+
+
+                <TextView
+                    android:id="@+id/cardview_health_list_title6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="@string/langkah_6"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/short_health_description6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_health_list_title6"
+                    android:text="@string/health_desc_string6_bm"
+                    android:textColor="#8b8b8b" />
+
+                <ImageView
+                    android:id="@+id/cardview_health_image6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/short_health_description6"
+                    android:layout_marginRight="18dp"
+                    android:src="@drawable/health_7" />
+
+
+
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/android_card_view_health7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="16dp">
+
+
+                <TextView
+                    android:id="@+id/cardview_health_list_title7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="@string/langkah_7"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/short_health_description7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_health_list_title7"
+                    android:text="@string/health_desc_string7_bm"
+                    android:textColor="#8b8b8b" />
+
+                <ImageView
+                    android:id="@+id/cardview_health_image7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/short_health_description7"
+                    android:layout_marginRight="18dp"
+                    android:src="@drawable/health_8" />
+
+
+
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/android_card_view_health8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="16dp">
+
+
+                <TextView
+                    android:id="@+id/cardview_health_list_title8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:text="@string/langkah_8"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/short_health_description8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_health_list_title8"
+                    android:text="@string/health_desc_string8_bm"
+                    android:textColor="#8b8b8b" />
+
+                <ImageView
+                    android:id="@+id/cardview_health_image8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/short_health_description8"
+                    android:layout_marginRight="18dp"
+                    android:src="@drawable/health_9" />
+
+
+
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
 
 
@@ -395,5 +367,4 @@
 
 
     </LinearLayout>
-
 </android.support.v4.widget.NestedScrollView>

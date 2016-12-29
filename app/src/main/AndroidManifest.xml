@@ -52,7 +52,7 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="guan.pcihearten.mainPage" />
+                android:value="guan.pcihearten.main_page_no_chat" />
         </activity>
         <activity
             android:name=".preProcedure"
@@ -122,7 +122,89 @@
             </intent-filter>
         </activity>
         <activity android:name=".guan_test" />
-        <activity android:name=".pci_mcq"></activity>
+        <activity android:name=".pci_mcq" />
+        <activity
+            android:name=".main_page_no_chat"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.main_page_no_chat" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".scroll_bm"
+            android:label="@string/title_activity_scroll_bm"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.scroll_bm" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.main_page_no_chat" />
+        </activity>
+        <activity
+            android:name=".pre_bm"
+            android:label="@string/title_activity_pre_bm"
+            android:parentActivityName=".main_page_no_chat"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.pre_bm" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.main_page_no_chat" />
+        </activity>
+        <activity
+            android:name=".procedure_bm"
+            android:label="@string/title_activity_procedure_bm"
+            android:parentActivityName=".main_page_no_chat"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.procedure_bm" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.main_page_no_chat" />
+        </activity>
+        <activity
+            android:name=".post_bm"
+            android:label="@string/title_activity_post_bm"
+            android:parentActivityName=".main_page_no_chat"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.post_bm" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.main_page_no_chat" />
+        </activity>
+        <activity
+            android:name=".health_bm"
+            android:label="@string/title_activity_health_bm"
+            android:parentActivityName=".main_page_no_chat"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.health_bm" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.main_page_no_chat" />
+        </activity>
     </application>
 
 </manifest>

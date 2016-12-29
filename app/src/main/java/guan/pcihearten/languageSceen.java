@@ -9,6 +9,7 @@ import android.widget.Button;
 public class languageSceen extends AppCompatActivity {
 
     private static String languageSelected;
+    private static String languageSelectedEg;
 
 
     @Override
@@ -25,7 +26,9 @@ public class languageSceen extends AppCompatActivity {
         btnEnglish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent("guan.pcihearten.mainPage");
+                changeLanguante("eg");
+                getLanguageSelected();
+                Intent intent = new Intent("guan.pcihearten.main_page_no_chat");
                 startActivity(intent);
             }
         });
@@ -34,9 +37,9 @@ public class languageSceen extends AppCompatActivity {
         btnBM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeLanguante();
+                changeLanguante("bm");
                 getLanguageSelected();
-                Intent intent = new Intent("guan.pcihearten.mainPage");
+                Intent intent = new Intent("guan.pcihearten.main_page_no_chat");
                 startActivity(intent);
 
             }
@@ -44,13 +47,16 @@ public class languageSceen extends AppCompatActivity {
 
     }
 
-    private void changeLanguante(){
-        languageSelected = "bm";
+    private void changeLanguante(String lang){
+        languageSelected = lang;
     }
 
     public static String getLanguageSelected(){
         return languageSelected;
     }
+
+
+
 
 
 

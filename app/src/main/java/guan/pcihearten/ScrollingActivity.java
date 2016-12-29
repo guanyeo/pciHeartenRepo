@@ -12,7 +12,15 @@ public class ScrollingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling);
+
+        languageSceen mainFlag = new languageSceen();
+        if (mainFlag.getLanguageSelected()=="bm") {
+            setContentView(R.layout.activity_scroll_bm);
+        }
+        else
+            setContentView(R.layout.activity_scrolling);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

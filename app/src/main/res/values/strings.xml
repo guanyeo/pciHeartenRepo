@@ -17,7 +17,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <!-- On Create Options Menu -->
-    <string name="action_settings">Logout</string>
+    <string name="action_settings">Quit</string>
     <!-- Nav -->
     <string name="nav_bar_title_string">PCIHearten</string>
     <string name="nav_information_string">What is PCI?</string>
@@ -28,6 +28,17 @@
     <string name="nav_mock_string">Mock Test</string>
     <string name="nav_dash_string">Dashboard</string>
     <string name="nav_prevent_string">Heart attack prevention</string>
+
+    <!-- Nav BM -->
+    <string name="nav_information_string_bm">Intervensi Percutaneous Koronari</string>
+    <string name="nav_prepci_string_bm">Persediaan sebelum PCI</string>
+    <string name="nav_pciprocedure_string_bm">Bagaimana prosedur PCI dilakukan?</string>
+    <string name="nav_postpci_string_bm">Selepas Prosedur PCI</string>
+    <string name="nav_status_string_bm">Status</string>
+    <string name="nav_mock_string_bm">Mock Test</string>
+    <string name="nav_dash_string_bm">Dashboard</string>
+    <string name="nav_prevent_string_bm">Cara untuk mengelakkan serangan jantung kedua</string>
+
     <!--Scroll -->
     <string name="title_activity_scrolling">What is PCI?</string>
     <string name="title_info_1"><b>"Percutaneous Coronary Intervention (PCI)"</b></string>
@@ -41,9 +52,6 @@
         "blood flow to the heart muscle has been reduced or cut off. Sometimes, it is combined"
         "with the implantation of a stent to help to keep the artery open and decrease the risk of"
         "another blockage."
-        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
-        "interact, and exist in space and in relation to each other. Realistic lighting shows "
-        "seams, divides space, and indicates moving parts."
     </string>
 
     <string name="title_info_2"> <b>"Why do you need PCI?"</b></string>
@@ -430,6 +438,255 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- BM Langkah -->
+    <string name="langkah_1">Langkah 1</string>
+    <string name="langkah_2">Langkah 2</string>
+    <string name="langkah_3">Langkah 3</string>
+    <string name="langkah_4">Langkah 4</string>
+    <string name="langkah_5">Langkah 5</string>
+    <string name="langkah_6">Langkah 6</string>
+    <string name="langkah_7">Langkah 7</string>
+    <string name="langkah_8">Langkah 8</string>
+    <string name="langkah_9">Langkah 9</string>
+    <string name="langkah_10">Langkah 10</string>
+    <string name="langkah_11">Langkah 11</string>
+    <string name="langkah_12">Langkah 12</string>
+
+
+    <!-- BM Scrolling -->
+    <string name="title_activity_scroll_bm">Intervensi Percutaneous Koronari</string>
+    <string name="scrolling_bm">"Intervensi Percutaneous Koronari"</string>
+    <string name="information_text_1_bm">Intervensi Percutaneous Koronari (PCI) juga dikenali sebagai prosedur angioplasti.
+        Tujuannya adalah untuk membuka semula saluran darah kepada otot jantung yang
+        tersumbat disebabkan oleh penyakit arteri koronari.\n\n
+        Ia merupakan satu prosedur invasif yang melibatkan pengambilan X-ray disamping
+        memasukkan satu tuib dengan belon kempis ke dalam arteri jantung. Pakar Kardiologi
+        akan mengembungkan belon dan meluaskan bahagian arteri jantung yang menyempit
+        atau tersumbat. Biasanya, ia akan bergabung dengan implantasi stent untuk
+        memastikan pembukaan arteri dan merendahkan risiko berlakunya penyumbatan kali kedua.</string>
+    <string name="title_info_2_bm">Kenapa Anda Memerlukan Procedur PCI?</string>
+    <string name="information_text_2_bm">Jantung anda merupakan satu otot yang mengepam darah, menyampaikan oksigen dan
+        nutrien ke seluruh badan. Jantung anda juga memerlukan bekalan oksigen dan nutrien
+        untuk fungsi sendiri. Arteri koronari memainkan peranan penting untuk memekalkan
+        bekalan darah kepada otot jantung.</string>
+    <string name="title_info_3_bm">Penyakit Arteri Koronari</string>
+    <string name="information_text_3_bm">Arteri dalam jantung anda boleh menjadi sempit atau tersumbat akibat pengumpulan
+        kolesterol (atheroma), sel, atau bahan lain (plak). Proses pengumpulan ini dipanggil
+        atherosclerosis. Atheroma akan mengurangkan pengaliran darah kepada otot jantung
+        dan menyebabkan sakit dada (angina). Jika berlakunya pembekuan darah kecil atau
+        keadaan menjadi teruk dimana ia menyumbat pengaliran darah, serangan jantung akan
+        berlaku (infarksi miokardium).</string>
+
+    <!-- Langkah sebelum -->
+    <string name="title_activity_pre_bm">Persediaan sebelum PCI</string>
+    <string name="preprocedure_desc_string1_bm">Anda perlu berada di hospital satu hari sebelum prosedur. Ujian darah dan
+        Elektrokardiogram (ECG) akan dibuat.</string>
+    <string name="preprocedure_desc_string2_bm">Sila beritahu doktor atau jururawat jika anda ada alahan kepada kontrast, ubat,
+        iodin, makanan laut atau kerang kerana kontrast X-ray akan digunakan dalam PCI.</string>
+    <string name="preprocedure_desc_string3_bm">Maklumkan kepada doktor jika anda mengandung kerana anda akan terdedah
+        kepada sinaran X-ray semasa PCI.</string>
+    <string name="preprocedure_desc_string4_bm">Sila beritahu kepada doktor jika anda ada mengambil sebarang ubat-ubatan,
+        vitamin, herbal atau supplimen yang anda beli sendiri.</string>
+    <string name="preprocedure_desc_string5_bm">Anda akan diminta supaya jangan makan atau minum sekurang-kurangnya enam
+        jam sebelum PCI. Ini adalah disebabkan anda mungkin diberi ubat tahan sakit
+        sewaktu PCI. Perut kosong akan menghalang daripada rasa loya dan muntah selepas
+        ubat dimasukkan.</string>
+    <string name="preprocedure_desc_string6_bm">Anda akan diminta untuk mengeluarkan barang-barang kemas yang dipakai, dan
+        dicukur di bahagian di mana kateter PCI akan dimasukkan. Kateter biasanya
+        dimasukkan di bahagian pergelangan tangan atau di pangkal paha.</string>
+    <string name="preprocedure_desc_string7_bm">Anda akan diminta untuk mengosongkan pundi kencing sebelum prosedur.</string>
+    <string name="preprocedure_desc_string8_bm">Jarum intravenous (IV) akan dimasukkan untuk memasukkan ubat sewaktu PCI.</string>
+
+    <!-- Proses PCI -->
+    <string name="title_activity_procedure_bm">Bagaimana prosedur PCI dilakukan?</string>
+    <string name="short_procedure_description1_string_bm">Anda akan dibawa ke makmal kardio kateter dan diminta untuk berbaring di atas
+        katil prosedur. Anda akan disambungkan kepada monitor untuk memeriksa EKG,
+        kadar jantung, tekanan darah, kadar penafasan dan tahap oksigen.</string>
+    <string name="short_procedure_description2_string_bm">Tempat prosedur akan dibersihkan.</string>
+    <string name="short_procedure_description3_string_bm">Sewaktu PCI, <b>anda adalah sedar dan berjaga.</b> Doktor akan kebaskan tempat
+        prosedur sebelum permulaan PCI.</string>
+    <string name="short_procedure_description4_string_bm">Satu hirisan kecil akan dibuat di kulit di atas arteri dimana denyutan nadi boleh
+        dirasai. Jarum akan dimasukkan ke dalam arteri diikuti dengan wire. Tuib kecil yang
+        dipanggil sebagai sheath (sarung) akan dimasukkan ke dalam arteri untuk memastikan
+        ia terbuka sewaktu PCI.\n\n
+        <b>* Sila beritahu doktor jika anda berasa sakit semasa doktor membuat hirisan kecil</b>
+    </string>
+    <string name="short_procedure_description5_string_bm">Doktor akan memasukkan satu kateter kecil ke dalam arteri menerusi sheath.\n\n
+        <b>* Anda mungkin akan diminta untuk menarik nafas dan tahan untuk beberapa saat bagi memudahkan kateter melalui tempat sempit dalam arteri.</b>
+    </string>
+    <string name="short_procedure_description6_string_bm">Terdapat beberapa X-ray monitor dalam makmal prosedur. Dye radio-legap akan
+        disuntik ke dalam arteri menerusi kateter bagi menunjukkan imej keadaan arteri di
+        monitor.\n\n
+        <b>* Anda akan rasa panas, sensasi curahan, rasa masin atau logam dalam mulut,
+            atau rasa sakit kepala untuk sementara waktu semasa dye radio-legap
+            dimasukkan.\n\n
+            * Kadangkala, anda mungkin akan terasa sedikit ketidakselesaan pada bahagian
+            dada, loya atau rasa hendak kencing sewaktu dye dimasukkan. \n\n
+            * Kalau anda terasa sesak nafas, berpeluh, kebas, gatal, loya atau hendak
+            muntah, menggigil, atau denyutan jantung menjadi cepat, sila beritahu doktor
+            dengan segera.
+        </b>
+    </string>
+    <string name="short_procedure_description7_string_bm">X-ray akan diambil sementara dye dimasukkan menerusi arteri. Doktor akan dapat
+        melihat dengan tepat dimana penyempitan arteri berlaku, dan berapa serius keadaan
+        arteri tersebut.</string>
+    <string name="short_procedure_description8_string_bm">Berdasarkan imej yang terpapar di monitor, satu kateter dengan belon akan
+        dimasukkan ke dalam arteri. \n\n
+        <b>* Anda tidak akan terasa sewaktu kateter dimasukkan, tapi kadangkala anda
+            mungkin akan merasa denyutan jantung yang tidak normal.</b>
+    </string>
+    <string name="short_procedure_description9_string_bm">Belon akan dikembangkan di dalam arteri. Ia akan menolak plak ke sisi dan
+        meluaskan lagi arteri untuk membolehkan penggaliran darah melalui tempat itu.\n\n
+        <b>* Anda akan merasa sakit dada ketika belon dikembangkan. Ini disebabkan oleh
+            pengaliran darah yang tersumbat seketika. Ia adalah normal dan anda tidak
+            perlu berasa bimbang.\n\n
+            * Jika anda mengalami susah nafas, ketidakselesaaan, sakit dada, sakit leher,
+            sakit rahang, sakit belakang dan sakit tangan yang berterusan, sila beritahu
+            doktor dengan segera.
+        </b>
+    </string>
+
+    <string name="short_procedure_description10_string_bm">Jika diperlukan, satu belon dengan stent akan dimasukkan ke kawasan arteri
+        tersumbat. Belon akan dikembangkan dan stent tersebut akan terbuka dan “kunci” ke
+        dinding arteri. <b>Stent akan ditinggal di dalam arteri</b> untuk memastikan arteri
+        terbuka.</string>
+    <string name="short_procedure_description11_string_bm">Selepas prosedur, pakar kardiologi akan memeriksa pengaliran darah dalam arteri
+        dengan memasukkan dye.</string>
+    <string name="short_procedure_description12_string_bm">Belon dan kateter akan dikeluarkan selepas mengenalpasti arteri tersebut terbuka.</string>
+    <string name="short_procedure_description_string_stent_bm">Stent merupakan satu wire-mesh perancah yang pendek, ia mengembang dan ‘kunci’
+        di dalam arteri untuk membukakan arteri yang tersumbat atau sempit. Ia akan
+        ditinggalkan di dalam arteri jantung selepas prosedur. \n\n
+        Terdapat dua jenis stent:\n\n
+        - Bare metal stent (stent yang tidak bersalut ubat)\n
+        - Drug-eluting stent (stent yang bersalut dengan ubat yang mengurangkan risiko
+        arteri menjadi tersumbat)\n\n
+        Jika anda mempunyai stent, anda akan diminta untuk mengambil ubat seperti Aspirin,
+        Clopidogrel atau Prasugrel bagi merendahkan risiko pembekuan darah daripada
+        terbentuk di sekeliling stent.
+    </string>
+
+    <!-- Post BM -->
+    <string name="title_activity_post_bm">Selepas Prosedur PCI</string>
+    <string name="short_post_procedure_description1_string_bm">Selepas PCI\n\n
+        - Jika PCI anda dibuat di pergelangan tangan, sheath akan dikeluarkan dan anda akan
+        kembali ke ward dengan TR band di pergelangan tangan untuk memberhentikan
+        perdarahan.\n\n
+        <b>* Sila beritahu doktor atau jururawat jika anda merasa kebas atau sakit pada
+            bahagian tangan hingga ke lengan.</b>
+    </string>
+    <string name="short_post_procedure_description1_2_string_bm">-Jika PCI dibuat di bahagian pangkal paha, PCI sheath akan ditinggalkan di arteri
+        femoral selama 6 jam. Ia akan dijahit pada kulit dan ditutup dengan pembalut.\n\n
+        <b>* Jangan bengkokkan kaki anda di bahagian sheath dimasukkan.</b></string>
+    <string name="short_post_procedure_description2_string_bm">- Jika PCI dibuat di tangan, anda akan diminta jangan bengkokkan pergelangan
+        tangan dan rehat di atas katil selama 2 jam. TR band akan ditanggalkan selepas 2 jam
+        jika tempat suntikan PCI tersebut tidak berdarah.\n\n
+        - Jika PCI dibuat di kaki, anda akan diminta untuk berehat atas katil selama 6 jam.
+        PCI sheath akan dikeluarkan oleh doktor. Jururawat atau doktor akan meletakkan
+        tekanan di atas tempat suntikan selama 15 minit atau lebih lama untuk memastikan
+        tiada perdarahan berlaku.</string>
+    <string name="short_post_procedure_description4_string_bm">Doktor atau jururawat akan memeriksa tanda-tanda perdarahan atau
+        ketidakselesaan pada dada. Tekanan darah, kadar jantung, kadar pernafasan dan taraf
+        oksigen akan diawasi.\n\n
+        <b>*Anda perlu memaklumkan kepada jururawat jika berasa tekanan di dada atau
+        sesak nafas selepas prosedur.</b>\n\n
+        <b>*Tutup tempat PCI jika anda perlu batuk atau bersin untuk mengelakkan
+        berlakunya perdarahan.</b></string>
+    <string name="short_post_procedure_description5_string_bm">Bergerak dengan perlahan jika perlu bangun dari katil untuk mengelakkan pening
+        kepala selepas berehat lama di atas katil.</string>
+    <string name="short_post_procedure_description6_string_bm">Anda perlu minum lebih banyak air untuk menolong buah pinggang mengeluarkan
+        dye kontrast dari badan.</string>
+    <string name="short_post_procedure_description7_string_bm">Anda perlu tinggal di hospital untuk semalaman selepas prosedur bergantung
+        kepada keadaan anda.</string>
+    <string name="cardview_post_procedure_list_title8_string_bm">Penjagaan Tempat PCI di Pangkal Paha</string>
+    <string name="short_post_procedure_description8_string_bm">Ia adalah biasa jika terdapat satu lebam kecil atau ketulan di tempat prosedur PCI.\n\n
+        1. Jangan gosok tempat tapak PCI.\n\n
+        2. Untuk 2 hari selepas PCI, jangan tunduk atau mencangkung. Apabila anda batuk,
+        bersin atau buang air besar, tekan dengan tangan anda atas tempat PCI.\n\n
+        3. Jangan mengangkat benda lebih dari 4.5kg selama 3 hingga 5 hari selepas prosedur.\n\n
+        4. Jika terdapat perdarahan di tempat PCI, berbaring dan letakkan tekanan di atas luka
+        tersebut. Memanggil ambulan dengan segera.</string>
+    <string name="cardview_post_procedure_list_title9_string_bm">Penjagaan Tempat PCI di Pergelangan Tangan</string>
+    <string name="short_post_procedure_description9_string_bm">Ia adalah biasa jika terdapat kesakitan yang ringan di tempat PCI.\n\n
+        1. Untuk 2 hari selepas PCI, jangan menggunakan tangan atau lengan untuk
+        menyokong berat badan (berdiri dari kerusi) atau bengkok pergelangan tangan anda.\n\n
+        2. Untuk 2 hari selepas PCI, jangan angkat benda melebihi 2kg.\n\n
+        3. Jika terdapat perdarahan dari tempat PCI, duduk dan letakkan tekanan ke atas luka
+        dengan jari selama 10 minit. Jika perdarahan berhenti, duduk diam dengan
+        pergelangan tangan anda lurus selama 2 jam. Jika perdarahan tidak berhenti, pergi ke
+        hospital dengan segera.</string>
+    <string name="cardview_post_procedure_list_title10_string_bm">*Bila perlu dapatkan nasihat perubatan?</string>
+    <string name="short_post_procedure_description10_string_bm">1. Apabila anda merasa menggigil atau demam lebih daripada 38 darjah Celsius.\n\n
+        2. Terdapat bengkak baru atau lebam yang menyebar luas di tempat PCI.\n\n
+        3. Tempat PCI menjadi keras dan sakit.</string>
+    <string name="cardview_post_procedure_list_title11_string_bm">*Pergi ke hospital dengan segera</string>
+    <string name="short_post_procedure_description11_string_bm">4. Perdarahan dari luka yang tidak berhenti atau bermula lagi selepas tekanan selama
+        10 minit.\n\n
+        5. Lengan atau kaki bertukar warna atau menjadi kebas dan sejuk.</string>
+
+    <!-- Health BM-->
+    <string name="title_activity_health_bm">Cara untuk mengelakkan serangan jantung kedua</string>
+    <string name="health_desc_string1_bm"><b>Berhenti merokok kerana ia:</b>\n\n
+        - Mengurangkan oksigen kepada otot jantung.\n
+        - Menyebabkan masalah irama jantung tidak stabil.\n
+        - Membahayakan dinding arteri.\n
+        - Meningkatkan kadar jantung dan tekanan darah.\n
+        - Mengurangkan kolesterol ‘baik’ (HDL).</string>
+    <string name="health_desc_string2_bm">
+        <b>Pilih makanan yang sihat</b>\n\n
+        - Makan sekurang-kurangnya lima hidangan buah-buahan dan sayur-sayuran
+        setiap hari.\n\n
+        - Kurangkan pengambilan lemak tepu. Kebanyakannya terdapat dari makanan
+        sumber haiwan seperti daging organ, daging berlemak, dan produk tenusu
+        yang tinggi dalam lemak seperti mentega, minyak sapi, keju dan krim.\n\n
+        - Makan protein yang rendah dalam lemak seperti ikan, ayam, dan daging
+        merah tanpa lemak.\n\n
+        - Menggantikan lemak tepu dengan lemak tak tepu seperti zaitun, rapeseed,
+        minya bunga matahari, serta minyak ikan, minyak kacang dan bijian.\n\n
+        - Kurangkan garam apabila anda memasak atau makan. Gunakan alternatif
+        seperti herba dan rempah untuk menambah rasa makanan. Baca label makanan
+        untuk memilih makanan yang rendah dalam garam.
+    </string>
+    <string name="health_desc_string3_bm">
+        <b>Mengawal berat badan anda</b>\n\n
+        - Mengurangkan berat badan akan menurunkan kolesterol LDL, merendahkan
+        trigliserida, meningkatkan kolesterol ‘baik’ (HDL), membantu mengawal
+        tekanan darah tinggi, mengawal atau mencegah diabetis, mengurangkan risiko
+        serangan jantung dan strok.
+    </string>
+    <string name="health_desc_string4_bm">
+        <b>Mengawai tahap kolesterol</b>\n\n
+        - Pastikan paras kolesterol adalah rendah kerana ia merupakan sebab utama
+        arterosclerosis. Doktor akan memberi ubat statin untuk membantu
+        menurunkan paras kolesterol dan melindingi jantung anda.
+    </string>
+    <string name="health_desc_string5_bm">
+        <b>Mengawal tekanan darah anda</b>\n\n
+        -Melaksanakan perubahan gaya hidup untuk mengekalkan tekanan darah di
+        bawah kawalan: aktiviti fizikal yang kerap, mengekalkan berat badan yang
+        sihat, mengurangkan garam dan alkohol, makan ubat yang ditetapkan oleh
+        doktor.
+    </string>
+    <string name="health_desc_string6_bm">
+        <b>Aktif secara fizikal</b>\n\n
+        - Selepas PCI, jangan cuba melakukan senaman atau aktiviti lasak. Melakukan
+        aktiviti anda secara beransur-ansur. Ikuti nasihat pasukan pemulihan jantung,
+        cuba melakukan sekurang-kurangnya 150 minit aktiviti fizikal yang sederhana
+        intensitinya dalam seminggu.
+    </string>
+    <string name="health_desc_string7_bm">
+        <b>Makan ubat anda seperti yang ditetapkan</b>\n\n
+        - Doktor akan memberi ubat untuk membantu mengurangkan risiko serangan
+        jantung kedua dan melambatkan perkembangan penyakit koronari. Ia adalah
+        penting untuk mengambil ubat dan jangan berhenti tanpa nasihat doktor.
+    </string>
+    <string name="health_desc_string8_bm">
+        <b>Mengurangkan tekanan</b>\n\n
+        - Tekanan untuk tempoh yang panjang akan menjadi factor peningkatan
+        tekanan darah, kolesterol, dan penyakit jantung. Anda perlu merancang masa untuk
+        berehat, belajar teknik relaksasi, dan menetapkan matlamat untuk melegakan tekanan
+        anda.
+    </string>
 
 
 </resources>

@@ -98,7 +98,8 @@ public class mainPage extends AppCompatActivity
             setContentView(R.layout.activity_main_page_bm);
         }
         else
-        setContentView(R.layout.activity_main_page);
+            setContentView(R.layout.activity_main_page);
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -219,7 +220,7 @@ public class mainPage extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_bm);
             navigationView.setNavigationItemSelectedListener(this);
         }
-        else{
+        else {
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
         }
@@ -261,6 +262,7 @@ public class mainPage extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            languageSceen resetLang = new languageSceen();
             super.onBackPressed();
         }
     }
@@ -281,11 +283,11 @@ public class mainPage extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            mFirebaseAuth.signOut();
+            /**mFirebaseAuth.signOut();
             Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-            mUsername = ANONYMOUS;
+            mUsername = ANONYMOUS;**/
             finish();
-            startActivity(new Intent(this, loginScreen.class));
+           // startActivity(new Intent(this, loginScreen.class));
             return true;
         }
 
@@ -300,8 +302,9 @@ public class mainPage extends AppCompatActivity
 
         if (id == R.id.nav_information) {
             // Handle the camera action
-            Intent intent = new Intent("guan.pcihearten.ScrollingActivity");
-            startActivity(intent);
+
+            startActivity(new Intent(this, pci_mcq.class));
+
         } else if (id == R.id.nav_prepci) {
             Intent intent = new Intent("guan.pcihearten.preProcedure");
             startActivity(intent);
