@@ -320,13 +320,7 @@ public class mainPage extends AppCompatActivity
             Intent intent = new Intent("guan.pcihearten.health");
             startActivity(intent);
         }
-        else if (id == R.id.nav_mock) {
-            startActivity(new Intent(this, pci_mcq.class));
-
-        } else if (id == R.id.nav_dash) {
-            Intent intent = new Intent("guan.pcihearten.dashboard");
-            startActivity(intent);
-        }
+        
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -1,4 +1,5 @@
 <resources>
+    <!-- Resource set -->
     <!-- Language page -->
     <string name="app_name">PCIHearten</string>
     <string name="btn_english_string">English</string>

@@ -41,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardview_health_list_title1"
                 android:text="@string/health_desc_string1"
-                android:textColor="#8b8b8b" />
+                android:textSize="@dimen/desc_size"
+                android:textColor="@color/desc_color"  />
 
             <ImageView
                 android:id="@+id/cardview_health_image1"
@@ -82,7 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardview_health_list_title2"
                 android:text="@string/health_desc_string2"
-                android:textColor="#8b8b8b" />
+                android:textSize="@dimen/desc_size"
+                android:textColor="@color/desc_color"  />
 
             <ImageView
                 android:id="@+id/cardview_health_image2"
@@ -127,7 +129,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cardview_health_list_title3"
                     android:text="@string/health_desc_string3"
-                    android:textColor="#8b8b8b" />
+                    android:textSize="@dimen/desc_size"
+                    android:textColor="@color/desc_color"  />
 
                 <ImageView
                     android:id="@+id/cardview_health_image3"
@@ -170,7 +173,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cardview_health_list_title4"
                     android:text="@string/health_desc_string4"
-                    android:textColor="#8b8b8b" />
+                    android:textSize="@dimen/desc_size"
+                    android:textColor="@color/desc_color"  />
 
                 <ImageView
                     android:id="@+id/cardview_health_image4"
@@ -211,7 +215,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cardview_health_list_title5"
                     android:text="@string/health_desc_string5"
-                    android:textColor="#8b8b8b" />
+                    android:textSize="@dimen/desc_size"
+                    android:textColor="@color/desc_color"  />
 
                 <ImageView
                     android:id="@+id/cardview_health_image5"
@@ -255,7 +260,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cardview_health_list_title6"
                     android:text="@string/health_desc_string6"
-                    android:textColor="#8b8b8b" />
+                    android:textSize="@dimen/desc_size"
+                    android:textColor="@color/desc_color"  />
 
                 <ImageView
                     android:id="@+id/cardview_health_image6"
@@ -300,7 +306,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cardview_health_list_title7"
                     android:text="@string/health_desc_string7"
-                    android:textColor="#8b8b8b" />
+                    android:textSize="@dimen/desc_size"
+                    android:textColor="@color/desc_color"  />
 
                 <ImageView
                     android:id="@+id/cardview_health_image7"
@@ -344,7 +351,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cardview_health_list_title8"
                     android:text="@string/health_desc_string8"
-                    android:textColor="#8b8b8b" />
+                    android:textSize="@dimen/desc_size"
+                    android:textColor="@color/desc_color"  />
 
                 <ImageView
                     android:id="@+id/cardview_health_image8"

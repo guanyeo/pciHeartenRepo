@@ -7,4 +7,7 @@
     <color name="light_black">#504f4f</color>
     <color name="black">#000000</color>
     <color name="blue">#0737d4</color>
+
+    <!-- Text color -->
+    <color name="desc_color">#000000</color>
 </resources>

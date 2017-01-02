@@ -1,6 +1,8 @@
 package guan.pcihearten;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,12 +13,17 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class main_page_no_chat extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private int x = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         languageSceen mainFlag = new languageSceen();
         if (mainFlag.getLanguageSelected()=="bm") {
@@ -43,7 +50,36 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
         }
+        changeProgress();
+        createDatabase();
+    }
 
+    public void createDatabase(){
+        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
+        mydatabase.execSQL("CREATE TABLE IF NOT EXISTS DASH (SCORE INTEGER, INTRO TEXT PRIMARY KEY);");
+        //Inserts data everytime main fires up
+        mydatabase.execSQL("INSERT INTO DASH (SCORE) VALUES (0);");
+    }
+
+    public void changeProgress(){
+        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db", MODE_PRIVATE, null);
+        ProgressBar pg = (ProgressBar) findViewById(R.id.progressBar);
+        TextView tx = (TextView) findViewById(R.id.progress_circle_text);
+
+
+
+        //Set all data onCreate a drawer
+        Cursor resultSet = mydatabase.rawQuery("Select score from dash",null);
+        try {
+            resultSet.moveToFirst();
+            String readScore = resultSet.getString(0);
+            int setCurrentScore = Integer.parseInt(readScore);
+            pg.setProgress(setCurrentScore*20);
+            tx.setText("" + setCurrentScore + "/5");
+        }
+        finally {
+            resultSet.close();
+        }
 
 
     }
@@ -62,8 +98,22 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
                 startActivity(intent);
             }
             else {
-                Intent intent = new Intent("guan.pcihearten.ScrollingActivity");
+                Intent intent = new Intent("guan.pcihearten.dashboard");
                 startActivity(intent);
+
+                //Get current total score 0-5
+                SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db", MODE_PRIVATE, null);
+                Cursor resultSet = mydatabase.rawQuery("Select score from dash",null);
+                try {
+                    resultSet.moveToFirst();
+                    String readScore = resultSet.getString(0);
+                    int setScore = Integer.parseInt(readScore) + 1;
+                    mydatabase.execSQL("UPDATE dash SET SCORE = '"+setScore+"'");
+                    changeProgress();
+                }
+                finally {
+                    resultSet.close();
+                }
             }
         } else if (id == R.id.nav_prepci) {
             languageSceen mainFlag = new languageSceen();
@@ -116,18 +166,13 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
                 startActivity(intent);
             }
         }
-        else if (id == R.id.nav_mock) {
-            startActivity(new Intent(this, pci_mcq.class));
-
-        } else if (id == R.id.nav_dash) {
-            Intent intent = new Intent("guan.pcihearten.dashboard");
-            startActivity(intent);
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -138,6 +183,8 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
             super.onBackPressed();
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

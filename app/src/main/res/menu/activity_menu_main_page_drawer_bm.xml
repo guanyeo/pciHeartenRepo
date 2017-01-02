@@ -5,38 +5,21 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_information"
-            android:icon="@drawable/ic_menu_camera"
             android:title="@string/nav_information_string_bm" />
         <item
             android:id="@+id/nav_prepci"
-            android:icon="@drawable/ic_menu_gallery"
             android:title="@string/nav_prepci_string_bm" />
         <item
             android:id="@+id/nav_pciprocedure"
-            android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/nav_pciprocedure_string_bm" />
         <item
             android:id="@+id/nav_postpci"
-            android:icon="@drawable/ic_menu_manage"
             android:title="@string/nav_postpci_string_bm" />
         <item
             android:id="@+id/nav_health"
-            android:icon="@drawable/ic_menu_manage"
             android:title="@string/nav_prevent_string_bm" />
     </group>
 
-    <item android:title="@string/nav_status_string"
-        android:id="@+id/nav_status">
-        <menu>
-            <item
-                android:id="@+id/nav_mock"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/nav_mock_string" />
-            <item
-                android:id="@+id/nav_dash"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/nav_dash_string" />
-        </menu>
-    </item>
+
 
 </menu>
