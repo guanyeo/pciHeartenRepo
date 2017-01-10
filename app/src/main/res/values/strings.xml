@@ -33,12 +33,12 @@
     <!-- Nav BM -->
     <string name="nav_information_string_bm">Intervensi Percutaneous Koronari</string>
     <string name="nav_prepci_string_bm">Persediaan sebelum PCI</string>
-    <string name="nav_pciprocedure_string_bm">Bagaimana prosedur PCI dilakukan?</string>
+    <string name="nav_pciprocedure_string_bm">Prosedur PCI</string>
     <string name="nav_postpci_string_bm">Selepas Prosedur PCI</string>
     <string name="nav_status_string_bm">Status</string>
     <string name="nav_mock_string_bm">Mock Test</string>
     <string name="nav_dash_string_bm">Dashboard</string>
-    <string name="nav_prevent_string_bm">Cara untuk mengelakkan serangan jantung kedua</string>
+    <string name="nav_prevent_string_bm">Mengelakkan serangan jantung kedua</string>
 
     <!--Scroll -->
     <string name="title_activity_scrolling">What is PCI?</string>

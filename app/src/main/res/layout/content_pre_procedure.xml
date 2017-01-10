@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
+        android:padding="0dp"
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView
@@ -22,7 +22,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
 
@@ -33,7 +33,8 @@
                     android:layout_alignParentTop="true"
                     android:paddingBottom="5dp"
                     android:text="@string/preprocedure_title_string1"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_description"
@@ -57,7 +58,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#fff"
+                    android:background="@color/colorCard"
                     android:padding="16dp">
 
 
@@ -68,7 +69,8 @@
                         android:layout_alignParentTop="true"
                         android:paddingBottom="5dp"
                         android:text="@string/preprocedure_title_string2"
-                        android:textSize="24sp" />
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
 
                     <TextView
                         android:id="@+id/short_description1"
@@ -94,7 +96,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
 
@@ -105,7 +107,8 @@
                     android:layout_alignParentTop="true"
                     android:paddingBottom="5dp"
                     android:text="@string/preprocedure_title_string3"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_description2"
@@ -129,7 +132,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
                 <TextView
@@ -139,7 +142,8 @@
                     android:layout_alignParentTop="true"
                     android:paddingBottom="5dp"
                     android:text="@string/preprocedure_title_string4"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_description3"
@@ -162,7 +166,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
 
@@ -173,6 +177,7 @@
                     android:layout_alignParentTop="true"
                     android:paddingBottom="5dp"
                     android:text="@string/preprocedure_title_string5"
+                    android:textColor="@color/stepColor"
                     android:textSize="24sp" />
 
                 <TextView
@@ -196,7 +201,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
 
@@ -207,7 +212,8 @@
                     android:layout_alignParentTop="true"
                     android:paddingBottom="5dp"
                     android:text="@string/preprocedure_title_string6"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_description5"
@@ -242,7 +248,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
                 <TextView
@@ -252,7 +258,8 @@
                     android:layout_alignParentTop="true"
                     android:paddingBottom="5dp"
                     android:text="@string/preprocedure_title_string7"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_description6"
@@ -275,7 +282,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
 
@@ -286,7 +293,8 @@
                     android:layout_alignParentTop="true"
                     android:paddingBottom="5dp"
                     android:text="@string/preprocedure_title_string8"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_description7"

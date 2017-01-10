@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6D929B</color>
-    <color name="colorPrimaryDark">#C1DAD6</color>
-    <color name="colorAccent">#ACD1E9</color>
+    <color name="colorPrimary">#666633</color>
+    <color name="colorPrimaryDark">#7A3E48</color>
+    <color name="colorAccent">#B0E57C</color>
+
+    <color name="colorCard">#7A3E48</color>
+    <color name="stepColor">#FFF</color>
+    <color name="desc_color">#FFF</color>
+
 
     <color name="light_black">#504f4f</color>
     <color name="black">#000000</color>
     <color name="blue">#0737d4</color>
 
-    <!-- Text color -->
-    <color name="desc_color">#000000</color>
+
+
 </resources>

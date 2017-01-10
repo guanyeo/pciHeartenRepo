@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="0dp"
         >
 
         <android.support.v7.widget.CardView
@@ -23,7 +23,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
                 <TextView
@@ -32,7 +32,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/cardview_post_procedure_list_title1_string"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_post_procedure_description1"
@@ -82,7 +83,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
                 <TextView
@@ -91,7 +92,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/cardview_post_procedure_list_title2_string"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_post_procedure_description2"
@@ -125,7 +127,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
                 <TextView
@@ -134,7 +136,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/cardview_post_procedure_list_title4_string"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_post_procedure_description4"
@@ -163,7 +166,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
                 <TextView
@@ -172,7 +175,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/cardview_post_procedure_list_title5_string"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_post_procedure_description5"
@@ -200,7 +204,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
                 <TextView
@@ -209,7 +213,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/cardview_post_procedure_list_title6_string"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_post_procedure_description6"
@@ -232,7 +237,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
                 <TextView
@@ -241,7 +246,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/cardview_post_procedure_list_title7_string"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_post_procedure_description7"
@@ -270,7 +276,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
                 <ImageView
@@ -287,7 +293,8 @@
                 android:paddingBottom="5dp"
                 android:layout_below="@id/cardview_post_procedure_image8"
                 android:text="@string/cardview_post_procedure_list_title8_string"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_post_procedure_description8"
@@ -309,7 +316,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
                 <TextView
@@ -318,7 +325,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/cardview_post_procedure_list_title9_string"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_post_procedure_description9"
@@ -339,7 +347,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
 
@@ -349,7 +357,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/cardview_post_procedure_list_title10_string"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_post_procedure_description10"
@@ -370,7 +379,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
                 <TextView
@@ -379,7 +388,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/cardview_post_procedure_list_title11_string"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_post_procedure_description11"

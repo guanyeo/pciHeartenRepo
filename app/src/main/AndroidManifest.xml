@@ -8,6 +8,11 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Alarm Manager permission -->
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
+
+
     <application
         android:name=".pciHearten"
         android:allowBackup="true"
@@ -22,6 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".loginScreen">
             <intent-filter>
                 <action android:name="guan.pcihearten.loginScreen" />
@@ -29,6 +35,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".mainPage"
             android:label="@string/title_activity_main_page"
@@ -205,6 +212,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="guan.pcihearten.main_page_no_chat" />
         </activity>
+
+        <receiver android:name=".AlertReceiver"/>
+
+        <receiver
+            android:name=".MyAlarmReceiver"
+            android:process=":remote" >
+        </receiver>
+
+        <service
+            android:name=".MyTestService"
+            android:exported="false" />
+
+
     </application>
 
 </manifest>

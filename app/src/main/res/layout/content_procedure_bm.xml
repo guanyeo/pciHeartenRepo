@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
+        android:padding="0dp"
         android:orientation="vertical">
 
 
@@ -23,7 +23,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
                 <ImageView
@@ -41,7 +41,8 @@
                     android:layout_below="@+id/cardview_procedure_image1"
                     android:paddingBottom="5dp"
                     android:text="@string/langkah_1"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_procedure_description1"
@@ -65,7 +66,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:elevation="4dp"
                 android:padding="16dp">
 
@@ -84,7 +85,8 @@
                     android:layout_below="@+id/cardview_procedure_image2"
                     android:paddingBottom="5dp"
                     android:text="@string/langkah_2"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_procedure_description2"
@@ -108,7 +110,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:elevation="4dp"
                 android:padding="16dp">
 
@@ -127,7 +129,8 @@
                     android:layout_below="@+id/cardview_procedure_image3"
                     android:paddingBottom="5dp"
                     android:text="@string/langkah_3"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_procedure_description3"
@@ -151,7 +154,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:elevation="4dp"
                 android:padding="16dp">
 
@@ -178,7 +181,8 @@
                     android:layout_below="@+id/cardview_procedure_image4_2"
                     android:paddingBottom="5dp"
                     android:text="@string/langkah_4"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_procedure_description4"
@@ -202,7 +206,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:elevation="4dp"
                 android:padding="16dp">
 
@@ -212,7 +216,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/langkah_5"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_procedure_description5"
@@ -236,7 +241,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:elevation="4dp"
                 android:padding="16dp">
 
@@ -263,7 +268,8 @@
                     android:layout_below="@+id/cardview_procedure_image6_2"
                     android:paddingBottom="5dp"
                     android:text="@string/langkah_6"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_procedure_description6"
@@ -287,7 +293,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:elevation="4dp"
                 android:padding="16dp">
 
@@ -332,7 +338,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:elevation="4dp"
                 android:padding="16dp">
 
@@ -368,7 +374,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:elevation="4dp"
                 android:padding="16dp">
 
@@ -411,7 +417,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:elevation="4dp"
                 android:padding="16dp">
 
@@ -445,7 +451,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:elevation="4dp"
                 android:padding="16dp">
 
@@ -479,7 +485,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:elevation="4dp"
                 android:padding="16dp">
 
@@ -521,7 +527,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:elevation="4dp"
                 android:padding="16dp">
 

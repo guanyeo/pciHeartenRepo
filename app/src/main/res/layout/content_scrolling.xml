@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
+        android:padding="0dp"
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView
@@ -22,7 +22,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:padding="16dp">
 
                 <TextView
@@ -32,6 +32,7 @@
                     android:paddingBottom="5dp"
                     android:layout_alignParentTop="true"
                     android:text="@string/title_info_1"
+                    android:textColor="@color/stepColor"
                     android:textSize="24sp" />
 
                 <TextView
@@ -64,7 +65,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
+                android:background="@color/colorCard"
                 android:elevation="4dp"
                 android:padding="16dp">
 
@@ -75,7 +76,8 @@
                     android:paddingBottom="5dp"
                     android:layout_alignParentTop="true"
                     android:text="@string/title_info_2"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_info_description2"
@@ -107,8 +109,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
-                android:elevation="4dp"
+                android:background="@color/colorCard"
+                android:elevation="0dp"
                 android:padding="16dp">
 
                 <TextView
@@ -118,7 +120,8 @@
                     android:paddingBottom="5dp"
                     android:layout_alignParentTop="true"
                     android:text="@string/title_info_3"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_info_description3"
