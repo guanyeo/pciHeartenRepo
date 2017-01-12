@@ -46,6 +46,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".main_page_no_chat"
+            android:label="PCI Info"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.main_page_no_chat" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".ScrollingActivity"
             android:label="@string/title_activity_scrolling"
@@ -76,6 +88,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="guan.pcihearten.mainPage" />
         </activity>
+
         <activity
             android:name=".procedure"
             android:label="@string/title_activity_procedure"
@@ -91,6 +104,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="guan.pcihearten.mainPage" />
         </activity>
+
         <activity
             android:name=".post_procedure"
             android:label="@string/title_activity_post_procedure"
@@ -130,15 +144,7 @@
         </activity>
         <activity android:name=".guan_test" />
         <activity android:name=".pci_mcq" />
-        <activity
-            android:name=".main_page_no_chat"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="guan.pcihearten.main_page_no_chat" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".scroll_bm"
             android:label="@string/title_activity_scroll_bm"
@@ -212,6 +218,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="guan.pcihearten.main_page_no_chat" />
         </activity>
+
+        <activity
+            android:name=".AlbumMain"
+            android:label="@string/title_activity_procedure"
+            android:parentActivityName=".mainPage"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.AlbumMain" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.mainPage" />
+        </activity>
+
 
         <receiver android:name=".AlertReceiver"/>
 

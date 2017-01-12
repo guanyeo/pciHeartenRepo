@@ -41,6 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cardview_info_list_title1"
                     android:text="@string/information_text_1_bm"
+                    android:textSize="@dimen/desc_size"
                     android:textColor="@color/desc_color" />
 
                 <ImageView
@@ -84,6 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cardview_info_list_title2"
                     android:text="@string/information_text_2_bm"
+                    android:textSize="@dimen/desc_size"
                     android:textColor="@color/desc_color" />
 
                 <ImageView
@@ -127,6 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cardview_info_list_title3"
                     android:text="@string/information_text_3_bm"
+                    android:textSize="@dimen/desc_size"
                     android:textColor="@color/desc_color" />
 
                 <ImageView

@@ -13,7 +13,13 @@
     tools:context="guan.pcihearten.main_page_no_chat"
     tools:showIn="@layout/app_bar_main_page"
     >
-    <LinearLayout
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+        android:id="@+id/progressLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -76,8 +82,62 @@
         </LinearLayout>
 
 
+        </LinearLayout>
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/introDash"
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/intro_flag"
+            android:background="#fff"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@id/progressLayout"/>
+
+        <Button
+            android:id="@+id/preDash"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pre_flag"
+            android:background="#fff"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@id/introDash"/>
+
+
+        <Button
+            android:id="@+id/procDash"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/procFlag"
+            android:background="#fff"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@id/preDash"
+            />
+
+        <Button
+            android:id="@+id/postDash"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/post_flag"
+            android:background="#fff"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@id/procDash"/>
+
+        <Button
+            android:id="@+id/healthDash"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/health_flag"
+            android:background="#fff"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@id/postDash"/>
+
+
+    </RelativeLayout>
 
 
 

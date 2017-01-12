@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#666633</color>
-    <color name="colorPrimaryDark">#7A3E48</color>
-    <color name="colorAccent">#B0E57C</color>
+    <color name="colorPrimary">#5E35B1</color>
+    <color name="colorPrimaryDark">#3949AB</color>
+    <color name="colorAccent">#1E88E5</color>
 
-    <color name="colorCard">#7A3E48</color>
+    <color name="colorCard">#689F38</color>
     <color name="stepColor">#FFF</color>
     <color name="desc_color">#FFF</color>
 
@@ -13,6 +13,11 @@
     <color name="black">#000000</color>
     <color name="blue">#0737d4</color>
 
+
+    <!-- RECYCLER TEST-->
+
+    <color name="viewBg">#f1f5f8</color>
+    <color name="album_title">#4c4c4c</color>
 
 
 </resources>

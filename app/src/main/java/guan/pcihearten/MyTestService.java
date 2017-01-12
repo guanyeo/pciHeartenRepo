@@ -23,4 +23,7 @@ public class MyTestService extends IntentService {
         mydatabase.execSQL("UPDATE dash SET score = 0, intro = 0, pre = 0, procedure = 0, post = 0, health = 0");
         Log.i("MyTestService", "Service running " + firstMillis);
     }
+
+
+
 }

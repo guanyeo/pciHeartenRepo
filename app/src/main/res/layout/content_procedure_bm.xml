@@ -312,7 +312,8 @@
                     android:layout_below="@+id/cardview_procedure_image7"
                     android:paddingBottom="5dp"
                     android:text="@string/langkah_7"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_procedure_description7"
@@ -350,7 +351,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/langkah_8"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_procedure_description8"
@@ -393,7 +395,8 @@
                     android:layout_below="@+id/cardview_procedure_image9"
                     android:paddingBottom="5dp"
                     android:text="@string/langkah_9"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_procedure_description9"
@@ -427,7 +430,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/langkah_10"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_procedure_description10"
@@ -461,7 +465,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/langkah_11"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_procedure_description11"
@@ -496,7 +501,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/langkah_12"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_procedure_description12"
@@ -512,7 +518,9 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_procedure_video"
                     android:layout_below="@+id/short_procedure_description12"
-                    android:text="Proses PCI (Rakaman)" />
+                    android:text="Proses PCI (Rakaman)"
+                    android:textColor="@android:color/white"
+                    android:background="@color/colorAccent" />
 
 
             </RelativeLayout>
@@ -537,7 +545,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
                     android:text="@string/cardview_procedure_list_title_string_stent"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColor="@color/stepColor" />
 
                 <TextView
                     android:id="@+id/short_procedure_description_stent"

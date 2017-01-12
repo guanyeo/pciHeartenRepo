@@ -1,7 +1,7 @@
 <resources>
     <!-- Resource set -->
     <!-- Language page -->
-    <string name="app_name">PCIHearten</string>
+    <string name="app_name">PCI Info</string>
     <string name="btn_english_string">English</string>
     <string name="btn_bm_string">Bahasa Malaysia</string>
     <string name="title_activity_login_screen">Sign in</string>
@@ -20,7 +20,7 @@
     <!-- On Create Options Menu -->
     <string name="action_settings">Quit</string>
     <!-- Nav -->
-    <string name="nav_bar_title_string">PCIHearten</string>
+    <string name="nav_bar_title_string">PCI Info</string>
     <string name="nav_information_string">What is PCI?</string>
     <string name="nav_prepci_string">Preparation before PCI</string>
     <string name="nav_pciprocedure_string">How is PCI done?</string>
@@ -316,7 +316,7 @@
     </string>
 
     <string name="cardview_post_procedure_list_title8_string">
-        "\nCare of groin site"
+        "\n<b>Care of groin site</b>"
     </string>
 
     <string name="short_post_procedure_description8_string">
@@ -329,7 +329,7 @@
     </string>
 
      <string name="cardview_post_procedure_list_title9_string">
-        "\nCare of wrist or arm site"
+        "\n<b>Care of wrist or arm site</b>"
     </string>
 
     <string name="short_post_procedure_description9_string">
@@ -343,7 +343,7 @@
     </string>
 
       <string name="cardview_post_procedure_list_title10_string">
-        "\n*When to seek medical advice"
+        "\n<b>*When to seek medical advice</b>"
     </string>
 
      <string name="short_post_procedure_description10_string">
@@ -353,7 +353,7 @@
     </string>
 
         <string name="cardview_post_procedure_list_title11_string">
-        "\n*Go to hospital immediately"
+        "\n<b>*Go to hospital immediately</b>"
     </string>
 
      <string name="short_post_procedure_description11_string">
@@ -456,7 +456,7 @@
 
 
     <!-- BM Scrolling -->
-    <string name="title_activity_scroll_bm">Intervensi Percutaneous Koronari</string>
+    <string name="title_activity_scroll_bm"><b>Intervensi Percutaneous Koronari (PCI)</b></string>
     <string name="scrolling_bm">"Intervensi Percutaneous Koronari"</string>
     <string name="information_text_1_bm">Intervensi Percutaneous Koronari (PCI) juga dikenali sebagai prosedur angioplasti.
         Tujuannya adalah untuk membuka semula saluran darah kepada otot jantung yang
@@ -466,12 +466,12 @@
         akan mengembungkan belon dan meluaskan bahagian arteri jantung yang menyempit
         atau tersumbat. Biasanya, ia akan bergabung dengan implantasi stent untuk
         memastikan pembukaan arteri dan merendahkan risiko berlakunya penyumbatan kali kedua.</string>
-    <string name="title_info_2_bm">Kenapa Anda Memerlukan Procedur PCI?</string>
+    <string name="title_info_2_bm"><b>Kenapa Anda Memerlukan Procedur PCI?</b></string>
     <string name="information_text_2_bm">Jantung anda merupakan satu otot yang mengepam darah, menyampaikan oksigen dan
         nutrien ke seluruh badan. Jantung anda juga memerlukan bekalan oksigen dan nutrien
         untuk fungsi sendiri. Arteri koronari memainkan peranan penting untuk memekalkan
         bekalan darah kepada otot jantung.</string>
-    <string name="title_info_3_bm">Penyakit Arteri Koronari</string>
+    <string name="title_info_3_bm"><b>Penyakit Arteri Koronari</b></string>
     <string name="information_text_3_bm">Arteri dalam jantung anda boleh menjadi sempit atau tersumbat akibat pengumpulan
         kolesterol (atheroma), sel, atau bahan lain (plak). Proses pengumpulan ini dipanggil
         atherosclerosis. Atheroma akan mengurangkan pengaliran darah kepada otot jantung
@@ -599,7 +599,7 @@
         dye kontrast dari badan.</string>
     <string name="short_post_procedure_description7_string_bm">Anda perlu tinggal di hospital untuk semalaman selepas prosedur bergantung
         kepada keadaan anda.</string>
-    <string name="cardview_post_procedure_list_title8_string_bm">Penjagaan Tempat PCI di Pangkal Paha</string>
+    <string name="cardview_post_procedure_list_title8_string_bm"><b>Penjagaan Tempat PCI di Pangkal Paha</b></string>
     <string name="short_post_procedure_description8_string_bm">Ia adalah biasa jika terdapat satu lebam kecil atau ketulan di tempat prosedur PCI.\n\n
         1. Jangan gosok tempat tapak PCI.\n\n
         2. Untuk 2 hari selepas PCI, jangan tunduk atau mencangkung. Apabila anda batuk,
@@ -607,7 +607,7 @@
         3. Jangan mengangkat benda lebih dari 4.5kg selama 3 hingga 5 hari selepas prosedur.\n\n
         4. Jika terdapat perdarahan di tempat PCI, berbaring dan letakkan tekanan di atas luka
         tersebut. Memanggil ambulan dengan segera.</string>
-    <string name="cardview_post_procedure_list_title9_string_bm">Penjagaan Tempat PCI di Pergelangan Tangan</string>
+    <string name="cardview_post_procedure_list_title9_string_bm"><b>Penjagaan Tempat PCI di Pergelangan Tangan</b></string>
     <string name="short_post_procedure_description9_string_bm">Ia adalah biasa jika terdapat kesakitan yang ringan di tempat PCI.\n\n
         1. Untuk 2 hari selepas PCI, jangan menggunakan tangan atau lengan untuk
         menyokong berat badan (berdiri dari kerusi) atau bengkok pergelangan tangan anda.\n\n
@@ -616,11 +616,11 @@
         dengan jari selama 10 minit. Jika perdarahan berhenti, duduk diam dengan
         pergelangan tangan anda lurus selama 2 jam. Jika perdarahan tidak berhenti, pergi ke
         hospital dengan segera.</string>
-    <string name="cardview_post_procedure_list_title10_string_bm">*Bila perlu dapatkan nasihat perubatan?</string>
+    <string name="cardview_post_procedure_list_title10_string_bm"><b>*Bila perlu dapatkan nasihat perubatan?</b></string>
     <string name="short_post_procedure_description10_string_bm">1. Apabila anda merasa menggigil atau demam lebih daripada 38 darjah Celsius.\n\n
         2. Terdapat bengkak baru atau lebam yang menyebar luas di tempat PCI.\n\n
         3. Tempat PCI menjadi keras dan sakit.</string>
-    <string name="cardview_post_procedure_list_title11_string_bm">*Pergi ke hospital dengan segera</string>
+    <string name="cardview_post_procedure_list_title11_string_bm"><b>*Pergi ke hospital dengan segera</b></string>
     <string name="short_post_procedure_description11_string_bm">4. Perdarahan dari luka yang tidak berhenti atau bermula lagi selepas tekanan selama
         10 minit.\n\n
         5. Lengan atau kaki bertukar warna atau menjadi kebas dan sejuk.</string>
@@ -689,5 +689,15 @@
         anda.
     </string>
 
+    <!-- RECYCLER TEST -->
+    <string name="action_add_favourite">Add to Favourites</string>
+    <string name="action_play_next">Play Next</string>
+    <string name="backdrop_title">LOVE MUSIC</string>
+    <string name="backdrop_subtitle">This season top 20 albums</string>
+    <string name="intro_flag">Percutaneous Coronary Intervention (PCI)</string>
+    <string name="pre_flag">Preparation of PCI</string>
+    <string name="procFlag">Procedure of PCI</string>
+    <string name="post_flag">Post procedure of PCI</string>
+    <string name="health_flag">Heart Attack Prevention</string>
 
 </resources>

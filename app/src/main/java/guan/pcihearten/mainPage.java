@@ -283,16 +283,17 @@ public class mainPage extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            /**mFirebaseAuth.signOut();
+            mFirebaseAuth.signOut();
             Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-            mUsername = ANONYMOUS;**/
+            mUsername = ANONYMOUS;
             finish();
-           // startActivity(new Intent(this, loginScreen.class));
+           startActivity(new Intent(this, loginScreen.class));
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -302,7 +303,6 @@ public class mainPage extends AppCompatActivity
 
         if (id == R.id.nav_information) {
             // Handle the camera action
-
             startActivity(new Intent(this, pci_mcq.class));
 
         } else if (id == R.id.nav_prepci) {

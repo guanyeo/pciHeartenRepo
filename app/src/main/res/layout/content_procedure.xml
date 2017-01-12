@@ -520,7 +520,7 @@
                 android:layout_below="@+id/short_procedure_description12"
                 android:text="How is PCI done (Video)"
                 android:background="@color/colorAccent"
-                android:textColor="@color/desc_color" />
+                android:textColor="@color/stepColor" />
 
 
         </RelativeLayout>

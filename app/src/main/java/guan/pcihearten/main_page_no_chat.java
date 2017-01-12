@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -34,8 +36,12 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
     static final String postDrawer = "post";
     static final String healthDrawer = "health";
 
-
-
+    //Dashboard Flag
+    public Button flagIntro;
+    public Button flagPre;
+    public Button flagProc;
+    public Button flagPost;
+    public Button flagHealth;
 
 
 
@@ -48,8 +54,21 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
         if (mainFlag.getLanguageSelected()=="bm") {
             setContentView(R.layout.activity_main_page_bm);
         }
-        else
+        else {
             setContentView(R.layout.activity_main_page_no_chat);
+        }
+
+         flagIntro = (Button) findViewById(R.id.introDash);
+         flagPre = (Button) findViewById (R.id.preDash);
+        flagProc = (Button) findViewById (R.id.procDash);
+        flagPost = (Button) findViewById (R.id.postDash);
+        flagHealth = (Button) findViewById (R.id.healthDash);
+
+        if (mainFlag.getLanguageSelected() == "bm"){
+            changeFlagLanguage();
+        }
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,10 +88,10 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
         }
+
         createDatabase();
         changeProgress();
-
-        //superDailyReset();
+        markFlag();
         hyperDailyReset();
 
     }
@@ -127,10 +146,18 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
             insertFlag.close();
         }
 
-
-
     }
 
+
+    public void changeFlagLanguage(){
+
+        flagIntro.setText("Intervensi Percutaneous Koronari (PCI)");
+        flagPre.setText("Persediaan sebelum PCI");
+        flagProc.setText("Bagaimana prosedur PCI dilakukan?");
+        flagPost.setText("Selepas Prosedur PCI");
+        flagHealth.setText("Cara untuk mengelakkan serangan jantung kedua");
+
+    }
 
 
     public void superDailyReset(){
@@ -211,6 +238,8 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
                 //Sets the process and flag which drawer has been opened
                 taskProcess(introDrawer, 1);
             }
+
+            markFlag();
         } else if (id == R.id.nav_prepci) {
             languageSceen mainFlag = new languageSceen();
             if (mainFlag.getLanguageSelected()=="bm")
@@ -225,7 +254,7 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
                 startActivity(intent);
                 taskProcess(preDrawer, 2);
             }
-
+            markFlag();
         } else if (id == R.id.nav_pciprocedure) {
             languageSceen mainFlag = new languageSceen();
             if (mainFlag.getLanguageSelected()=="bm")
@@ -240,6 +269,7 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
                 startActivity(intent);
                 taskProcess(procedureDrawer, 3);
             }
+            markFlag();
         } else if (id == R.id.nav_postpci) {
             languageSceen mainFlag = new languageSceen();
             if (mainFlag.getLanguageSelected()=="bm")
@@ -254,7 +284,7 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
                 startActivity(intent);
                 taskProcess(postDrawer, 4);
             }
-
+            markFlag();
         } else if (id == R.id.nav_health) {
             languageSceen mainFlag = new languageSceen();
             if (mainFlag.getLanguageSelected()=="bm")
@@ -269,6 +299,7 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
                 startActivity(intent);
                 taskProcess(healthDrawer, 5);
             }
+            markFlag();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -305,6 +336,68 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
             drawerFlag.close();
         }
     }
+
+    public  void markFlag(){
+        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db", MODE_PRIVATE, null);
+        Cursor drawerFlag = mydatabase.rawQuery("SELECT * FROM dash", null);
+
+        try{
+            drawerFlag.moveToLast();
+
+            for(int valuePos = 1; valuePos<6; valuePos++) {
+                String readFlag = drawerFlag.getString(valuePos);
+                int setFlag = Integer.parseInt(readFlag);
+
+                switch (valuePos){
+                    case 1:
+                        if (setFlag == 1) {
+                            flagIntro.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            flagIntro.setTextColor(ContextCompat.getColor(this, R.color.desc_color));
+                        }
+                        break;
+                    case 2:
+                        if (setFlag == 1) {
+                            flagPre.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            flagPre.setTextColor(ContextCompat.getColor(this, R.color.desc_color));
+                        }
+                        break;
+                    case 3:
+                        if (setFlag == 1) {
+                            flagProc.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            flagProc.setTextColor(ContextCompat.getColor(this, R.color.desc_color));
+                        }
+                        break;
+                    case 4:
+                        if (setFlag == 1) {
+                            flagPost.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            flagPost.setTextColor(ContextCompat.getColor(this, R.color.desc_color));
+                        }
+                        break;
+                    case 5:
+                        if (setFlag == 1) {
+                            flagHealth.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                            flagHealth.setTextColor(ContextCompat.getColor(this, R.color.desc_color));
+                        }
+                        break;
+                }
+
+            }
+
+
+
+
+
+
+
+
+
+
+        }
+        finally {
+            drawerFlag.close();
+        }
+    }
+
 
 
 
