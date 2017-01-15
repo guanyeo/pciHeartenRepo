@@ -699,5 +699,7 @@
     <string name="procFlag">Procedure of PCI</string>
     <string name="post_flag">Post procedure of PCI</string>
     <string name="health_flag">Heart Attack Prevention</string>
+    <string name="title_activity_game_room">game_room</string>
+    <string name="title_activity_ronso">ronso</string>
 
 </resources>

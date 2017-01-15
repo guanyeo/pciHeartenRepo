@@ -303,7 +303,8 @@ public class mainPage extends AppCompatActivity
 
         if (id == R.id.nav_information) {
             // Handle the camera action
-            startActivity(new Intent(this, pci_mcq.class));
+            Intent intent = new Intent("guan.pcihearten.game_room");
+            startActivity(intent);
 
         } else if (id == R.id.nav_prepci) {
             Intent intent = new Intent("guan.pcihearten.preProcedure");
