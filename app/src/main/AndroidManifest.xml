@@ -243,6 +243,20 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".game_lobby"
+            android:parentActivityName=".mainPage"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.mainPage" />
+
+            <intent-filter>
+                <action android:name="guan.pcihearten.game_lobby" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -75,7 +75,6 @@ public class mainPage extends AppCompatActivity
     private static final String MESSAGE_URL = "https://pcihearten.firebaseio.com/messages";
 
     //Variable declare
-
     private Button mSendButton;
     private RecyclerView mMessageRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
@@ -307,7 +306,7 @@ public class mainPage extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_prepci) {
-            Intent intent = new Intent("guan.pcihearten.preProcedure");
+            Intent intent = new Intent("guan.pcihearten.game_lobby");
             startActivity(intent);
 
         } else if (id == R.id.nav_pciprocedure) {
