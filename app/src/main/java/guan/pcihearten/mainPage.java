@@ -310,10 +310,10 @@ public class mainPage extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_pciprocedure) {
-            Intent intent = new Intent("guan.pcihearten.procedure");
+            Intent intent = new Intent("guan.pcihearten.game_buffer");
             startActivity(intent);
         } else if (id == R.id.nav_postpci) {
-            Intent intent = new Intent("guan.pcihearten.post_procedure");
+            Intent intent = new Intent("guan.pcihearten.guan_test");
             startActivity(intent);
 
         } else if (id == R.id.nav_health) {

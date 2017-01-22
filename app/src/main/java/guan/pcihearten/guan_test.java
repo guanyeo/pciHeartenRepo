@@ -113,7 +113,6 @@ public class guan_test extends AppCompatActivity
                                               guanTesto model, int position) {
                 viewHolder.messageTextView.setText(model.getName());
                 viewHolder.messengerTextView.setText(model.getScore());
-                Log.d(TAG, "First Error: " + model.getName() + " " + model.getScore());
             }
         };
         //Set the recycler layout
@@ -168,7 +167,7 @@ public class guan_test extends AppCompatActivity
 
        //Another data retrieval method
         guanReference = FirebaseDatabase.getInstance().getReference()
-                .child("guanTest/User/2guan");
+                .child("guanTest/User/guan");
         guanRetrieval = (TextView) findViewById(R.id.andromeda);
 
         ValueEventListener postListener = new ValueEventListener() {
@@ -176,8 +175,12 @@ public class guan_test extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 guanTesto post = dataSnapshot.getValue(guanTesto.class);
+
+
                 // [START_EXCLUDE]
-                guanRetrieval.setText(post.getScore());
+//
+
+                Log.d("get_score value", ""+ post.getScore());
 
 
                 // [END_EXCLUDE]
@@ -200,8 +203,8 @@ public class guan_test extends AppCompatActivity
         guanTesto guantesto1 = new
                 guanTesto (mUsername,"1911" );
 
-        mFirebaseDatabaseReference.child("guanTest/User/" + mUsername)
-                .push().setValue(guantesto1);
+        mFirebaseDatabaseReference.child("guanTest/User/guan")
+               .push().setValue(guantesto1);
 
     }
 

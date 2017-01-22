@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +49,7 @@ private static final String TAG = "Game Room";
     private TextView gameText3;
 
 
+
 //    Flag declare
     private long questionTag1;
     private long answerTag1;
@@ -54,6 +57,7 @@ private static final String TAG = "Game Room";
     private long answerTag3;
     private int randomAnswerToken;
     private int randomQuestionToken;
+    private String game_key;
 
 
 //    For random usage
@@ -71,6 +75,7 @@ private static final String TAG = "Game Room";
 
     // Firebase instance variables
     private DatabaseReference mFirebaseDatabaseReference;
+    private DatabaseReference mConditionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +105,10 @@ private static final String TAG = "Game Room";
         gameText2 = (TextView) findViewById(R.id.game_card_text_5);
         gameText3 = (TextView) findViewById(R.id.game_card_text_6);
 
+        gameBufferTransfer();
         questionRetrieval();
         checkCorrect();
+        matchCondition();
 
     }
 
@@ -119,7 +126,15 @@ private static final String TAG = "Game Room";
     }
 
 
+// Transfer unique game key from another class
+    public void gameBufferTransfer(){
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null) {
+            game_key = extras.getString("key_transfer");
+        }
+        Log.d("key_transferred", ""+game_key);
 
+    }
 
 //Retrieve question from data
     public void questionRetrieval(){
@@ -317,6 +332,66 @@ private static final String TAG = "Game Room";
 
     }
 
+//    Check if match is cancelled
+    public void matchCondition(){
+        mConditionReference = FirebaseDatabase.getInstance().getReference()
+                .child("game_buffer/"+game_key);
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                buffer_data post = dataSnapshot.getValue(buffer_data.class);
+                try {
+                    if (post.getState().equals("cancelled")) {
+                        mConditionReference.removeEventListener(this);
+                        mConditionReference.removeValue();
+                        finish();
+                    }
+                }
+                catch (NullPointerException e){
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        mConditionReference.addValueEventListener(postListener);
+
+
+    }
+
+    @Override
+    protected void onStop() {
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("game_buffer").child(game_key);
+
+        mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                buffer_data post = dataSnapshot.getValue(buffer_data.class);
+                try {
+                    if(!(post.getState().equals(null))) {
+                        mFirebaseDatabaseReference.child("state")
+                                .setValue("cancelled");
+                    }
+
+                }
+                catch (NullPointerException e){
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        super.onStop();
+    }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {

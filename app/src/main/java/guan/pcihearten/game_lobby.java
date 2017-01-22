@@ -2,6 +2,7 @@ package guan.pcihearten;
 
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class game_lobby extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
 
-    public static class MessageViewHolder extends RecyclerView.ViewHolder {
+    public static class MessageViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
         public TextView messageTextView;
         public TextView messengerTextView;
         public CircleImageView messengerImageView;
@@ -39,6 +40,14 @@ public class game_lobby extends AppCompatActivity implements GoogleApiClient.OnC
             messageTextView = (TextView) itemView.findViewById(R.id.lobbyTextView);
             messengerTextView = (TextView) itemView.findViewById(R.id.lobbySmallView);
             messengerImageView = (CircleImageView) itemView.findViewById(R.id.lobbyImageView);
+            v.setOnClickListener(this);
+        }
+
+//        Set the recyler view to be able to click
+        @Override
+        public void onClick(View view) {
+            Log.d(TAG, "onClick Recycelr " + getPosition());
+
         }
     }
 
@@ -68,6 +77,8 @@ public class game_lobby extends AppCompatActivity implements GoogleApiClient.OnC
     private DatabaseReference mFirebaseDatabaseReference;
     private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>
             mFirebaseAdapter;
+
+
 
 
     @Override
@@ -114,15 +125,14 @@ public class game_lobby extends AppCompatActivity implements GoogleApiClient.OnC
                 }
             }
 
-//            SOme test code delete if not used
-            
-
 
         };
 
 
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
         mMessageRecyclerView.setAdapter(mFirebaseAdapter);
+
+
 
         mSendButton = (Button) findViewById(R.id.sendButton);
         mSendButton.setOnClickListener(new View.OnClickListener() {
@@ -134,9 +144,9 @@ public class game_lobby extends AppCompatActivity implements GoogleApiClient.OnC
                         mPhotoUrl);
                 mFirebaseDatabaseReference.child(LOBBY_CHILD)
                         .push().setValue(friendlyMessage);
+                Log.d("Push value",""+mFirebaseDatabaseReference.push().getKey());
             }
         });
-
 
 
 
@@ -152,11 +162,15 @@ public class game_lobby extends AppCompatActivity implements GoogleApiClient.OnC
     }
 
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("onStop", "(-,-)");
+    }
 
-
-
-
-
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("onDestroyed", "(&.&)");
+    }
 }

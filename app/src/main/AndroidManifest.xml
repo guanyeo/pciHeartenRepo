@@ -127,8 +127,21 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="guan.pcihearten.mainPage" />
         </activity>
-        <activity android:name=".guan_test" />
+        <activity
+            android:name=".guan_test"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter>
+                <action android:name="guan.pcihearten.guan_test" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
+
         <activity android:name=".pci_mcq" />
+
         <activity
             android:name=".scroll_bm"
             android:label="@string/title_activity_scroll_bm"
@@ -243,8 +256,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".game_lobby"
+        <activity
+            android:name=".game_lobby"
             android:parentActivityName=".mainPage"
             android:theme="@style/AppTheme">
             <meta-data
@@ -253,6 +266,19 @@
 
             <intent-filter>
                 <action android:name="guan.pcihearten.game_lobby" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".game_buffer"
+            android:parentActivityName=".mainPage"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.mainPage" />
+            <intent-filter>
+                <action android:name="guan.pcihearten.game_buffer" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
