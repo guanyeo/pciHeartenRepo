@@ -20,8 +20,8 @@
     >
 
     <RelativeLayout
-        android:id="@+id/status_bar_p2"
-        android:layout_width="match_parent"
+        android:id="@+id/status_bar_p1"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:padding="10dp"
         android:layout_alignParentTop="true"
@@ -29,115 +29,84 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="20dp">
         <TextView
+            android:id="@+id/name_p1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:text="Player 1"/>
+
+        <ProgressBar
+            android:id="@+id/progressBarP1"
+            android:layout_below="@id/name_p1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/circle_shape"
+            android:indeterminate="false"
+            android:layout_centerInParent="true"
+            android:max="100"
+            android:progress="33"
+            android:progressDrawable="@drawable/circular_progress_bar" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/p1Avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:foregroundGravity="center"
+            android:src="@mipmap/ic_launcher"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/status_bar_p2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp">
+        <TextView
             android:id="@+id/name_p2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wah Luigi"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:text="Player 2"/>
 
         <ProgressBar
             android:id="@+id/progressBarP2"
             android:layout_below="@id/name_p2"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/circle_shape"
             android:indeterminate="false"
+            android:layout_centerInParent="true"
             android:max="100"
+            android:progress="33"
             android:progressDrawable="@drawable/circular_progress_bar" />
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/p2Avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:foregroundGravity="center"
+            android:src="@mipmap/ic_launcher"/>
     </RelativeLayout>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/game_card_1"
-        android:clickable="true"
-        android:layout_height="@dimen/card_game_height"
-        android:layout_width="@dimen/card_game_width"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/status_bar_p2"
-        >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/gameCard"
-            android:padding="10dp"
-          >
-            <TextView
-                android:id="@+id/game_card_text_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="5dp"
-                android:layout_alignParentTop="true"
-                android:text="Madie Grass"
-                android:textColor="@color/gameText"
-                android:textSize="12sp"
-                android:clickable="true" />
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/game_card_2"
-        android:clickable="true"
-        android:layout_height="@dimen/card_game_height"
-        android:layout_width="@dimen/card_game_width"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/status_bar_p2"
-        >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/gameCard"
-            android:padding="10dp"
-            >
-
-            <TextView
-                android:id="@+id/game_card_text_2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="5dp"
-                android:text="2"
-                android:textColor="@color/gameText"
-                android:textSize="12sp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/game_card_3"
-        android:clickable="true"
-        android:layout_height="@dimen/card_game_height"
-        android:layout_width="@dimen/card_game_width"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/status_bar_p2"
-        >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/gameCard"
-            android:padding="10dp"
-            >
-            <TextView
-                android:id="@+id/game_card_text_3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="5dp"
-                android:layout_alignParentTop="true"
-                android:text="3"
-                android:textColor="@color/gameText"
-                android:textSize="12sp" />
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
         android:id="@+id/question_card"
         android:clickable="true"
         android:layout_height="@dimen/card_game_height"
         android:layout_width="match_parent"
-        android:layout_below="@+id/game_card_1"
+        android:layout_below="@+id/status_bar_p2"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         >
@@ -167,8 +136,9 @@
         android:layout_height="@dimen/card_game_height"
         android:layout_width="@dimen/card_game_width"
         android:layout_below="@id/question_card"
+         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_marginRight="10dp"
         >
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -182,7 +152,6 @@
                 android:layout_height="match_parent"
                 android:paddingBottom="5dp"
                 android:layout_alignParentTop="true"
-                android:text="Madie Grass"
                 android:textColor="@color/gameText"
                 android:textSize="12sp" />
         </RelativeLayout>
@@ -208,7 +177,6 @@
                 android:layout_height="match_parent"
                 android:paddingBottom="5dp"
                 android:layout_alignParentTop="true"
-                android:text="5"
                 android:textColor="@color/gameText"
                 android:textSize="12sp" />
         </RelativeLayout>
@@ -222,6 +190,7 @@
         android:layout_below="@id/question_card"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginLeft="10dp"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -235,41 +204,12 @@
                 android:layout_height="match_parent"
                 android:paddingBottom="5dp"
                 android:layout_alignParentTop="true"
-                android:text="6"
                 android:textColor="@color/gameText"
                 android:textSize="12sp" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/game_card_4"
-            >
-            <TextView
-                android:id="@+id/name_p1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Wah Luigi"/>
-
-            <ProgressBar
-                android:id="@+id/progressBarP1"
-                android:layout_below="@id/name_p1"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/circle_shape"
-                android:indeterminate="false"
-                android:max="100"
-                android:progressDrawable="@drawable/circular_progress_bar" />
-
-        </RelativeLayout>
 
 
 

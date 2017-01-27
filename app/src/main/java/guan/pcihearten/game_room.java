@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Random;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -35,6 +36,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class game_room extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 //    Variable declare
@@ -58,12 +61,23 @@ private static final String TAG = "Game Room";
     private int randomAnswerToken;
     private int randomQuestionToken;
     private String game_key;
+    private String gameTextConvert1;
+    private String gameTextConvert2;
+    private String gameTextConvert3;
 
 
 //    For random usage
     private List arrList = new ArrayList();
     private List holderList = new ArrayList();
     private Random rand = new Random();
+
+    //Status bar
+    private TextView p1Name;
+    private TextView p2Name;
+    private ProgressBar p1Hp;
+    private ProgressBar p2Hp;
+    private CircleImageView p1AvatarPic;
+    private CircleImageView p2AvatarPic;
 
 
     //   Firebase variable declare
@@ -76,6 +90,7 @@ private static final String TAG = "Game Room";
     // Firebase instance variables
     private DatabaseReference mFirebaseDatabaseReference;
     private DatabaseReference mConditionReference;
+    private DatabaseReference mTriggerReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +113,7 @@ private static final String TAG = "Game Room";
                         .setAction("Action", null).show();
             }
         });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 //        Cast layout of answer text
@@ -105,10 +121,19 @@ private static final String TAG = "Game Room";
         gameText2 = (TextView) findViewById(R.id.game_card_text_5);
         gameText3 = (TextView) findViewById(R.id.game_card_text_6);
 
+//        Cast layout for characther statBar
+        p1Name = (TextView) findViewById(R.id.name_p1);
+        p2Name = (TextView) findViewById(R.id.name_p2);
+        p1Hp = (ProgressBar) findViewById(R.id.progressBarP1);
+        p2Hp = (ProgressBar) findViewById(R.id.progressBarP2);
+        p1AvatarPic = (CircleImageView)findViewById(R.id.p1Avatar);
+        p2AvatarPic = (CircleImageView) findViewById(R.id.p2Avatar);
+
+        checkUserStatus();
         gameBufferTransfer();
         questionRetrieval();
-        checkCorrect();
         matchCondition();
+        statBar();
 
     }
 
@@ -119,9 +144,6 @@ private static final String TAG = "Game Room";
 
         mUsername = mFirebaseUser.getDisplayName();
         mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
-
-        TextView gameText = (TextView) findViewById(R.id.game_card_text_1);
-        gameText.setText(mUsername);
 
     }
 
@@ -155,24 +177,11 @@ private static final String TAG = "Game Room";
                 questionText1.setText(post.getQuestion());
                 questionTag1 = post.getQuestionTag();
 
-//                Remove selected tag to prevent duplicates
-                holdList(questionTag1);
-                //        populate list with numbers
-                if (arrList.size() == 3) {
-                    arrList.clear();
-                }
+                answerRetrieval1(Long.valueOf(randomQuestionToken));
+                answerRetrieval2(Long.valueOf(randomQuestionToken));
+                answerRetrieval3(Long.valueOf(randomQuestionToken));
 
-                    arrList.add(questionTag1);
-                    arrList.add(holderList.get(0));
-                    arrList.add(holderList.get(1));
-
-
-                Collections.shuffle(arrList);
-
-                answerRetrieval1((long) arrList.get(0));
-                answerRetrieval2((long) arrList.get(1));
-                answerRetrieval3((long) arrList.get(2));
-
+                checkCorrect(randomQuestionToken);
 
                 // [END_EXCLUDE]
             }
@@ -187,6 +196,7 @@ private static final String TAG = "Game Room";
             }
         };
         mFirebaseDatabaseReference.addValueEventListener(postListener);
+
 
     }
 
@@ -216,8 +226,7 @@ private static final String TAG = "Game Room";
                 // Get Post object and use the values to update the UI
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
-                gameText1.setText(post.getAnswer());
-                answerTag1 = post.getAnswerTag();
+                gameText1.setText(post.getChoice1());
                 // [END_EXCLUDE]
             }
             @Override
@@ -244,8 +253,7 @@ private static final String TAG = "Game Room";
                 // Get Post object and use the values to update the UI
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
-                gameText2.setText(post.getAnswer());
-                answerTag2 = post.getAnswerTag();
+                gameText2.setText(post.getChoice2());
                 // [END_EXCLUDE]
             }
             @Override
@@ -272,8 +280,7 @@ private static final String TAG = "Game Room";
                 // Get Post object and use the values to update the UI
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
-                gameText3.setText(post.getAnswer());
-                answerTag3 = post.getAnswerTag();
+                gameText3.setText(post.getChoice3());
                 // [END_EXCLUDE]
             }
             @Override
@@ -291,45 +298,114 @@ private static final String TAG = "Game Room";
     }
 
 //Code to check if button clicked is correct
-    public void checkCorrect(){
-//        Click on card and compare the tags, correct will do something
-        gameText1.setOnClickListener(new View.OnClickListener() {
+    public void checkCorrect(long selectedQuestion){
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("game_data/game_answer/answer" + selectedQuestion);
+
+        ValueEventListener postListener = new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                if(answerTag1 == questionTag1) {
-                    questionRetrieval();
-                }
-                else
-                    Log.d("game_room", "It is wrong");
-            }
-        });
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final game_data post = dataSnapshot.getValue(game_data.class);
+                gameTextConvert1 = gameText1.getText().toString();
+                gameTextConvert2 = gameText2.getText().toString();
+                gameTextConvert3 = gameText3.getText().toString();
 
-        gameText2.setOnClickListener(new View.OnClickListener() {
+                gameText1.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // If the answer is correct
+                                if(gameTextConvert1.equals(post.getAnswer())){
+                                    questionRetrieval();
+                                }
+                            }
+                        }
+                );
+
+                gameText2.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if(gameTextConvert2.equals(post.getAnswer())){
+                                    questionRetrieval();
+                                }
+                            }
+                        }
+                );
+
+                gameText3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(gameTextConvert3.equals(post.getAnswer())){
+                            questionRetrieval();
+                        }
+                    }
+                });
+
+
+
+
+            }
+
             @Override
-            public void onClick(View view) {
-                if(answerTag2 == questionTag1) {
-                    Log.d("game_room", "It is correct");
-                    questionRetrieval();
-                }
-                else
-                    Log.d("game_room", "It is wrong");
-            }
-        });
+            public void onCancelled(DatabaseError databaseError) {
 
-        gameText3.setOnClickListener(new View.OnClickListener() {
+            }
+        };
+        mFirebaseDatabaseReference.addValueEventListener(postListener);
+
+    }
+
+//   Player status bar
+    public void statBar(){
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("game_buffer").child(game_key);
+
+        ValueEventListener statListener = new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                if(answerTag3 == questionTag1) {
-                    Log.d("game_room", "It is correct");
-                    questionRetrieval();
-                }
-                else
-                    Log.d("game_room", "It is wrong");
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                buffer_data post = dataSnapshot.getValue(buffer_data.class);
+//                Sets the name
+                p1Name.setText(post.getP1());
+                p2Name.setText(post.getP2());
+//                Sets the initial progress
+                p1Hp.setProgress((int) (long) post.getP1Hp());
+                p2Hp.setProgress((int) (long) post.getP2Hp());
+//                Sets the avatar
+                Glide.with(game_room.this)
+                        .load(post.getP1Photo())
+                        .into(p1AvatarPic);
+                Glide.with(game_room.this)
+                        .load(post.getP2Photo())
+                        .into(p2AvatarPic);
+
+
+
+
+
             }
-        });
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        mFirebaseDatabaseReference.addListenerForSingleValueEvent(statListener);
 
 
+    }
 
+//    Correct Trigger
+    public void correctTrigger(){
+        mTriggerReference = FirebaseDatabase.getInstance().getReference()
+                .child("game_buffer/"+game_key);
+    }
+
+//    Wrong Trigger
+    public void wrongTrigger(){
+        mTriggerReference = FirebaseDatabase.getInstance().getReference()
+                .child("game_buffer/"+game_key);
     }
 
 //    Check if match is cancelled
@@ -389,7 +465,7 @@ private static final String TAG = "Game Room";
 
             }
         });
-
+        finish();
         super.onStop();
     }
 

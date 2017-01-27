@@ -245,6 +245,7 @@
             android:name=".game_room"
             android:label="@string/title_activity_game_room"
             android:parentActivityName=".mainPage"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

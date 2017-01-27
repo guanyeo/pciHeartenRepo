@@ -44,6 +44,7 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
     private String uniqueGameKey;
     private int waitFlag;
     private String keyTransfer;
+    private String p2Photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,25 +82,27 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
                 buffer_data post = dataSnapshot.getValue(buffer_data.class);
                 // [START_EXCLUDE]
                 try {
-                    if (post.getState().equals("start")){
-//                        Stop listening the event
-                        mFirebaseDatabaseReference.removeEventListener(this);
+                    if (post.getState().equals("start") && (post.getP1().equals(mUsername))){
+
 //                        Goes to game room
                         Intent intent = new Intent("guan.pcihearten.game_room");
                         intent.putExtra("key_transfer", uniqueGameKey);
-                        Log.d("gbuffer", ""+uniqueGameKey);
                         startActivity(intent);
+//                  Stop listening the event
+                        mFirebaseDatabaseReference.removeEventListener(this);
                         finish();
                     }
-                    else if (post.getState().equals("cancelled")){
+
+                    if (post.getState().equals("cancelled")){
                         mFirebaseDatabaseReference.removeEventListener(this);
                         mFirebaseDatabaseReference.removeValue();
                         finish();
                     }
 
+
                 } catch (NullPointerException e) {
                     uniqueGameKey = mFirebaseDatabaseReference.push().getKey();
-                    buffer_data buffer_data1 = new buffer_data("wait", mUsername, "Waiting for player 2...", uniqueGameKey);
+                    buffer_data buffer_data1 = new buffer_data("wait", mUsername, "Waiting for player 2...", uniqueGameKey, mPhotoUrl, null, null, null);
                     mFirebaseDatabaseReference.child("")
                             .setValue(buffer_data1);
                 }
@@ -135,14 +138,16 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
 
 //                  Check if p1 name is same as p2 if not the proceed
                     if (post.getState().equals("wait") && !(p1.equals(mUsername))) {
-                        buffer_data buffer_data1 = new buffer_data("start", p1, mUsername, uniqueGameKey);
+                        buffer_data buffer_data1 = new buffer_data("start", p1, mUsername, uniqueGameKey, post.getP1Photo(), mPhotoUrl, null, null);
                         mFirebaseDatabaseReference.child("")
                                 .setValue(buffer_data1);
                         //Set p2 is 2nd player name
                         p2=mUsername;
+                        p2Photo = mPhotoUrl;
 
 //                        Change state of game to ongoing and set a unique id of p1 and p2 as child node
-                        buffer_data buffer_data2 = new buffer_data("onGoing", p1, p2, uniqueGameKey);
+                        buffer_data buffer_data2 = new buffer_data("onGoing", p1, p2, uniqueGameKey, post.getP1Photo(), p2Photo, 100L, 100L);
+                        Log.d("p1+p2",""+post.getP1Photo() +""+ post.getP2Photo());
                         mReferenceOnGoing.child(uniqueGameKey)
                                 .setValue(buffer_data2);
 
@@ -180,6 +185,9 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
             return;
         } else {
             mUsername = mFirebaseUser.getDisplayName();
+            if (mFirebaseUser.getPhotoUrl() != null) {
+                mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
+            }
         }
     }
 
@@ -196,7 +204,7 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
                         buffer_data post = dataSnapshot.getValue(buffer_data.class);
                         try {
                             if (post.getP1().equals(mUsername)) {
-                                buffer_data buffer_data1 = new buffer_data("cancelled", null, null, null);
+                                buffer_data buffer_data1 = new buffer_data("cancelled", null, null, null, null, null, null, null);
                                 mFirebaseDatabaseReference.child("")
                                         .setValue(buffer_data1);
                             }

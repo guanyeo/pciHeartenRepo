@@ -14,12 +14,14 @@
     <color name="blue">#0737d4</color>
 
 
-    <!-- RECYCLER TEST-->
 
     <color name="viewBg">#f1f5f8</color>
     <color name="album_title">#4c4c4c</color>
+
+    <!-- game_room-->
     <color name="gameCard">#FF1744</color>
     <color name="gameText">#fff</color>
+    <color name="hp_bar">#4cc14a</color>
 
 
 </resources>
