@@ -1,5 +1,10 @@
 package guan.pcihearten;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by User on 1/20/2017.
  */
@@ -89,6 +94,17 @@ public buffer_data(){
     public void setP2Hp(Long p2Hp) {
         this.p2Hp = p2Hp;
     }
+
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("p1Hp", p1Hp);
+        result.put("p2HP", p2Hp);
+
+        return result;
+    }
+
 
 
 

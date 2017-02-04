@@ -2,6 +2,8 @@ package guan.pcihearten;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.renderscript.Sampler;
@@ -78,6 +80,8 @@ private static final String TAG = "Game Room";
     private ProgressBar p2Hp;
     private CircleImageView p1AvatarPic;
     private CircleImageView p2AvatarPic;
+    private Long p1HpHolder;
+    private Long p2HpHolder;
 
 
     //   Firebase variable declare
@@ -317,6 +321,10 @@ private static final String TAG = "Game Room";
                                 // If the answer is correct
                                 if(gameTextConvert1.equals(post.getAnswer())){
                                     questionRetrieval();
+                                    correctTrigger();
+                                }
+                                else{
+                                    wrongTrigger();
                                 }
                             }
                         }
@@ -328,6 +336,10 @@ private static final String TAG = "Game Room";
                             public void onClick(View view) {
                                 if(gameTextConvert2.equals(post.getAnswer())){
                                     questionRetrieval();
+                                    correctTrigger();
+                                }
+                                else{
+                                    wrongTrigger();
                                 }
                             }
                         }
@@ -338,6 +350,10 @@ private static final String TAG = "Game Room";
                     public void onClick(View view) {
                         if(gameTextConvert3.equals(post.getAnswer())){
                             questionRetrieval();
+                            correctTrigger();
+                        }
+                        else{
+                            wrongTrigger();
                         }
                     }
                 });
@@ -365,23 +381,58 @@ private static final String TAG = "Game Room";
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 buffer_data post = dataSnapshot.getValue(buffer_data.class);
+                try {
 //                Sets the name
-                p1Name.setText(post.getP1());
-                p2Name.setText(post.getP2());
+                    p1Name.setText(post.getP1());
+                    p2Name.setText(post.getP2());
 //                Sets the initial progress
-                p1Hp.setProgress((int) (long) post.getP1Hp());
-                p2Hp.setProgress((int) (long) post.getP2Hp());
+                    p1Hp.setProgress((int) (long) post.getP1Hp());
+                    p2Hp.setProgress((int) (long) post.getP2Hp());
+
+//                    Set color of progress bar player1
+                    if(p1Hp.getProgress() <= 75 && p1Hp.getProgress()>=55){
+                        //change to yellow
+                        p1Hp.getProgressDrawable().setColorFilter(
+                                Color.rgb(253,216,53), PorterDuff.Mode.SRC_IN);
+                    }
+                    if(p1Hp.getProgress()<=45){
+                        //change to red
+                        p1Hp.getProgressDrawable().setColorFilter(
+                                Color.rgb(183,28,28), PorterDuff.Mode.SRC_IN);
+                    }
+                    //Set for player 2
+                    if(p2Hp.getProgress() <= 75 && p2Hp.getProgress()>=55){
+                        //change to yellow
+                        p2Hp.getProgressDrawable().setColorFilter(
+                                Color.rgb(253,216,53), PorterDuff.Mode.SRC_IN);
+                    }
+                    if(p2Hp.getProgress()<=45){
+                        //change to red
+                        p2Hp.getProgressDrawable().setColorFilter(
+                                Color.rgb(183,28,28), PorterDuff.Mode.SRC_IN);
+                    }
+
+
+//                    Condition when a player reaches 0 life
+                    if(p1Hp.getProgress() <=0 || p2Hp.getProgress() <=0){
+                        Log.d("Uh Oh!","Someone just died!");
+                    }
+                    try {
 //                Sets the avatar
-                Glide.with(game_room.this)
-                        .load(post.getP1Photo())
-                        .into(p1AvatarPic);
-                Glide.with(game_room.this)
-                        .load(post.getP2Photo())
-                        .into(p2AvatarPic);
+                        Glide.with(game_room.this)
+                                .load(post.getP1Photo())
+                                .into(p1AvatarPic);
+                        Glide.with(game_room.this)
+                                .load(post.getP2Photo())
+                                .into(p2AvatarPic);
+                    }
+                    catch (IllegalArgumentException e){
 
+                    }
+                }
+                catch (NullPointerException e){
 
-
-
+                }
 
             }
 
@@ -391,21 +442,82 @@ private static final String TAG = "Game Room";
             }
         };
 
-        mFirebaseDatabaseReference.addListenerForSingleValueEvent(statListener);
+        mFirebaseDatabaseReference.addValueEventListener(statListener);
 
 
     }
 
 //    Correct Trigger
     public void correctTrigger(){
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("game_buffer/"+game_key);
+
         mTriggerReference = FirebaseDatabase.getInstance().getReference()
                 .child("game_buffer/"+game_key);
+
+
+
+        mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                buffer_data post = dataSnapshot.getValue(buffer_data.class);
+                if(mUsername.equals(post.getP1())){
+                    p2HpHolder = post.getP2Hp();
+                    p2HpHolder-=10L;
+                    mTriggerReference.child("p2Hp").setValue(p2HpHolder);
+                    p2Hp.setProgress((int) (long) p2HpHolder);
+                }
+                if(mUsername.equals(post.getP2())){
+                    p1HpHolder = post.getP1Hp();
+                    p1HpHolder-=10L;
+                    mTriggerReference.child("p1Hp").setValue(p1HpHolder);
+                    p1Hp.setProgress((int) (long) p1HpHolder);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 //    Wrong Trigger
     public void wrongTrigger(){
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("game_buffer/"+game_key);
+
         mTriggerReference = FirebaseDatabase.getInstance().getReference()
                 .child("game_buffer/"+game_key);
+
+
+
+        mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                buffer_data post = dataSnapshot.getValue(buffer_data.class);
+                if(!(mUsername.equals(post.getP1()))){
+                    p2HpHolder = post.getP2Hp();
+                    p2HpHolder-=5L;
+                    mTriggerReference.child("p2Hp").setValue(p2HpHolder);
+                    p2Hp.setProgress((int) (long) p2HpHolder);
+                }
+                if(!(mUsername.equals(post.getP2()))){
+                    p1HpHolder = post.getP1Hp();
+                    p1HpHolder-=5L;
+                    mTriggerReference.child("p1Hp").setValue(p1HpHolder);
+                    p1Hp.setProgress((int) (long) p1HpHolder);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 //    Check if match is cancelled
@@ -419,6 +531,12 @@ private static final String TAG = "Game Room";
                 buffer_data post = dataSnapshot.getValue(buffer_data.class);
                 try {
                     if (post.getState().equals("cancelled")) {
+                        mConditionReference.removeEventListener(this);
+                        mConditionReference.removeValue();
+                        finish();
+                    }
+
+                    if(post.getState().equals("complete")){
                         mConditionReference.removeEventListener(this);
                         mConditionReference.removeValue();
                         finish();
