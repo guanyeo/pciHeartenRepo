@@ -3,11 +3,17 @@ package guan.pcihearten;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +36,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -38,11 +49,16 @@ public class loginScreen extends AppCompatActivity implements
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
-
+    private SharedPreferences mSharedPreferences;
+    public static final int DEFAULT_MSG_LENGTH_LIMIT = 70;
     private SignInButton loginButton;
     //Firebase Instance Variable
     private FirebaseAuth mFirebaseAuth;
     private GoogleApiClient mGoogleApiClient;
+    private DatabaseReference mFirebaseDatabaseReference;
+
+    private EditText uniqueUsernameEdit;
+    private Button oneTimeBtn;
 
 
     @Override
@@ -66,8 +82,10 @@ public class loginScreen extends AppCompatActivity implements
                 .build();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+        createDatabase();
+        privateLogin();
+        checkUniUserStatus();
 
-        regProceed();
     }
 
 
@@ -140,63 +158,83 @@ public class loginScreen extends AppCompatActivity implements
 
 
 
+//Below is independent login system
+    public void createDatabase(){
+        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
+        mydatabase.execSQL("CREATE TABLE IF NOT EXISTS unique_user (uname TEXT NOT NULL);");
+    }
 
-//Everything below is unused and kept for reference
-    public void regProceed(){
-        Button registerButton = (Button) findViewById(R.id.reg_btn);
+//Check if unique User is logged in
+    public void checkUniUserStatus(){
+        final SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
+        final Cursor retrieveUname = mydatabase.rawQuery("SELECT COUNT(*) FROM unique_user",null);
+        try {
+            retrieveUname.moveToFirst();
+            String unameString = retrieveUname.getString(0);
+            int checkInsert = Integer.parseInt(unameString);
 
-        //Press to popup register page
-        registerButton.setOnClickListener(new View.OnClickListener() {
+            if(checkInsert!=0){
+                Intent intent = new Intent("guan.pcihearten.mainPage");
+                startActivity(intent);
+                finish();
+            }
+        }
+        finally {
+            retrieveUname.close();
+        }
+    }
+
+    public void privateLogin(){
+        uniqueUsernameEdit = (EditText)findViewById(R.id.username_input);
+        oneTimeBtn = (Button)findViewById(R.id.alt_login);
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("unique_user");
+        final SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
+
+        oneTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                View regDialogView = LayoutInflater.from(loginScreen.this).inflate(R.layout.register_customdialog_layout, null);
-                final EditText regEditEmail = (EditText) regDialogView.findViewById(R.id.et_reg_email);
-                final EditText regEditPassword = (EditText) regDialogView.findViewById(R.id.et_reg_password);
-                final FirebaseAuth regAuth;
-                regAuth = FirebaseAuth.getInstance();
 
-                //Build a dialog
-                final AlertDialog regAlertDialog = new AlertDialog.Builder(loginScreen.this)
-                        .setView(regDialogView)
-                        .setTitle("Register")
-                        .setPositiveButton("Confirm", null)
-                        .setNegativeButton("Cancel", null)
-                        .create();
-                regAlertDialog.show();
-
-                //Register popup confirm button
-                Button theButton = regAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                theButton.setOnClickListener(new View.OnClickListener() {
+                mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onClick(View view) {
-                        if (TextUtils.isEmpty(regEditEmail.getText().toString()) || TextUtils.isEmpty(regEditPassword.getText().toString())){
-                            Toast.makeText(loginScreen.this, "Do not leave the field empty.", Toast.LENGTH_SHORT).show();
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                      Check if name is exist, if it is deny name creation
+                        if (dataSnapshot.hasChild(uniqueUsernameEdit.getText().toString())) {
+                            Toast.makeText(loginScreen.this, "Please choose another name.", Toast.LENGTH_SHORT).show();
                         }
-                        else{
-                            regAuth.createUserWithEmailAndPassword(regEditEmail.getText().toString(), regEditPassword.getText().toString())
-                                    .addOnCompleteListener(loginScreen.this, new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if(task.isSuccessful()){
-                                                Toast.makeText(loginScreen.this, "Registered Successful", Toast.LENGTH_SHORT).show();
-                                            }
-                                            else{
-                                                Toast.makeText(loginScreen.this, "Fail to register", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });
-
-
-                            regAlertDialog.dismiss();
+                        else {
+                                mydatabase.execSQL("INSERT INTO unique_user VALUES ('" + uniqueUsernameEdit.getText().toString() + "');");
+                                mFirebaseDatabaseReference.child(uniqueUsernameEdit.getText().toString()).setValue("0");
+                                Toast.makeText(loginScreen.this, "Data successfully inserted", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent("guan.pcihearten.mainPage");
+                                startActivity(intent);
+                                finish();
                         }
+                        }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
                     }
                 });
-
-
             }
         });
+
+//        To delete the table(Remove this comment after usage)
+       Button delButton = (Button)findViewById(R.id.delBtn);
+
+        delButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mydatabase.execSQL("DROP TABLE unique_user");
+            }
+        });
+
     }
+
+
+
 
 
 

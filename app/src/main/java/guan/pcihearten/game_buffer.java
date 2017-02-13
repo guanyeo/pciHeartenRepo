@@ -2,6 +2,8 @@ package guan.pcihearten;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -64,13 +66,14 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
 
-        checkUserStatus();
+//        checkUserStatus();
+        initUniqueUser();
         openPlayer();
         secondPlayer();
     }
 
 
-
+//[Player that creates the game]
     public void openPlayer(){
 //        Where to retrieve
             mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
@@ -191,6 +194,21 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
         }
     }
 
+    //    [Retrieve name from client DB]
+    public void initUniqueUser(){
+        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db", MODE_PRIVATE, null);
+        Cursor retrieveUname = mydatabase.rawQuery("SELECT uname FROM unique_user", null);
+
+        try {
+            retrieveUname.moveToFirst();
+            String unameString = retrieveUname.getString(0);
+            mUsername = unameString;
+            mPhotoUrl = "https://cdn0.iconfinder.com/data/icons/superuser-web-kit/512/686909-user_people_man_human_head_person-512.png";
+        }
+        finally {
+            retrieveUname.close();
+        }
+    }
 
     @Override
     protected void onStop() {

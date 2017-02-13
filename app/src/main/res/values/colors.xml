@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#3949AB</color>
     <color name="colorAccent">#1E88E5</color>
 
-    <color name="colorCard">#689F38</color>
-    <color name="stepColor">#FFF</color>
-    <color name="desc_color">#FFF</color>
+    <color name="colorCard">#fffafa</color>
+    <color name="stepColor">#000</color>
+    <color name="desc_color">#000</color>
 
 
     <color name="light_black">#504f4f</color>
@@ -20,7 +20,7 @@
 
     <!-- game_room-->
     <color name="gameCard">#FF1744</color>
-    <color name="gameText">#fff</color>
+    <color name="gameText">#000</color>
     <color name="hp_bar">#4cc14a</color>
 
 

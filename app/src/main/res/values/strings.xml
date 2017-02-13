@@ -21,17 +21,18 @@
     <string name="action_settings">Quit</string>
     <!-- Nav -->
     <string name="nav_bar_title_string">PCI Info</string>
-    <string name="nav_information_string">What is PCI?</string>
-    <string name="nav_prepci_string">Preparation before PCI</string>
-    <string name="nav_pciprocedure_string">How is PCI done?</string>
-    <string name="nav_postpci_string">Post PCI Procedure</string>
+    <string name="nav_information_string">Read</string>
+    <string name="nav_prepci_string">1v1 Multiplayer</string>
+    <string name="nav_pciprocedure_string">Quest</string>
+    <string name="nav_postpci_string">Patient Info</string>
+    <string name="nav_prevent_string">Shop</string>
     <string name="nav_status_string">Status</string>
     <string name="nav_mock_string">Mock Test</string>
     <string name="nav_dash_string">Dashboard</string>
-    <string name="nav_prevent_string">Heart attack prevention</string>
+
 
     <!-- Nav BM -->
-    <string name="nav_information_string_bm">Intervensi Percutaneous Koronari</string>
+    <string name="nav_information_string_bm">Read</string>
     <string name="nav_prepci_string_bm">Persediaan sebelum PCI</string>
     <string name="nav_pciprocedure_string_bm">Prosedur PCI</string>
     <string name="nav_postpci_string_bm">Selepas Prosedur PCI</string>

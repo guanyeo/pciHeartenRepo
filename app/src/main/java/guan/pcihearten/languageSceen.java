@@ -29,7 +29,7 @@ public class languageSceen extends AppCompatActivity {
             public void onClick(View view) {
                 changeLanguante("eg");
                 getLanguageSelected();
-                Intent intent = new Intent("guan.pcihearten.mainPage");
+                Intent intent = new Intent("guan.pcihearten.loginScreen");
                 startActivity(intent);
             }
         });

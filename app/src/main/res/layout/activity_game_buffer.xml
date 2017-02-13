@@ -16,5 +16,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:paddingBottom="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBar"
+        android:text="Waiting for player 2..."
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        />
 </RelativeLayout>

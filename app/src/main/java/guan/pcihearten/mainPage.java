@@ -2,6 +2,8 @@ package guan.pcihearten;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -37,6 +39,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +47,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.google.firebase.analytics.FirebaseAnalytics;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class mainPage extends AppCompatActivity
@@ -87,6 +90,10 @@ public class mainPage extends AppCompatActivity
     private DatabaseReference mFirebaseDatabaseReference;
     private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>
             mFirebaseAdapter;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,12 +112,14 @@ public class mainPage extends AppCompatActivity
         setSupportActionBar(toolbar);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //Set Default Username Anon
-        mUsername = ANONYMOUS;
+        initUniqueUsername();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
+//        instantiate firebase analytic
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         // Initialize ProgressBar and RecyclerView.
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -224,7 +233,7 @@ public class mainPage extends AppCompatActivity
             navigationView.setNavigationItemSelectedListener(this);
         }
 
-        checkUserStatus();
+//        checkUserStatus();
     }
 
     public void checkUserStatus(){
@@ -244,6 +253,22 @@ public class mainPage extends AppCompatActivity
         }
 
     }
+
+    public void initUniqueUsername(){
+        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db", MODE_PRIVATE, null);
+        Cursor retrieveUname = mydatabase.rawQuery("SELECT uname FROM unique_user", null);
+
+        try {
+            retrieveUname.moveToFirst();
+            String unameString = retrieveUname.getString(0);
+            mUsername = unameString;
+        }
+        finally {
+            retrieveUname.close();
+        }
+
+    }
+
 
 
 
@@ -301,24 +326,27 @@ public class mainPage extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_information) {
-            // Handle the camera action
-            Intent intent = new Intent("guan.pcihearten.game_room");
+
+            // [START image_view_event]
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, mUsername+" selected read.");
+            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+            // [END image_view_event]
+
+            Intent intent = new Intent("guan.pcihearten.read_tab");
             startActivity(intent);
 
         } else if (id == R.id.nav_prepci) {
-            Intent intent = new Intent("guan.pcihearten.game_lobby");
+            Intent intent = new Intent("guan.pcihearten.game_buffer");
             startActivity(intent);
 
         } else if (id == R.id.nav_pciprocedure) {
-            Intent intent = new Intent("guan.pcihearten.game_buffer");
-            startActivity(intent);
+
         } else if (id == R.id.nav_postpci) {
-            Intent intent = new Intent("guan.pcihearten.guan_test");
-            startActivity(intent);
+
 
         } else if (id == R.id.nav_health) {
-            Intent intent = new Intent("guan.pcihearten.health");
-            startActivity(intent);
+
         }
         
 
@@ -326,4 +354,6 @@ public class mainPage extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

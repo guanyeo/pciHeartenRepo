@@ -1,7 +1,10 @@
 package guan.pcihearten;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -10,11 +13,13 @@ import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -109,14 +114,6 @@ private static final String TAG = "Game Room";
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -133,7 +130,8 @@ private static final String TAG = "Game Room";
         p1AvatarPic = (CircleImageView)findViewById(R.id.p1Avatar);
         p2AvatarPic = (CircleImageView) findViewById(R.id.p2Avatar);
 
-        checkUserStatus();
+//      checkUserStatus();
+        initUniqueUser();
         gameBufferTransfer();
         questionRetrieval();
         matchCondition();
@@ -149,6 +147,21 @@ private static final String TAG = "Game Room";
         mUsername = mFirebaseUser.getDisplayName();
         mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
 
+    }
+
+//    [Retrieve name from client DB]
+    public void initUniqueUser(){
+        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db", MODE_PRIVATE, null);
+        Cursor retrieveUname = mydatabase.rawQuery("SELECT uname FROM unique_user", null);
+
+        try {
+            retrieveUname.moveToFirst();
+            String unameString = retrieveUname.getString(0);
+            mUsername = unameString;
+        }
+        finally {
+            retrieveUname.close();
+        }
     }
 
 
@@ -230,6 +243,7 @@ private static final String TAG = "Game Room";
                 // Get Post object and use the values to update the UI
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
+                gameText1.setTextColor(Color.TRANSPARENT);
                 gameText1.setText(post.getChoice1());
                 // [END_EXCLUDE]
             }
@@ -257,6 +271,7 @@ private static final String TAG = "Game Room";
                 // Get Post object and use the values to update the UI
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
+                gameText2.setTextColor(Color.TRANSPARENT);
                 gameText2.setText(post.getChoice2());
                 // [END_EXCLUDE]
             }
@@ -284,6 +299,7 @@ private static final String TAG = "Game Room";
                 // Get Post object and use the values to update the UI
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
+                gameText3.setTextColor(Color.TRANSPARENT);
                 gameText3.setText(post.getChoice3());
                 // [END_EXCLUDE]
             }
@@ -318,36 +334,62 @@ private static final String TAG = "Game Room";
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                // If the answer is correct
-                                if(gameTextConvert1.equals(post.getAnswer())){
-                                    questionRetrieval();
-                                    correctTrigger();
-                                }
-                                else{
-                                    wrongTrigger();
-                                }
+                                Snackbar.make(view, gameTextConvert1, Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
                             }
                         }
                 );
+
+                gameText1.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        // If the answer is correct
+                        if(gameTextConvert1.equals(post.getAnswer())){
+                            questionRetrieval();
+                            correctTrigger();
+                        }
+                        else{
+                            wrongTrigger();
+                        }
+                        return false;
+                    }
+                });
 
                 gameText2.setOnClickListener(
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if(gameTextConvert2.equals(post.getAnswer())){
-                                    questionRetrieval();
-                                    correctTrigger();
-                                }
-                                else{
-                                    wrongTrigger();
-                                }
+                                Snackbar.make(view, gameTextConvert2, Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
                             }
                         }
                 );
 
+                gameText2.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        if(gameTextConvert2.equals(post.getAnswer())){
+                            questionRetrieval();
+                            correctTrigger();
+                        }
+                        else{
+                            wrongTrigger();
+                        }
+                        return false;
+                    }
+                });
+
                 gameText3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Snackbar.make(view, gameTextConvert3, Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                });
+
+                gameText3.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
                         if(gameTextConvert3.equals(post.getAnswer())){
                             questionRetrieval();
                             correctTrigger();
@@ -355,6 +397,7 @@ private static final String TAG = "Game Room";
                         else{
                             wrongTrigger();
                         }
+                        return false;
                     }
                 });
 
@@ -377,10 +420,12 @@ private static final String TAG = "Game Room";
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
                 .child("game_buffer").child(game_key);
 
-        ValueEventListener statListener = new ValueEventListener() {
+
+        final ValueEventListener statListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 buffer_data post = dataSnapshot.getValue(buffer_data.class);
+
                 try {
 //                Sets the name
                     p1Name.setText(post.getP1());
@@ -412,10 +457,60 @@ private static final String TAG = "Game Room";
                                 Color.rgb(183,28,28), PorterDuff.Mode.SRC_IN);
                     }
 
-
 //                    Condition when a player reaches 0 life
-                    if(p1Hp.getProgress() <=0 || p2Hp.getProgress() <=0){
-                        Log.d("Uh Oh!","Someone just died!");
+                    if((p1Hp.getProgress() <=0 || p2Hp.getProgress() <=0) && post.getState().equals("onGoing")){
+                        if(post.getState().equals("onGoing")) {
+                            Log.d("Uh Oh!", "Someone just died!");
+                            mFirebaseDatabaseReference.child("state").setValue("complete");
+                        }
+                        Log.d("Escape?","2nd Death");
+                        mFirebaseDatabaseReference.removeEventListener(this);
+//                      Evaluate if player just died
+                            if (p1Hp.getProgress() <= 0 && post.getP1().equals(mUsername)) {
+                                AlertDialog alertDialog = new AlertDialog.Builder(game_room.this).create();
+                                alertDialog.setTitle("Result");
+                                alertDialog.setMessage("You have lost!");
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                finish();
+                                            }
+                                        });
+                                alertDialog.show();
+                            }
+
+                            else if (p2Hp.getProgress() <= 0 && post.getP2().equals(mUsername)) {
+                                AlertDialog alertDialog = new AlertDialog.Builder(game_room.this).create();
+                                alertDialog.setTitle("Result");
+                                alertDialog.setMessage("You have lost!");
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                finish();
+                                            }
+                                        });
+                                alertDialog.show();
+                            }
+                        else{
+                                AlertDialog alertDialog = new AlertDialog.Builder(game_room.this).create();
+                                alertDialog.setTitle("Result");
+                                alertDialog.setMessage("You have won!");
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                finish();
+                                            }
+                                        });
+//                                Check if activity is finished
+                                if(!isFinishing()) {
+                                    alertDialog.show();
+                                }
+                            }
+                        mFirebaseDatabaseReference.child("p1Hp").setValue(null);
+                        mFirebaseDatabaseReference.child("p2Hp").setValue(null);
                     }
                     try {
 //                Sets the avatar
@@ -461,17 +556,22 @@ private static final String TAG = "Game Room";
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 buffer_data post = dataSnapshot.getValue(buffer_data.class);
-                if(mUsername.equals(post.getP1())){
-                    p2HpHolder = post.getP2Hp();
-                    p2HpHolder-=10L;
-                    mTriggerReference.child("p2Hp").setValue(p2HpHolder);
-                    p2Hp.setProgress((int) (long) p2HpHolder);
+                try {
+                    if (mUsername.equals(post.getP1())) {
+                        p2HpHolder = post.getP2Hp();
+                        p2HpHolder -= 10L;
+                        mTriggerReference.child("p2Hp").setValue(p2HpHolder);
+                        p2Hp.setProgress((int) (long) p2HpHolder);
+                    }
+                    if (mUsername.equals(post.getP2())) {
+                        p1HpHolder = post.getP1Hp();
+                        p1HpHolder -= 10L;
+                        mTriggerReference.child("p1Hp").setValue(p1HpHolder);
+                        p1Hp.setProgress((int) (long) p1HpHolder);
+                    }
                 }
-                if(mUsername.equals(post.getP2())){
-                    p1HpHolder = post.getP1Hp();
-                    p1HpHolder-=10L;
-                    mTriggerReference.child("p1Hp").setValue(p1HpHolder);
-                    p1Hp.setProgress((int) (long) p1HpHolder);
+                catch (NullPointerException e){
+
                 }
 
             }
@@ -496,18 +596,23 @@ private static final String TAG = "Game Room";
         mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                buffer_data post = dataSnapshot.getValue(buffer_data.class);
-                if(!(mUsername.equals(post.getP1()))){
-                    p2HpHolder = post.getP2Hp();
-                    p2HpHolder-=5L;
-                    mTriggerReference.child("p2Hp").setValue(p2HpHolder);
-                    p2Hp.setProgress((int) (long) p2HpHolder);
+                try {
+                    buffer_data post = dataSnapshot.getValue(buffer_data.class);
+                    if (!(mUsername.equals(post.getP1()))) {
+                        p2HpHolder = post.getP2Hp();
+                        p2HpHolder -= 5L;
+                        mTriggerReference.child("p2Hp").setValue(p2HpHolder);
+                        p2Hp.setProgress((int) (long) p2HpHolder);
+                    }
+                    if (!(mUsername.equals(post.getP2()))) {
+                        p1HpHolder = post.getP1Hp();
+                        p1HpHolder -= 5L;
+                        mTriggerReference.child("p1Hp").setValue(p1HpHolder);
+                        p1Hp.setProgress((int) (long) p1HpHolder);
+                    }
                 }
-                if(!(mUsername.equals(post.getP2()))){
-                    p1HpHolder = post.getP1Hp();
-                    p1HpHolder-=5L;
-                    mTriggerReference.child("p1Hp").setValue(p1HpHolder);
-                    p1Hp.setProgress((int) (long) p1HpHolder);
+                catch (NullPointerException e){
+
                 }
 
             }
@@ -539,7 +644,7 @@ private static final String TAG = "Game Room";
                     if(post.getState().equals("complete")){
                         mConditionReference.removeEventListener(this);
                         mConditionReference.removeValue();
-                        finish();
+                        Log.d("Complete","game is completed");
                     }
                 }
                 catch (NullPointerException e){
@@ -567,7 +672,8 @@ private static final String TAG = "Game Room";
             public void onDataChange(DataSnapshot dataSnapshot) {
                 buffer_data post = dataSnapshot.getValue(buffer_data.class);
                 try {
-                    if(!(post.getState().equals(null))) {
+                    if(!(post.getState().equals(null)) && (post.getState().equals("onGoing"))) {
+                        Log.d("Cancelled","Minus points for "+mUsername);
                         mFirebaseDatabaseReference.child("state")
                                 .setValue("cancelled");
                     }
