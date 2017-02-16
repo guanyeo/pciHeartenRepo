@@ -32,7 +32,8 @@
         android:id="@+id/btn_login"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
 
     <EditText
         android:layout_width="match_parent"

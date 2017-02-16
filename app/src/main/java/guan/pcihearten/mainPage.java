@@ -332,15 +332,23 @@ public class mainPage extends AppCompatActivity
             bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, mUsername+" selected read.");
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
             // [END image_view_event]
-
-            Intent intent = new Intent("guan.pcihearten.read_tab");
-            startActivity(intent);
+            languageSceen readFlag = new languageSceen();
+            if (readFlag.getLanguageSelected() == "bm") {
+                Intent intent = new Intent("guan.pcihearten.read_tab_bm");
+                startActivity(intent);
+            }
+            else{
+                Intent intent = new Intent("guan.pcihearten.read_tab");
+                startActivity(intent);
+            }
 
         } else if (id == R.id.nav_prepci) {
             Intent intent = new Intent("guan.pcihearten.game_buffer");
             startActivity(intent);
 
         } else if (id == R.id.nav_pciprocedure) {
+            Intent intent = new Intent("guan.pcihearten.game_leaderboard");
+            startActivity(intent);
 
         } else if (id == R.id.nav_postpci) {
 

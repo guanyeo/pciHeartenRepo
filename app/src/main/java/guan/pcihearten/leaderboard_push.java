@@ -1,18 +1,18 @@
 package guan.pcihearten;
 
 
-public class guanTesto {
+public class leaderboard_push {
 
     private String id;
     private String name;
     private String score;
 
 
-    public guanTesto() {
+    public leaderboard_push() {
         //Constructor needed
     }
 
-    public guanTesto(String name, String score) {
+    public leaderboard_push(String name, String score) {
         this.name = name;
         this.score = score;
 

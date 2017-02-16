@@ -88,6 +88,10 @@ private static final String TAG = "Game Room";
     private Long p1HpHolder;
     private Long p2HpHolder;
 
+//    For Calculation score
+    private Long scoreStore;
+
+
 
     //   Firebase variable declare
     private FirebaseAuth mFirebaseAuth;
@@ -98,6 +102,7 @@ private static final String TAG = "Game Room";
 
     // Firebase instance variables
     private DatabaseReference mFirebaseDatabaseReference;
+    private DatabaseReference mFirebaseScoreReference;
     private DatabaseReference mConditionReference;
     private DatabaseReference mTriggerReference;
 
@@ -243,7 +248,6 @@ private static final String TAG = "Game Room";
                 // Get Post object and use the values to update the UI
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
-                gameText1.setTextColor(Color.TRANSPARENT);
                 gameText1.setText(post.getChoice1());
                 // [END_EXCLUDE]
             }
@@ -271,7 +275,6 @@ private static final String TAG = "Game Room";
                 // Get Post object and use the values to update the UI
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
-                gameText2.setTextColor(Color.TRANSPARENT);
                 gameText2.setText(post.getChoice2());
                 // [END_EXCLUDE]
             }
@@ -299,7 +302,6 @@ private static final String TAG = "Game Room";
                 // Get Post object and use the values to update the UI
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
-                gameText3.setTextColor(Color.TRANSPARENT);
                 gameText3.setText(post.getChoice3());
                 // [END_EXCLUDE]
             }
@@ -334,62 +336,39 @@ private static final String TAG = "Game Room";
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Snackbar.make(view, gameTextConvert1, Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
+                                // If the answer is correct
+                                if(gameTextConvert1.equals(post.getAnswer())){
+                                    questionRetrieval();
+                                    correctTrigger();
+                                }
+                                else{
+                                    wrongTrigger();
+                                }
                             }
                         }
                 );
 
-                gameText1.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View view) {
-                        // If the answer is correct
-                        if(gameTextConvert1.equals(post.getAnswer())){
-                            questionRetrieval();
-                            correctTrigger();
-                        }
-                        else{
-                            wrongTrigger();
-                        }
-                        return false;
-                    }
-                });
+
 
                 gameText2.setOnClickListener(
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Snackbar.make(view, gameTextConvert2, Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
+                                if(gameTextConvert2.equals(post.getAnswer())){
+                                    questionRetrieval();
+                                    correctTrigger();
+                                }
+                                else{
+                                    wrongTrigger();
+                                }
                             }
                         }
                 );
 
-                gameText2.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View view) {
-                        if(gameTextConvert2.equals(post.getAnswer())){
-                            questionRetrieval();
-                            correctTrigger();
-                        }
-                        else{
-                            wrongTrigger();
-                        }
-                        return false;
-                    }
-                });
 
                 gameText3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Snackbar.make(view, gameTextConvert3, Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
-                });
-
-                gameText3.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View view) {
                         if(gameTextConvert3.equals(post.getAnswer())){
                             questionRetrieval();
                             correctTrigger();
@@ -397,12 +376,8 @@ private static final String TAG = "Game Room";
                         else{
                             wrongTrigger();
                         }
-                        return false;
                     }
                 });
-
-
-
 
             }
 
@@ -414,6 +389,29 @@ private static final String TAG = "Game Room";
         mFirebaseDatabaseReference.addValueEventListener(postListener);
 
     }
+
+    public void scoreCollect(final Long scoreObtain){
+        mFirebaseScoreReference = FirebaseDatabase.getInstance().getReference()
+                .child("unique_user").child("-"+mUsername);
+
+        final ValueEventListener scoreListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                leaderboard_push ldPush = dataSnapshot.getValue(leaderboard_push.class);
+                scoreStore = Long.parseLong(ldPush.getScore()) + scoreObtain;
+                String formatted = String.format("%06d", scoreStore);
+                mFirebaseScoreReference.child("score").setValue(formatted);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        mFirebaseScoreReference.addListenerForSingleValueEvent(scoreListener);
+    }
+
 
 //   Player status bar
     public void statBar(){
@@ -463,10 +461,12 @@ private static final String TAG = "Game Room";
                             Log.d("Uh Oh!", "Someone just died!");
                             mFirebaseDatabaseReference.child("state").setValue("complete");
                         }
-                        Log.d("Escape?","2nd Death");
                         mFirebaseDatabaseReference.removeEventListener(this);
+                        Log.d("Escape?","2nd Death");
+
 //                      Evaluate if player just died
                             if (p1Hp.getProgress() <= 0 && post.getP1().equals(mUsername)) {
+                                scoreCollect(10L);
                                 AlertDialog alertDialog = new AlertDialog.Builder(game_room.this).create();
                                 alertDialog.setTitle("Result");
                                 alertDialog.setMessage("You have lost!");
@@ -481,6 +481,7 @@ private static final String TAG = "Game Room";
                             }
 
                             else if (p2Hp.getProgress() <= 0 && post.getP2().equals(mUsername)) {
+                                scoreCollect(10L);
                                 AlertDialog alertDialog = new AlertDialog.Builder(game_room.this).create();
                                 alertDialog.setTitle("Result");
                                 alertDialog.setMessage("You have lost!");
@@ -494,6 +495,7 @@ private static final String TAG = "Game Room";
                                 alertDialog.show();
                             }
                         else{
+                                scoreCollect(100L);
                                 AlertDialog alertDialog = new AlertDialog.Builder(game_room.this).create();
                                 alertDialog.setTitle("Result");
                                 alertDialog.setMessage("You have won!");
@@ -550,7 +552,7 @@ private static final String TAG = "Game Room";
         mTriggerReference = FirebaseDatabase.getInstance().getReference()
                 .child("game_buffer/"+game_key);
 
-
+        Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
 
         mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -591,7 +593,7 @@ private static final String TAG = "Game Room";
         mTriggerReference = FirebaseDatabase.getInstance().getReference()
                 .child("game_buffer/"+game_key);
 
-
+        Toast.makeText(this, "Wrong!", Toast.LENGTH_SHORT).show();
 
         mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -674,6 +676,7 @@ private static final String TAG = "Game Room";
                 try {
                     if(!(post.getState().equals(null)) && (post.getState().equals("onGoing"))) {
                         Log.d("Cancelled","Minus points for "+mUsername);
+                        scoreCollect(-50L);
                         mFirebaseDatabaseReference.child("state")
                                 .setValue("cancelled");
                     }

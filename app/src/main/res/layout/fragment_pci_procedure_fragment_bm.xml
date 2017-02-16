@@ -1,0 +1,582 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="guan.pcihearten.pci_procedure_fragment_bm">
+
+    <android.support.v4.widget.NestedScrollView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="0dp"
+            android:orientation="vertical">
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_procedure1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/cardview_procedure_image1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/procedure_1" />
+
+                    <TextView
+                        android:id="@+id/cardview_procedure_list_title1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_image1"
+                        android:paddingBottom="5dp"
+                        android:text="@string/langkah_1"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_procedure_description1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_list_title1"
+                        android:text="@string/short_procedure_description1_string_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_procedure2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/cardview_procedure_image2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/procedure_2" />
+
+                    <TextView
+                        android:id="@+id/cardview_procedure_list_title2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_image2"
+                        android:paddingBottom="5dp"
+                        android:text="@string/langkah_2"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_procedure_description2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_list_title2"
+                        android:text="@string/short_procedure_description2_string_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_procedure3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/cardview_procedure_image3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/procedure_3" />
+
+                    <TextView
+                        android:id="@+id/cardview_procedure_list_title3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_image3"
+                        android:paddingBottom="5dp"
+                        android:text="@string/langkah_3"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_procedure_description3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_list_title3"
+                        android:text="@string/short_procedure_description3_string_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_procedure4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/cardview_procedure_image4_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/procedure_4" />
+
+                    <ImageView
+                        android:id="@+id/cardview_procedure_image4_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_image4_1"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/procedure_5" />
+
+                    <TextView
+                        android:id="@+id/cardview_procedure_list_title4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_image4_2"
+                        android:paddingBottom="5dp"
+                        android:text="@string/langkah_4"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_procedure_description4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_list_title4"
+                        android:text="@string/short_procedure_description4_string_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_procedure5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/cardview_procedure_list_title5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="@string/langkah_5"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_procedure_description5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_list_title5"
+                        android:text="@string/short_procedure_description5_string_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_procedure6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/cardview_procedure_image6_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/procedure_6" />
+
+                    <ImageView
+                        android:id="@+id/cardview_procedure_image6_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/cardview_procedure_image6_1"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/procedure_7" />
+
+                    <TextView
+                        android:id="@+id/cardview_procedure_list_title6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_image6_2"
+                        android:paddingBottom="5dp"
+                        android:text="@string/langkah_6"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_procedure_description6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_list_title6"
+                        android:text="@string/short_procedure_description6_string_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_procedure7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/cardview_procedure_image7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/procedure_8" />
+
+                    <TextView
+                        android:id="@+id/cardview_procedure_list_title7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_image7"
+                        android:paddingBottom="5dp"
+                        android:text="@string/langkah_7"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_procedure_description7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_list_title7"
+                        android:text="@string/short_procedure_description7_string_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_procedure8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+
+
+                    <TextView
+                        android:id="@+id/cardview_procedure_list_title8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="@string/langkah_8"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_procedure_description8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_list_title8"
+                        android:text="@string/short_procedure_description8_string_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_procedure9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/cardview_procedure_image9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/procedure_9" />
+
+                    <TextView
+                        android:id="@+id/cardview_procedure_list_title9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_image9"
+                        android:paddingBottom="5dp"
+                        android:text="@string/langkah_9"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_procedure_description9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_list_title9"
+                        android:text="@string/short_procedure_description9_string_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_procedure10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/cardview_procedure_list_title10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="@string/langkah_10"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_procedure_description10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_list_title10"
+                        android:text="@string/short_procedure_description10_string_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color"/>
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_procedure11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/cardview_procedure_list_title11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="@string/langkah_11"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_procedure_description11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_list_title11"
+                        android:text="@string/short_procedure_description11_string_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_procedure12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+
+                    <TextView
+                        android:id="@+id/cardview_procedure_list_title12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="@string/langkah_12"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_procedure_description12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_list_title12"
+                        android:text="@string/short_procedure_description12_string_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_procedure_video"
+                        android:layout_below="@+id/short_procedure_description12"
+                        android:text="Proses PCI (Rakaman)"
+                        android:textColor="@android:color/white"
+                        android:background="@color/colorAccent" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_procedure_stent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/cardview_procedure_list_title_stent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:text="@string/cardview_procedure_list_title_string_stent"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_procedure_description_stent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_procedure_list_title_stent"
+                        android:text="@string/short_procedure_description_string_stent_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+                    <ImageView
+                        android:id="@+id/cardview_procedure_image_stent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/short_procedure_description_stent"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/procedure_11" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</FrameLayout>

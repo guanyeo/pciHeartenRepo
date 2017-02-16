@@ -1,9 +1,9 @@
 package guan.pcihearten;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
@@ -28,13 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
-import java.util.Map;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class guan_test extends AppCompatActivity
+public class game_leaderboard extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener {
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
@@ -70,7 +63,7 @@ public class guan_test extends AppCompatActivity
 
     // Firebase instance variables
     private DatabaseReference mFirebaseDatabaseReference;
-    private FirebaseRecyclerAdapter<guanTesto, guan_test.MessageViewHolder>
+    private FirebaseRecyclerAdapter<leaderboard_push, game_leaderboard.MessageViewHolder>
             mFirebaseAdapter;
     private DatabaseReference guanReference;
 
@@ -91,6 +84,7 @@ public class guan_test extends AppCompatActivity
         // Initialize ProgressBar and RecyclerView.
         mMessageRecyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView_guanTest);
         mLinearLayoutManager = new LinearLayoutManager(this);
+        mLinearLayoutManager.setReverseLayout(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
         guanName = (TextView) findViewById(R.id.guan_name);
@@ -98,21 +92,21 @@ public class guan_test extends AppCompatActivity
 
         // New child entries (Creates the database)
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<guanTesto,
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<leaderboard_push,
                 MessageViewHolder>(
-                guanTesto.class,
+                leaderboard_push.class,
                 R.layout.guan_item,
                 MessageViewHolder.class,
-                mFirebaseDatabaseReference.child("guanTest/User/guan")
+                mFirebaseDatabaseReference.child("unique_user")
                 .orderByChild("score")
 
 
         ) {
             @Override
             protected void populateViewHolder(MessageViewHolder viewHolder,
-                                              guanTesto model, int position) {
+                                              leaderboard_push model, int position) {
                 viewHolder.messageTextView.setText(model.getName());
-                viewHolder.messengerTextView.setText(model.getScore());
+                viewHolder.messengerTextView.setText(model.getScore().toString());
             }
         };
         //Set the recycler layout
@@ -140,25 +134,27 @@ public class guan_test extends AppCompatActivity
 
 
 
-        checkUserStatus();
+        initUniqueUsername();
         guanTest();
 
     }
 
 
-    public void checkUserStatus(){
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+    public void initUniqueUsername(){
+        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db", MODE_PRIVATE, null);
+        Cursor retrieveUname = mydatabase.rawQuery("SELECT uname FROM unique_user", null);
 
-        if (mFirebaseUser == null) {
-            // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, loginScreen.class));
-            finish();
-            return;
-        } else {
-            mUsername = mFirebaseUser.getDisplayName();
+        try {
+            retrieveUname.moveToFirst();
+            String unameString = retrieveUname.getString(0);
+            mUsername = unameString;
         }
+        finally {
+            retrieveUname.close();
+        }
+
     }
+
 
     public void guanTest(){
 
@@ -167,14 +163,14 @@ public class guan_test extends AppCompatActivity
 
        //Another data retrieval method
         guanReference = FirebaseDatabase.getInstance().getReference()
-                .child("guanTest/User/guan");
-        guanRetrieval = (TextView) findViewById(R.id.andromeda);
+                .child("unique_user");
+
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                guanTesto post = dataSnapshot.getValue(guanTesto.class);
+                leaderboard_push post = dataSnapshot.getValue(leaderboard_push.class);
 
 
                 // [START_EXCLUDE]
@@ -191,7 +187,7 @@ public class guan_test extends AppCompatActivity
                 // Getting Post failed, log a message
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
                 // [START_EXCLUDE]
-                Toast.makeText(guan_test.this, "Failed to load post.",
+                Toast.makeText(game_leaderboard.this, "Failed to load post.",
                         Toast.LENGTH_SHORT).show();
                 // [END_EXCLUDE]
             }
@@ -199,12 +195,7 @@ public class guan_test extends AppCompatActivity
         guanReference.addValueEventListener(postListener);
         //[End of Data] **/
 
-        //Data Insertion
-        guanTesto guantesto1 = new
-                guanTesto (mUsername,"1911" );
 
-        mFirebaseDatabaseReference.child("guanTest/User/guan")
-               .push().setValue(guantesto1);
 
     }
 

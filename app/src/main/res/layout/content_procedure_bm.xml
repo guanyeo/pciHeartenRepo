@@ -511,7 +511,8 @@
                     android:layout_below="@+id/cardview_procedure_list_title12"
                     android:text="@string/short_procedure_description12_string_bm"
                     android:textSize="@dimen/desc_size"
-                    android:textColor="@color/desc_color" />
+                    android:textColor="@color/desc_color"
+                    android:layout_marginBottom="15dp"/>
 
                 <Button
                     android:layout_width="match_parent"
@@ -519,8 +520,8 @@
                     android:id="@+id/btn_procedure_video"
                     android:layout_below="@+id/short_procedure_description12"
                     android:text="Proses PCI (Rakaman)"
-                    android:textColor="@android:color/white"
-                    android:background="@color/colorAccent" />
+                    android:textColor="@android:color/black"
+                    android:background="#fff" />
 
 
             </RelativeLayout>

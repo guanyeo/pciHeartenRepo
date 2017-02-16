@@ -128,10 +128,10 @@
                 android:value="guan.pcihearten.mainPage" />
         </activity>
         <activity
-            android:name=".guan_test"
+            android:name=".game_leaderboard"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="guan.pcihearten.guan_test" />
+                <action android:name="guan.pcihearten.game_leaderboard" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -280,17 +280,33 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".read_tab"
+        <activity
+            android:name=".read_tab"
             android:parentActivityName=".mainPage"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="guan.pcihearten.read_tab" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".read_tab_bm"
+            android:parentActivityName=".mainPage"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="guan.pcihearten.read_tab_bm" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".user_profile">
+            <intent-filter>
+                <action android:name="guan.pcihearten.user_profile" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
     </application>
 

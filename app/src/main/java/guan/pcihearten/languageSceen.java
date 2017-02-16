@@ -40,7 +40,7 @@ public class languageSceen extends AppCompatActivity {
             public void onClick(View view) {
                 changeLanguante("bm");
                 getLanguageSelected();
-                Intent intent = new Intent("guan.pcihearten.main_page_no_chat");
+                Intent intent = new Intent("guan.pcihearten.loginScreen");
                 startActivity(intent);
 
             }

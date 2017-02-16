@@ -5,19 +5,24 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_information"
-            android:title="@string/nav_information_string_bm" />
+            android:title="@string/nav_information_string_bm"
+            android:icon="@mipmap/read_selection"/>
         <item
             android:id="@+id/nav_prepci"
-            android:title="@string/nav_prepci_string_bm" />
+            android:title="@string/nav_prepci_string_bm"
+            android:icon="@drawable/fight_selection"/>
         <item
             android:id="@+id/nav_pciprocedure"
-            android:title="@string/nav_pciprocedure_string_bm" />
+            android:title="@string/nav_pciprocedure_string_bm"
+            android:icon="@drawable/quest_selection"/>
         <item
             android:id="@+id/nav_postpci"
-            android:title="@string/nav_postpci_string_bm" />
+            android:title="@string/nav_postpci_string_bm"
+            android:icon="@drawable/player_info_selection"/>
         <item
             android:id="@+id/nav_health"
-            android:title="@string/nav_prevent_string_bm" />
+            android:title="@string/nav_prevent_string_bm"
+            android:icon="@drawable/shop_selection"/>
     </group>
 
 

@@ -1,0 +1,172 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="guan.pcihearten.pci_info_fragment_bm">
+
+
+    <android.support.v4.widget.NestedScrollView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+       >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="0dp"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_info1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/cardview_info_list_title1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:layout_alignParentTop="true"
+                        android:text="@string/scrolling_bm"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_info_description1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_info_list_title1"
+                        android:text="@string/information_text_1_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+                    <ImageView
+                        android:id="@+id/cardview_info_image1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/short_info_description1"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/two_stents" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_info2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/cardview_info_list_title2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:layout_alignParentTop="true"
+                        android:text="@string/title_info_2_bm"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_info_description2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_info_list_title2"
+                        android:text="@string/information_text_2_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+                    <ImageView
+                        android:id="@+id/cardview_info_image2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/short_info_description2"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/info_heart_bm" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/android_card_view_info3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorCard"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/cardview_info_list_title3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:layout_alignParentTop="true"
+                        android:text="@string/title_info_3_bm"
+                        android:textSize="24sp"
+                        android:textColor="@color/stepColor" />
+
+                    <TextView
+                        android:id="@+id/short_info_description3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_info_list_title3"
+                        android:text="@string/information_text_3_bm"
+                        android:textSize="@dimen/desc_size"
+                        android:textColor="@color/desc_color" />
+
+                    <ImageView
+                        android:id="@+id/cardview_info_image3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="18dp"
+                        android:layout_below="@+id/short_info_description3"
+                        android:src="@drawable/fettucini_bm" />
+
+                    <ImageView
+                        android:id="@+id/cardview_info_image3_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="18dp"
+                        android:layout_below="@+id/cardview_info_image3"
+                        android:src="@drawable/two_heart_bm" />
+
+                    <ImageView
+                        android:id="@+id/cardview_info_image3_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardview_info_image3_2"
+                        android:layout_marginRight="18dp"
+                        android:src="@drawable/heart_poster" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>

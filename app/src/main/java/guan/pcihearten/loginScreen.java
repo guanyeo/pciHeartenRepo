@@ -64,12 +64,17 @@ public class loginScreen extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_screen);
+
+        languageSceen mainFlag = new languageSceen();
+        if (mainFlag.getLanguageSelected()=="bm") {
+            setContentView(R.layout.activity_login_screen);
+        }
+        else {
+            setContentView(R.layout.activity_login_screen);
+        }
 
         //Assign Field
         loginButton = (SignInButton) findViewById(R.id.btn_login);
-        //Set on Click lIstener
-        loginButton.setOnClickListener(this);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -172,11 +177,21 @@ public class loginScreen extends AppCompatActivity implements
             retrieveUname.moveToFirst();
             String unameString = retrieveUname.getString(0);
             int checkInsert = Integer.parseInt(unameString);
-
+//Check if db is empty or not
             if(checkInsert!=0){
-                Intent intent = new Intent("guan.pcihearten.mainPage");
-                startActivity(intent);
-                finish();
+                languageSceen mainFlag = new languageSceen();
+//                If selected BM execute...
+                if(mainFlag.getLanguageSelected().equals("bm")){
+                    Intent intent = new Intent("guan.pcihearten.mainPage");
+                    startActivity(intent);
+                    finish();
+                }
+                else{
+                    Intent intent = new Intent("guan.pcihearten.mainPage");
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         }
         finally {
@@ -200,13 +215,14 @@ public class loginScreen extends AppCompatActivity implements
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 //                      Check if name is exist, if it is deny name creation
-                        if (dataSnapshot.hasChild(uniqueUsernameEdit.getText().toString())) {
+                        if (dataSnapshot.hasChild("-"+uniqueUsernameEdit.getText().toString())) {
                             Toast.makeText(loginScreen.this, "Please choose another name.", Toast.LENGTH_SHORT).show();
                         }
                         else {
                                 mydatabase.execSQL("INSERT INTO unique_user VALUES ('" + uniqueUsernameEdit.getText().toString() + "');");
-                                mFirebaseDatabaseReference.child(uniqueUsernameEdit.getText().toString()).setValue("0");
-                                Toast.makeText(loginScreen.this, "Data successfully inserted", Toast.LENGTH_SHORT).show();
+//                              Set items to be uploaded
+                                leaderboard_push guantesto1 = new leaderboard_push(uniqueUsernameEdit.getText().toString(), "000000");
+                                mFirebaseDatabaseReference.child("-"+uniqueUsernameEdit.getText().toString()).setValue(guantesto1);
                                 Intent intent = new Intent("guan.pcihearten.mainPage");
                                 startActivity(intent);
                                 finish();

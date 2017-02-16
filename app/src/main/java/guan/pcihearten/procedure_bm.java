@@ -20,9 +20,8 @@ public class procedure_bm extends AppCompatActivity {
         setContentView(R.layout.activity_procedure_bm);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        playVideo();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        playVideo();
     }
 
     public void playVideo() {
