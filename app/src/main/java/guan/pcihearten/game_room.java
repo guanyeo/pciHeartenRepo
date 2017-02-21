@@ -20,6 +20,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,9 +33,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.Random;
 
 import com.bumptech.glide.Glide;
+import com.firebase.client.Firebase;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.youtube.player.internal.n;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -88,8 +92,11 @@ private static final String TAG = "Game Room";
     private Long p1HpHolder;
     private Long p2HpHolder;
 
+
 //    For Calculation score
     private Long scoreStore;
+    private Long totalQues;
+
 
 
 
@@ -105,6 +112,8 @@ private static final String TAG = "Game Room";
     private DatabaseReference mFirebaseScoreReference;
     private DatabaseReference mConditionReference;
     private DatabaseReference mTriggerReference;
+    private DatabaseReference mPlayedReference;
+    private DatabaseReference mTotalQuestionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +130,7 @@ private static final String TAG = "Game Room";
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 //        Cast layout of answer text
         gameText1 = (TextView) findViewById(R.id.game_card_text_4);
@@ -178,15 +188,33 @@ private static final String TAG = "Game Room";
         }
         Log.d("key_transferred", ""+game_key);
 
+
     }
 
 //Retrieve question from data
     public void questionRetrieval(){
+//        check if BM or ENG
+        languageSceen readFlag = new languageSceen();
+        totalTransfer();
 //        generate a token to randomize the question
-        randomQuestionToken = rand.nextInt(3)+1;
+        try {
+            randomQuestionToken = rand.nextInt((int) (long) totalQues) + 1;
+            Log.d("","before catch"+totalQues);
+        }
+        catch (NullPointerException e){
+            randomQuestionToken = rand.nextInt(3) + 1;
+            Log.d("","after catch"+totalQues);
+        }
+
         //        Where to retrieve
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("game_data/game_question/question"+randomQuestionToken);
+        if(readFlag.getLanguageSelected()=="bm") {
+            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("game_data/game_question_bm/question" + randomQuestionToken);
+        }
+        else {
+            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("game_data/game_question/question" + randomQuestionToken);
+        }
         questionText1 = (TextView) findViewById(R.id.question_card_text);
 
 //        Retrieve data
@@ -222,6 +250,7 @@ private static final String TAG = "Game Room";
 
     }
 
+
 //    A place holder to contain available answers
     public void holdList(long removeSelected){
         if(holderList.size()!=0){
@@ -236,11 +265,37 @@ private static final String TAG = "Game Room";
     }
 
 
+    public void totalTransfer(){
+        mTotalQuestionReference =  FirebaseDatabase.getInstance().getReference()
+                .child("game_data/total_question");
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                    leaderboard_push totalTally = dataSnapshot.getValue(leaderboard_push.class);
+                    totalQues = totalTally.getTotal();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        mTotalQuestionReference.addValueEventListener(postListener);
+    }
+
 //    Retrieve answer from database and place in card
     public void answerRetrieval1 (long answerDir){
+        languageSceen readFlag = new languageSceen();
 //        Where to retrieve
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("game_data/game_answer/answer" + answerDir);
+        if(readFlag.getLanguageSelected()=="bm") {
+            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("game_data/game_answer_bm/answer" + answerDir);
+        }
+        else {
+            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("game_data/game_answer/answer" + answerDir);
+        }
 //        Retrieve data
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -265,9 +320,15 @@ private static final String TAG = "Game Room";
 
     }
     public void answerRetrieval2 (long answerDir){
+        languageSceen readFlag = new languageSceen();
 //        Where to retrieve
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("game_data/game_answer/answer" + answerDir);
+        if(readFlag.getLanguageSelected()=="bm") {
+            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("game_data/game_answer_bm/answer" + answerDir);
+        }else {
+            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("game_data/game_answer/answer" + answerDir);
+        }
 //        Retrieve data
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -292,9 +353,16 @@ private static final String TAG = "Game Room";
 
     }
     public void answerRetrieval3 (long answerDir){
+        languageSceen readFlag = new languageSceen();
 //        Where to retrieve
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("game_data/game_answer/answer" + answerDir);
+        if(readFlag.getLanguageSelected()=="bm") {
+            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("game_data/game_answer_bm/answer" + answerDir);
+        }
+        else {
+            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("game_data/game_answer/answer" + answerDir);
+        }
 //        Retrieve data
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -321,8 +389,16 @@ private static final String TAG = "Game Room";
 
 //Code to check if button clicked is correct
     public void checkCorrect(long selectedQuestion){
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("game_data/game_answer/answer" + selectedQuestion);
+        languageSceen readFlag = new languageSceen();
+//        Where to retrieve
+        if(readFlag.getLanguageSelected()=="bm") {
+            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("game_data/game_answer_bm/answer" + selectedQuestion);
+        }
+        else {
+            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("game_data/game_answer/answer" + selectedQuestion);
+        }
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -331,6 +407,7 @@ private static final String TAG = "Game Room";
                 gameTextConvert1 = gameText1.getText().toString();
                 gameTextConvert2 = gameText2.getText().toString();
                 gameTextConvert3 = gameText3.getText().toString();
+
 
                 gameText1.setOnClickListener(
                         new View.OnClickListener() {
@@ -413,6 +490,7 @@ private static final String TAG = "Game Room";
     }
 
 
+
 //   Player status bar
     public void statBar(){
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
@@ -458,7 +536,8 @@ private static final String TAG = "Game Room";
 //                    Condition when a player reaches 0 life
                     if((p1Hp.getProgress() <=0 || p2Hp.getProgress() <=0) && post.getState().equals("onGoing")){
                         if(post.getState().equals("onGoing")) {
-                            Log.d("Uh Oh!", "Someone just died!");
+//                            Increase counter for played
+                            increasePlayed();
                             mFirebaseDatabaseReference.child("state").setValue("complete");
                         }
                         mFirebaseDatabaseReference.removeEventListener(this);
@@ -638,9 +717,25 @@ private static final String TAG = "Game Room";
                 buffer_data post = dataSnapshot.getValue(buffer_data.class);
                 try {
                     if (post.getState().equals("cancelled")) {
-                        mConditionReference.removeEventListener(this);
-                        mConditionReference.removeValue();
-                        finish();
+                        if(!(post.getpCancel().equals(mUsername))) {
+                            mConditionReference.removeEventListener(this);
+                            mConditionReference.removeValue();
+                            AlertDialog alertDialog = new AlertDialog.Builder(game_room.this).create();
+                            alertDialog.setTitle("Result");
+                            alertDialog.setMessage("Your opponent has left.");
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            finish();
+                                        }
+                                    });
+                            alertDialog.show();
+                        }
+                        else{
+                            mConditionReference.removeEventListener(this);
+                            mConditionReference.removeValue();
+                        }
                     }
 
                     if(post.getState().equals("complete")){
@@ -664,6 +759,26 @@ private static final String TAG = "Game Room";
 
     }
 
+    public void increasePlayed(){
+        mPlayedReference = FirebaseDatabase.getInstance().getReference()
+                .child("unique_user").child("-"+mUsername);
+
+        mPlayedReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                leaderboard_push playCounter = dataSnapshot.getValue(leaderboard_push.class);
+
+                mPlayedReference.child("played").setValue(playCounter.getPlayed()+1L);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
     @Override
     protected void onStop() {
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
@@ -679,6 +794,8 @@ private static final String TAG = "Game Room";
                         scoreCollect(-50L);
                         mFirebaseDatabaseReference.child("state")
                                 .setValue("cancelled");
+                        mFirebaseDatabaseReference.child("pCancel")
+                                .setValue(mUsername);
                     }
 
                 }

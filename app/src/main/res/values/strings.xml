@@ -23,7 +23,7 @@
     <string name="nav_bar_title_string">PCI Info</string>
     <string name="nav_information_string">Read</string>
     <string name="nav_prepci_string">1v1 Multiplayer</string>
-    <string name="nav_pciprocedure_string">Quest</string>
+    <string name="nav_pciprocedure_string">Leaderboard</string>
     <string name="nav_postpci_string">Patient Info</string>
     <string name="nav_prevent_string">Shop</string>
     <string name="nav_status_string">Status</string>
@@ -34,7 +34,7 @@
     <!-- Nav BM -->
     <string name="nav_information_string_bm">Baca</string>
     <string name="nav_prepci_string_bm">1v1 Lawan</string>
-    <string name="nav_pciprocedure_string_bm">Taklimah</string>
+    <string name="nav_pciprocedure_string_bm">Papan Cemerlang</string>
     <string name="nav_postpci_string_bm">Info Pesakit</string>
     <string name="nav_status_string_bm">Status</string>
     <string name="nav_mock_string_bm">Mock Test</string>

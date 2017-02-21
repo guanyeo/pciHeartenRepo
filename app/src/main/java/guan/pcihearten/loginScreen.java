@@ -167,6 +167,7 @@ public class loginScreen extends AppCompatActivity implements
     public void createDatabase(){
         SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
         mydatabase.execSQL("CREATE TABLE IF NOT EXISTS unique_user (uname TEXT NOT NULL);");
+        mydatabase.execSQL("CREATE TABLE IF NOT EXISTS read_counter (counter INTEGER, flag INTEGER);");
     }
 
 //Check if unique User is logged in
@@ -220,8 +221,9 @@ public class loginScreen extends AppCompatActivity implements
                         }
                         else {
                                 mydatabase.execSQL("INSERT INTO unique_user VALUES ('" + uniqueUsernameEdit.getText().toString() + "');");
+                                mydatabase.execSQL("INSERT INTO read_counter VALUES (0, 0)");
 //                              Set items to be uploaded
-                                leaderboard_push guantesto1 = new leaderboard_push(uniqueUsernameEdit.getText().toString(), "000000");
+                                leaderboard_push guantesto1 = new leaderboard_push(uniqueUsernameEdit.getText().toString(), "000000", 0L);
                                 mFirebaseDatabaseReference.child("-"+uniqueUsernameEdit.getText().toString()).setValue(guantesto1);
                                 Intent intent = new Intent("guan.pcihearten.mainPage");
                                 startActivity(intent);

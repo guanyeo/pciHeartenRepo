@@ -1,5 +1,8 @@
 package guan.pcihearten;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -48,6 +51,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
+
+import java.util.Calendar;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class mainPage extends AppCompatActivity
@@ -85,6 +91,7 @@ public class mainPage extends AppCompatActivity
     private EditText mMessageEditText;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+    private int counterStore;
 
     // Firebase instance variables
     private DatabaseReference mFirebaseDatabaseReference;
@@ -234,6 +241,7 @@ public class mainPage extends AppCompatActivity
         }
 
 //        checkUserStatus();
+        readDailyCounter();
     }
 
     public void checkUserStatus(){
@@ -268,6 +276,33 @@ public class mainPage extends AppCompatActivity
         }
 
     }
+
+    public void readDailyCounter(){
+        // Construct an intent that will execute the AlarmReceiver
+        Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+        // Create a PendingIntent to be triggered when the alarm goes off
+        final PendingIntent pIntent = PendingIntent.getBroadcast(this, MyAlarmReceiver.REQUEST_CODE,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        // Setup periodic alarm every 5 seconds
+        //   long firstMillis = System.currentTimeMillis(); // alarm is set right away
+
+
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        //Select time
+        Calendar calendarReset= Calendar.getInstance();
+        calendarReset.set(Calendar.HOUR_OF_DAY, 23); // At the hour you wanna fire
+        calendarReset.set(Calendar.MINUTE, 59); // Particular minute
+        calendarReset.set(Calendar.SECOND, 59); // particular second
+
+        final long resetTime = calendarReset.getTimeInMillis();
+
+
+        // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
+        // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, resetTime,
+                AlarmManager.INTERVAL_DAY, pIntent);
+    }
+
 
 
 
@@ -332,6 +367,27 @@ public class mainPage extends AppCompatActivity
             bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, mUsername+" selected read.");
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
             // [END image_view_event]
+
+//            Set off daily read counter
+            SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
+            Cursor countFlag = mydatabase.rawQuery("SELECT flag FROM read_counter",null);
+            Cursor counterCount = mydatabase.rawQuery("SELECT counter FROM read_counter",null);
+            try{
+                countFlag.moveToFirst();
+                counterCount.moveToFirst();
+
+                if(countFlag.getInt(0)==0){
+                    mydatabase.execSQL("UPDATE read_counter SET flag = 1");
+//                    UPDATE COUNTER
+                    counterStore = counterCount.getInt(0)+1;
+                    mydatabase.execSQL("UPDATE read_counter SET counter = '" + counterStore + "' ");
+                }
+            }
+            finally {
+                countFlag.close();
+                counterCount.close();
+            }
+
             languageSceen readFlag = new languageSceen();
             if (readFlag.getLanguageSelected() == "bm") {
                 Intent intent = new Intent("guan.pcihearten.read_tab_bm");
@@ -351,7 +407,8 @@ public class mainPage extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_postpci) {
-
+            Intent intent = new Intent("guan.pcihearten.user_profile");
+            startActivity(intent);
 
         } else if (id == R.id.nav_health) {
 

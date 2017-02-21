@@ -106,7 +106,7 @@ public class game_leaderboard extends AppCompatActivity
             protected void populateViewHolder(MessageViewHolder viewHolder,
                                               leaderboard_push model, int position) {
                 viewHolder.messageTextView.setText(model.getName());
-                viewHolder.messengerTextView.setText(model.getScore().toString());
+                viewHolder.messengerTextView.setText(String.valueOf(Long.parseLong(model.getScore())));
             }
         };
         //Set the recycler layout

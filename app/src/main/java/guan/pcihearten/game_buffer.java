@@ -39,6 +39,7 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
     // Firebase instance variables
     private DatabaseReference mFirebaseDatabaseReference;
     private DatabaseReference mReferenceOnGoing;
+    private DatabaseReference mTotalQuestionReference;
 
 //    Flag declare
     private String p1;
@@ -47,6 +48,7 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
     private int waitFlag;
     private String keyTransfer;
     private String p2Photo;
+    private Long totalQues;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,7 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
                         Intent intent = new Intent("guan.pcihearten.game_room");
                         intent.putExtra("key_transfer", uniqueGameKey);
                         startActivity(intent);
+
 //                  Stop listening the event
                         mFirebaseDatabaseReference.removeEventListener(this);
                         finish();
@@ -121,6 +124,7 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
         mFirebaseDatabaseReference.addValueEventListener(postListener);
 
     }
+
 
     public void secondPlayer(){
         //        Where to retrieve
@@ -159,6 +163,7 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
 //                        Go to game_room
                         Intent intent = new Intent("guan.pcihearten.game_room");
                         intent.putExtra("key_transfer", uniqueGameKey);
+
                         startActivity(intent);
                         finish();
                     }

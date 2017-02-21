@@ -19,6 +19,7 @@ public class buffer_data {
     private String p2Photo;
     private Long p1Hp;
     private Long p2Hp;
+    private String pCancel;
 
 public buffer_data(){
 
@@ -93,6 +94,14 @@ public buffer_data(){
 
     public void setP2Hp(Long p2Hp) {
         this.p2Hp = p2Hp;
+    }
+
+    public void setpCancel(String pCancel){
+        this.pCancel = pCancel;
+    }
+
+    public String getpCancel(){
+        return pCancel;
     }
 
 
