@@ -36,12 +36,12 @@ public class FriendlyMessage {
         this.name = name;
     }
 
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
     public String getText() {
         return text;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
     public void setPhotoUrl(String photoUrl) {

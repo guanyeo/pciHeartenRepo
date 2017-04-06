@@ -8,17 +8,19 @@ public class leaderboard_push {
     private String score;
     private Long played;
     private Long total;
+    private String photoUrl;
+
 
 
     public leaderboard_push() {
         //Constructor needed
     }
 
-    public leaderboard_push(String name, String score, Long played) {
+    public leaderboard_push(String name, String score, Long played, String photoUrl) {
         this.name = name;
         this.score = score;
         this.played = played;
-
+        this.photoUrl = photoUrl;
     }
 
     public String getId() {
@@ -52,6 +54,14 @@ public class leaderboard_push {
     public Long getTotal(){return total;}
 
     public void setTotal(Long total){this.total=total;}
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 
 
 }

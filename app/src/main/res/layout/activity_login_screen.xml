@@ -20,10 +20,11 @@
         android:id="@+id/alt_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="One time login"
+        android:text="Set a nickname"
         android:background="#fff"
         android:layout_marginBottom="35dp"
-        android:layout_above="@+id/btn_login"/>
+        android:layout_above="@+id/btn_login"
+        android:visibility="invisible"/>
 
 
     <com.google.android.gms.common.SignInButton
@@ -34,7 +35,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:visibility="invisible"/>
+       />
 
     <EditText
         android:layout_width="match_parent"
@@ -46,6 +47,7 @@
         android:id="@+id/username_input"
         android:layout_above="@+id/alt_login"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

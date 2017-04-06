@@ -145,8 +145,8 @@ private static final String TAG = "Game Room";
         p1AvatarPic = (CircleImageView)findViewById(R.id.p1Avatar);
         p2AvatarPic = (CircleImageView) findViewById(R.id.p2Avatar);
 
-//      checkUserStatus();
-        initUniqueUser();
+        checkUserStatus();
+       // initUniqueUser();
         gameBufferTransfer();
         questionRetrieval();
         matchCondition();
@@ -469,7 +469,7 @@ private static final String TAG = "Game Room";
 
     public void scoreCollect(final Long scoreObtain){
         mFirebaseScoreReference = FirebaseDatabase.getInstance().getReference()
-                .child("unique_user").child("-"+mUsername);
+                .child("unique_user").child("-"+mFirebaseUser.getUid());
 
         final ValueEventListener scoreListener = new ValueEventListener() {
             @Override
@@ -761,7 +761,7 @@ private static final String TAG = "Game Room";
 
     public void increasePlayed(){
         mPlayedReference = FirebaseDatabase.getInstance().getReference()
-                .child("unique_user").child("-"+mUsername);
+                .child("unique_user").child("-"+mFirebaseUser.getUid());
 
         mPlayedReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -790,7 +790,7 @@ private static final String TAG = "Game Room";
                 buffer_data post = dataSnapshot.getValue(buffer_data.class);
                 try {
                     if(!(post.getState().equals(null)) && (post.getState().equals("onGoing"))) {
-                        Log.d("Cancelled","Minus points for "+mUsername);
+                        Log.d("Cancelled","Minus points for "+mFirebaseUser.getUid());
                         scoreCollect(-50L);
                         mFirebaseDatabaseReference.child("state")
                                 .setValue("cancelled");

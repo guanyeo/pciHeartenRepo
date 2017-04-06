@@ -92,9 +92,11 @@ public class mainPage extends AppCompatActivity
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private int counterStore;
+    private TextView bufferText;
 
     // Firebase instance variables
     private DatabaseReference mFirebaseDatabaseReference;
+    private DatabaseReference mUserDBReference;
     private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>
             mFirebaseAdapter;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -118,8 +120,6 @@ public class mainPage extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        //Set Default Username Anon
-        initUniqueUsername();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
@@ -130,6 +130,7 @@ public class mainPage extends AppCompatActivity
 
         // Initialize ProgressBar and RecyclerView.
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        bufferText = (TextView) findViewById(R.id.chat_man_text);
         mMessageRecyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setStackFromEnd(true);
@@ -147,7 +148,7 @@ public class mainPage extends AppCompatActivity
             @Override
             protected void populateViewHolder(MessageViewHolder viewHolder,
                                               FriendlyMessage friendlyMessage, int position) {
-                mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+                bufferText.setVisibility(View.INVISIBLE);
                 viewHolder.messageTextView.setText(friendlyMessage.getText());
                 viewHolder.messengerTextView.setText(friendlyMessage.getName());
                 if (friendlyMessage.getPhotoUrl() == null) {
@@ -240,7 +241,7 @@ public class mainPage extends AppCompatActivity
             navigationView.setNavigationItemSelectedListener(this);
         }
 
-//        checkUserStatus();
+        checkUserStatus();
         readDailyCounter();
     }
 
@@ -258,6 +259,7 @@ public class mainPage extends AppCompatActivity
             if (mFirebaseUser.getPhotoUrl() != null) {
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
             }
+            userDB();
         }
 
     }
@@ -346,11 +348,35 @@ public class mainPage extends AppCompatActivity
             Auth.GoogleSignInApi.signOut(mGoogleApiClient);
             mUsername = ANONYMOUS;
             finish();
-           startActivity(new Intent(this, loginScreen.class));
+//           startActivity(new Intent(this, loginScreen.class));
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void userDB(){
+        mUserDBReference = FirebaseDatabase.getInstance().getReference()
+                .child("unique_user");
+        mUserDBReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild("-"+mFirebaseUser.getUid())) {
+
+                }
+                else{
+                    leaderboard_push guantesto1 = new leaderboard_push(mUsername, "000000", 0L, mPhotoUrl);
+                    mUserDBReference.child("-"+mFirebaseUser.getUid()).setValue(guantesto1);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
@@ -362,13 +388,13 @@ public class mainPage extends AppCompatActivity
 
         if (id == R.id.nav_information) {
 
-            // [START image_view_event]
-            Bundle bundle = new Bundle();
-            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, mUsername+" selected read.");
-            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-            // [END image_view_event]
+//            // [START image_view_event]
+//            Bundle bundle = new Bundle();
+//            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, mUsername+" selected read.");
+//            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+//            // [END image_view_event]
 
-//            Set off daily read counter
+            //            Set off daily read counter
             SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
             Cursor countFlag = mydatabase.rawQuery("SELECT flag FROM read_counter",null);
             Cursor counterCount = mydatabase.rawQuery("SELECT counter FROM read_counter",null);

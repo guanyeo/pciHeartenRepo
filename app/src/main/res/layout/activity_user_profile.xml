@@ -37,29 +37,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:src="@mipmap/ic_launcher"
-            android:id="@+id/profile_avatar"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/profile_avatar"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
         </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="10dp">
+                android:layout_gravity="bottom|center_horizontal">
 
                 <TextView
                     android:id="@+id/profile_level"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"
+                    android:text="Lv. 1"
                     android:textAlignment="center"
                     android:background="@drawable/level_layer"
-                    android:padding="2dp"
+                    android:padding="3dp"
+                    android:textStyle="bold"
                     android:textColor="#000"/>
             </RelativeLayout>
 
@@ -124,9 +125,9 @@
                 android:id="@+id/achieve_img"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@color/colorAccent"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
+                android:src="@drawable/default_book"
                 />
 
             <TextView
@@ -139,14 +140,14 @@
                 android:layout_marginLeft="15dp"
                 android:textSize="18sp"
                 android:textColor="@color/gameText"
-                android:text="Achievement Title"
+                android:text="Read Achievement"
                 />
 
             <TextView
                 android:id="@+id/achieve_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Achievement Description"
+                android:text="Start reading daily to get achievement."
                 android:layout_below="@id/achieve_title"
                 android:layout_marginLeft="15dp"
                 android:textColor="@color/gameText"
@@ -177,9 +178,9 @@
                 android:id="@+id/achieve_img_2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@color/colorAccent"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
+                android:src="@drawable/default_shield"
                 />
 
             <TextView
@@ -192,19 +193,18 @@
                 android:layout_marginLeft="15dp"
                 android:textSize="18sp"
                 android:textColor="@color/gameText"
-                android:text="Achievement Title"
+                android:text="Multiplayer Achievement"
                 />
 
             <TextView
                 android:id="@+id/achieve_desc_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Achievement Description"
+                android:text="Start playing in 1v1 Multiplayer to get achievement."
                 android:layout_below="@id/achieve_title_2"
                 android:layout_marginLeft="15dp"
                 android:textColor="@color/gameText"
                 android:layout_toRightOf="@+id/achieve_img_2"
-
                 android:textSize="14sp"
                 android:textStyle="normal|italic" />
 

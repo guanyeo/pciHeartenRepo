@@ -56,6 +56,7 @@ public class loginScreen extends AppCompatActivity implements
     private FirebaseAuth mFirebaseAuth;
     private GoogleApiClient mGoogleApiClient;
     private DatabaseReference mFirebaseDatabaseReference;
+    private FirebaseUser mFirebaseUser;
 
     private EditText uniqueUsernameEdit;
     private Button oneTimeBtn;
@@ -75,6 +76,7 @@ public class loginScreen extends AppCompatActivity implements
 
         //Assign Field
         loginButton = (SignInButton) findViewById(R.id.btn_login);
+        loginButton.setOnClickListener(this);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -88,9 +90,7 @@ public class loginScreen extends AppCompatActivity implements
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         createDatabase();
-        privateLogin();
-        checkUniUserStatus();
-
+        initDB();
     }
 
 
@@ -121,7 +121,6 @@ public class loginScreen extends AppCompatActivity implements
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
-
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
@@ -170,6 +169,28 @@ public class loginScreen extends AppCompatActivity implements
         mydatabase.execSQL("CREATE TABLE IF NOT EXISTS read_counter (counter INTEGER, flag INTEGER);");
     }
 
+    public void initDB(){
+        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
+        Cursor retrieveRead = mydatabase.rawQuery("SELECT COUNT(*) FROM read_counter", null);
+
+        try {
+            retrieveRead.moveToFirst();
+            String readCounter = retrieveRead.getString(0);
+            int checkInsert = Integer.parseInt(readCounter);
+            if(checkInsert == 0) {
+                mydatabase.execSQL("INSERT INTO read_counter VALUES (0, 0)");
+                Log.d("", "Herees the read counter "+readCounter);
+            }
+        }
+        finally {
+            retrieveRead.close();
+        }
+
+    }
+
+
+
+
 //Check if unique User is logged in
     public void checkUniUserStatus(){
         final SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
@@ -200,56 +221,56 @@ public class loginScreen extends AppCompatActivity implements
         }
     }
 
-    public void privateLogin(){
-        uniqueUsernameEdit = (EditText)findViewById(R.id.username_input);
-        oneTimeBtn = (Button)findViewById(R.id.alt_login);
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("unique_user");
-        final SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
-
-        oneTimeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                      Check if name is exist, if it is deny name creation
-                        if (dataSnapshot.hasChild("-"+uniqueUsernameEdit.getText().toString())) {
-                            Toast.makeText(loginScreen.this, "Please choose another name.", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                                mydatabase.execSQL("INSERT INTO unique_user VALUES ('" + uniqueUsernameEdit.getText().toString() + "');");
-                                mydatabase.execSQL("INSERT INTO read_counter VALUES (0, 0)");
-//                              Set items to be uploaded
-                                leaderboard_push guantesto1 = new leaderboard_push(uniqueUsernameEdit.getText().toString(), "000000", 0L);
-                                mFirebaseDatabaseReference.child("-"+uniqueUsernameEdit.getText().toString()).setValue(guantesto1);
-                                Intent intent = new Intent("guan.pcihearten.mainPage");
-                                startActivity(intent);
-                                finish();
-                        }
-                        }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            }
-        });
-
-//        To delete the table(Remove this comment after usage)
-       Button delButton = (Button)findViewById(R.id.delBtn);
-
-        delButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mydatabase.execSQL("DROP TABLE unique_user");
-            }
-        });
-
-    }
+//    public void privateLogin(){
+//        uniqueUsernameEdit = (EditText)findViewById(R.id.username_input);
+//        oneTimeBtn = (Button)findViewById(R.id.alt_login);
+//        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+//                .child("unique_user");
+//        final SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
+//
+//        oneTimeBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//                mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+////                      Check if name is exist, if it is deny name creation
+//                        if (dataSnapshot.hasChild("-"+uniqueUsernameEdit.getText().toString())) {
+//                            Toast.makeText(loginScreen.this, "Please choose another name.", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else {
+//                                mydatabase.execSQL("INSERT INTO unique_user VALUES ('" + uniqueUsernameEdit.getText().toString() + "');");
+//                                mydatabase.execSQL("INSERT INTO read_counter VALUES (0, 0)");
+////                              Set items to be uploaded
+////                                leaderboard_push guantesto1 = new leaderboard_push(uniqueUsernameEdit.getText().toString(), "000000", 0L);
+//                                mFirebaseDatabaseReference.child("-"+uniqueUsernameEdit.getText().toString()).setValue(guantesto1);
+//                                Intent intent = new Intent("guan.pcihearten.mainPage");
+//                                startActivity(intent);
+//                                finish();
+//                        }
+//                        }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//            }
+//        });
+//
+////        To delete the table(Remove this comment after usage)
+//       Button delButton = (Button)findViewById(R.id.delBtn);
+//
+//        delButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mydatabase.execSQL("DROP TABLE unique_user");
+//            }
+//        });
+//
+//    }
 
 
 

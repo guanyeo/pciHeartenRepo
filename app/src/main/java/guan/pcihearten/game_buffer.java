@@ -9,6 +9,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -50,6 +53,9 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
     private String p2Photo;
     private Long totalQues;
 
+//    Go to single player
+    private Button sPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,10 +74,11 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
 
-//        checkUserStatus();
-        initUniqueUser();
+        checkUserStatus();
         openPlayer();
         secondPlayer();
+
+        singlePlayer();
     }
 
 
@@ -182,6 +189,18 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
 
     }
 
+    public void singlePlayer(){
+        sPlayer = (Button)findViewById(R.id.btn_single_game);
+
+        sPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent("guan.pcihearten.single_game");
+                startActivity(intent);
+            }
+        });
+    }
+
     public void checkUserStatus(){
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -199,21 +218,6 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
         }
     }
 
-    //    [Retrieve name from client DB]
-    public void initUniqueUser(){
-        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db", MODE_PRIVATE, null);
-        Cursor retrieveUname = mydatabase.rawQuery("SELECT uname FROM unique_user", null);
-
-        try {
-            retrieveUname.moveToFirst();
-            String unameString = retrieveUname.getString(0);
-            mUsername = unameString;
-            mPhotoUrl = "https://cdn0.iconfinder.com/data/icons/superuser-web-kit/512/686909-user_people_man_human_head_person-512.png";
-        }
-        finally {
-            retrieveUname.close();
-        }
-    }
 
     @Override
     protected void onStop() {

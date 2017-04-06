@@ -1,10 +1,12 @@
 package guan.pcihearten;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.client.Firebase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.auth.api.Auth;
@@ -27,18 +30,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class game_leaderboard extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener {
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
         public TextView messageTextView;
         public TextView messengerTextView;
+        public CircleImageView messengerImageView;
+
 
 
         public MessageViewHolder(View v) {
             super(v);
             messageTextView = (TextView) itemView.findViewById(R.id.guan_name);
             messengerTextView = (TextView) itemView.findViewById(R.id.guan_score);
+            messengerImageView = (CircleImageView) itemView.findViewById(R.id.leaderProf);
+
         }
     }
     //variable declare
@@ -54,6 +63,8 @@ public class game_leaderboard extends AppCompatActivity
     private RecyclerView mMessageRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private SharedPreferences mSharedPreferences;
+    public CircleImageView messengerImageView;
+
 
     //variable declare II
     private FirebaseAuth mFirebaseAuth;
@@ -90,6 +101,7 @@ public class game_leaderboard extends AppCompatActivity
         guanName = (TextView) findViewById(R.id.guan_name);
         guanScore = (TextView)findViewById(R.id.guan_score);
 
+
         // New child entries (Creates the database)
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseAdapter = new FirebaseRecyclerAdapter<leaderboard_push,
@@ -99,14 +111,24 @@ public class game_leaderboard extends AppCompatActivity
                 MessageViewHolder.class,
                 mFirebaseDatabaseReference.child("unique_user")
                 .orderByChild("score")
-
-
         ) {
             @Override
             protected void populateViewHolder(MessageViewHolder viewHolder,
                                               leaderboard_push model, int position) {
                 viewHolder.messageTextView.setText(model.getName());
                 viewHolder.messengerTextView.setText(String.valueOf(Long.parseLong(model.getScore())));
+                if (model.getPhotoUrl() == null) {
+                    viewHolder.messengerImageView
+                            .setImageDrawable(ContextCompat
+                                    .getDrawable(game_leaderboard.this,
+                                            R.mipmap.ic_launcher));
+                }
+                else {
+                    Glide.with(game_leaderboard.this)
+                            .load(model.getPhotoUrl())
+                            .into(viewHolder.messengerImageView);
+                }
+
             }
         };
         //Set the recycler layout
@@ -134,26 +156,11 @@ public class game_leaderboard extends AppCompatActivity
 
 
 
-        initUniqueUsername();
         guanTest();
 
     }
 
 
-    public void initUniqueUsername(){
-        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db", MODE_PRIVATE, null);
-        Cursor retrieveUname = mydatabase.rawQuery("SELECT uname FROM unique_user", null);
-
-        try {
-            retrieveUname.moveToFirst();
-            String unameString = retrieveUname.getString(0);
-            mUsername = unameString;
-        }
-        finally {
-            retrieveUname.close();
-        }
-
-    }
 
 
     public void guanTest(){
@@ -174,11 +181,7 @@ public class game_leaderboard extends AppCompatActivity
 
 
                 // [START_EXCLUDE]
-//
-
                 Log.d("get_score value", ""+ post.getScore());
-
-
                 // [END_EXCLUDE]
             }
 
