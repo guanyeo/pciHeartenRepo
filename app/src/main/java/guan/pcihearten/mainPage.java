@@ -51,8 +51,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -94,6 +100,23 @@ public class mainPage extends AppCompatActivity
     private int counterStore;
     private TextView bufferText;
 
+
+//    Watson Credential
+    private Context mContext;
+    private String workspace_id;
+    private String conversation_username;
+    private String conversation_password;
+    private String STT_username;
+    private String STT_password;
+    private String TTS_username;
+    private String TTS_password;
+    private String analytics_APIKEY;
+//    Watson stufdf
+    private boolean initialRequest;
+    private ArrayList messageArrayList;
+    private Map<String,Object> context = new HashMap<>();
+
+
     // Firebase instance variables
     private DatabaseReference mFirebaseDatabaseReference;
     private DatabaseReference mUserDBReference;
@@ -115,12 +138,20 @@ public class mainPage extends AppCompatActivity
         else
             setContentView(R.layout.activity_main_page);
 
-
+        //        Get the application context and strings from R.String
+        mContext = getApplicationContext();
+        conversation_username = mContext.getString(R.string.conversation_username);
+        conversation_password = mContext.getString(R.string.conversation_password);
+        workspace_id = mContext.getString(R.string.workspace_id);
+        STT_username = mContext.getString(R.string.STT_username);
+        STT_password = mContext.getString(R.string.STT_password);
+        TTS_username = mContext.getString(R.string.TTS_username);
+        TTS_password = mContext.getString(R.string.TTS_password);
+        analytics_APIKEY = mContext.getString(R.string.mobileanalytics_apikey);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
@@ -195,6 +226,7 @@ public class mainPage extends AppCompatActivity
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sendMessage();
                 FriendlyMessage friendlyMessage = new
                         FriendlyMessage(mMessageEditText.getText().toString(),
                         mUsername,
@@ -262,6 +294,77 @@ public class mainPage extends AppCompatActivity
             userDB();
         }
 
+    }
+
+    public void sendMessage() {
+        {
+            final String inputmessage = this.mMessageEditText.getText().toString().trim();
+            if (!this.initialRequest) {
+                Message inputMessage = new Message();
+                inputMessage.setMessage(inputmessage);
+                Log.d("Input Message", "" + inputmessage);
+                inputMessage.setId("1");
+                Log.d("inputMessage",""+inputmessage);
+//                messageArrayList.add(inputMessage);
+
+            } else {
+                Message inputMessage = new Message();
+                inputMessage.setMessage(inputmessage);
+                inputMessage.setId("100");
+                this.initialRequest = false;
+            }
+
+            Thread thread = new Thread(new Runnable() {
+                public void run() {
+                    try {
+
+                        ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
+                        service.setUsernameAndPassword(conversation_username, conversation_password);
+                        MessageRequest newMessage = new MessageRequest.Builder().inputText(inputmessage).context(context).build();
+                        MessageResponse response = service.message(workspace_id, newMessage).execute();
+
+                        //Passing Context of last conversation
+                        if (response.getContext() != null) {
+                            context.clear();
+                            context = response.getContext();
+
+                        }
+                        Message outMessage = new Message();
+                        if (response != null) {
+                            if (response.getOutput() != null && response.getOutput().containsKey("text")) {
+
+                                ArrayList responseList = (ArrayList) response.getOutput().get("text");
+                                if (null != responseList && responseList.size() > 0) {
+                                    outMessage.setMessage((String) responseList.get(0));
+                                    FriendlyMessage friendlyMessage = new
+                                            FriendlyMessage((String) responseList.get(0),
+                                            "WatsonBot",
+                                            "http://teeshirtdivision.com/wp-content/uploads/2016/01/2072LOGO.jpg");
+                                    mFirebaseDatabaseReference.child(MESSAGES_CHILD)
+                                            .push().setValue(friendlyMessage);
+                                    Log.d("Output Message", "" + (String) responseList.get(0));
+                                    outMessage.setId("2");
+                                }
+//                                messageArrayList.add(outMessage);
+                            }
+
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+
+                                }
+                            });
+
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            thread.start();
+
+        }
     }
 
     public void initUniqueUsername(){

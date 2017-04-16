@@ -55,6 +55,16 @@ dependencies {
     compile 'com.android.support:support-v4:25.0.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:percent:25.0.1'
+
+//    Watson Build
+    compile 'com.android.support:design:25.0.1'
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.ibm.watson.developer_cloud:conversation:3.6.0'
+    compile 'com.ibm.watson.developer_cloud:text-to-speech:3.6.0'
+    compile 'com.ibm.watson.developer_cloud:speech-to-text:3.7.0'
+    compile 'com.ibm.watson.developer_cloud:android-sdk:0.2.3'
+    compile 'com.ibm.mobilefirstplatform.clientsdk.android:analytics:1.+'
     testCompile 'junit:junit:4.12'
 }
 
