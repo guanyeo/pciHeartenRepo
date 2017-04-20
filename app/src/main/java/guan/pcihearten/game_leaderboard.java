@@ -39,9 +39,7 @@ public class game_leaderboard extends AppCompatActivity
         public TextView messageTextView;
         public TextView messengerTextView;
         public CircleImageView messengerImageView;
-
-
-
+//        Individual item for creation of recycler
         public MessageViewHolder(View v) {
             super(v);
             messageTextView = (TextView) itemView.findViewById(R.id.guan_name);
@@ -92,7 +90,7 @@ public class game_leaderboard extends AppCompatActivity
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
 
-        // Initialize ProgressBar and RecyclerView.
+        // Initialize ProgressBar and RecyclerView to store the recycler items.
         mMessageRecyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView_guanTest);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setReverseLayout(true);
@@ -154,17 +152,12 @@ public class game_leaderboard extends AppCompatActivity
             }
         });
 
-
-
-        guanTest();
-
     }
 
 
 
 
     public void guanTest(){
-
         //set text to current username
        //  guanName.setText(mUsername);
 
@@ -197,9 +190,6 @@ public class game_leaderboard extends AppCompatActivity
         };
         guanReference.addValueEventListener(postListener);
         //[End of Data] **/
-
-
-
     }
 
     @Override

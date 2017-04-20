@@ -523,7 +523,7 @@ public class mainPage extends AppCompatActivity
                 startActivity(intent);
             }
             else{
-                Intent intent = new Intent("guan.pcihearten.read_tab");
+                Intent intent = new Intent("guan.pcihearten.result_page");
                 startActivity(intent);
             }
 

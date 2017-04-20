@@ -296,22 +296,27 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="guan.pcihearten.read_tab_bm" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity android:name=".user_profile">
             <intent-filter>
                 <action android:name="guan.pcihearten.user_profile" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".single_game">
 
+        <activity android:name=".single_game">
             <intent-filter>
                 <action android:name="guan.pcihearten.single_game" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
+        <activity android:name=".result_page">
+            <intent-filter>
+                <action android:name="guan.pcihearten.result_page" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
