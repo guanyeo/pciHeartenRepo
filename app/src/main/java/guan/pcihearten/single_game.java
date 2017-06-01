@@ -1,8 +1,11 @@
 package guan.pcihearten;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,7 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -40,19 +46,21 @@ public class single_game extends AppCompatActivity {
     private TextView gameText2;
     private TextView gameText3;
     private ProgressBar singleBar;
+    private TextView gameTime;
+    private Long numCrt = 0L;
+    private Long numWrg = 0L;
+    private long startTime = 0;
+
 
 
     //    Flag declare
-    private long questionTag1;
-    private long answerTag1;
-    private long answerTag2;
-    private long answerTag3;
     private int randomAnswerToken;
     private int randomQuestionToken;
     private String game_key;
     private String gameTextConvert1;
     private String gameTextConvert2;
     private String gameTextConvert3;
+
 
     // Firebase instance variables
     private DatabaseReference mFirebaseDatabaseReference;
@@ -61,16 +69,19 @@ public class single_game extends AppCompatActivity {
     private DatabaseReference mTriggerReference;
     private DatabaseReference mPlayedReference;
     private DatabaseReference mTotalQuestionReference;
+    private DatabaseReference mFirebaseResultReference;
 
     //    For random usage
-    private List arrList = new ArrayList();
     private List holderList = new ArrayList();
     private Random rand = new Random();
+    private List quesList = new ArrayList();
+    private int currQues = 0;
 
 
     //    For Calculation score
     private Long scoreStore;
     private Long totalQues;
+    private Long scoreAcc=0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +93,10 @@ public class single_game extends AppCompatActivity {
         gameText2 = (TextView) findViewById(R.id.game_card_text_5);
         gameText3 = (TextView) findViewById(R.id.game_card_text_6);
         singleBar = (ProgressBar) findViewById(R.id.single_game_bar);
+        gameTime = (TextView) findViewById(R.id.game_time);
 
+        startTime = System.currentTimeMillis();
+        timerHandler.postDelayed(timerRunnable, 0);
 
         checkUserStatus();
         questionRetrieval();
@@ -118,16 +132,26 @@ public class single_game extends AppCompatActivity {
     public void questionRetrieval(){
 //        check if BM or ENG
         languageSceen readFlag = new languageSceen();
-        totalTransfer();
 //        generate a token to randomize the question
         try {
-            randomQuestionToken = rand.nextInt((int) (long) totalQues) + 1;
-            Log.d("","before catch"+totalQues);
+            randomQuestionToken = (int) quesList.get(currQues);
         }
-        catch (NullPointerException e){
+        catch (IndexOutOfBoundsException e){
+            //use to prevent loop getting out of bound by 1 iteration
+            currQues = currQues-1;
             randomQuestionToken = rand.nextInt(3) + 1;
-            Log.d("","after catch"+totalQues);
+            totalTransfer();
         }
+        //Use for iterate loop
+        currQues = currQues+1;
+
+        // Reset color of question and function
+        gameText1.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        gameText2.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        gameText3.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        gameText1.setEnabled(true);
+        gameText2.setEnabled(true);
+        gameText3.setEnabled(true);
 
         //        Where to retrieve
         if(readFlag.getLanguageSelected()=="bm") {
@@ -148,12 +172,11 @@ public class single_game extends AppCompatActivity {
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
                 questionText1.setText(post.getQuestion());
-                questionTag1 = post.getQuestionTag();
 
                 answerRetrieval1(Long.valueOf(randomQuestionToken));
-                answerRetrieval2(Long.valueOf(randomQuestionToken));
+               /* answerRetrieval2(Long.valueOf(randomQuestionToken));
                 answerRetrieval3(Long.valueOf(randomQuestionToken));
-
+*/
                 checkCorrect(randomQuestionToken);
 
                 // [END_EXCLUDE]
@@ -186,6 +209,24 @@ public class single_game extends AppCompatActivity {
         holderList.remove(removeSelected);
     }
 
+    public void resultTransfer(final String q, final String a){
+        mFirebaseResultReference = FirebaseDatabase.getInstance().getReference()
+                .child("result_review/"+mFirebaseUser.getUid());
+
+        mFirebaseResultReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                result_push resultTotal = new result_push(q,a,null, null, null);
+                mFirebaseResultReference.child("done_qa").push().setValue(resultTotal);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void totalTransfer(){
         mTotalQuestionReference =  FirebaseDatabase.getInstance().getReference()
                 .child("game_data/total_question");
@@ -195,6 +236,13 @@ public class single_game extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 leaderboard_push totalTally = dataSnapshot.getValue(leaderboard_push.class);
                 totalQues = totalTally.getTotal();
+
+                for(int x= totalQues.intValue(); x>0; x--){
+                 if(x!=randomQuestionToken){
+                     quesList.add(x);
+                 }
+                }
+                Collections.shuffle(quesList);
             }
 
             @Override
@@ -225,6 +273,9 @@ public class single_game extends AppCompatActivity {
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
                 gameText1.setText(post.getChoice1());
+                gameText2.setText(post.getChoice2());
+                gameText3.setText(post.getChoice3());
+
                 // [END_EXCLUDE]
             }
             @Override
@@ -334,13 +385,32 @@ public class single_game extends AppCompatActivity {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                gameText1.setEnabled(false);
+                                gameText2.setEnabled(false);
+                                gameText3.setEnabled(false);
                                 // If the answer is correct
                                 if(gameTextConvert1.equals(post.getAnswer())){
-                                    questionRetrieval();
-                                    correctTrigger();
+                                    //Transfer to review page
+                                    resultTransfer(questionText1.getText().toString(), gameTextConvert1);
+                                    gameText1.setBackgroundColor(Color.parseColor("#33691E"));
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            questionRetrieval();
+                                            correctTrigger();
+                                        }
+                                    },1000);
                                 }
                                 else{
-                                    wrongTrigger();
+                                    gameText1.setBackgroundColor(Color.parseColor("#E57373"));
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            questionRetrieval();
+                                            wrongTrigger();
+                                        }
+                                    },1000);
+
                                 }
                             }
                         }
@@ -352,12 +422,31 @@ public class single_game extends AppCompatActivity {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                gameText1.setEnabled(false);
+                                gameText2.setEnabled(false);
+                                gameText3.setEnabled(false);
                                 if(gameTextConvert2.equals(post.getAnswer())){
-                                    questionRetrieval();
-                                    correctTrigger();
+                                    //Transfer to review page
+                                    resultTransfer(questionText1.getText().toString(), gameTextConvert2);
+                                    gameText2.setBackgroundColor(Color.parseColor("#33691E"));
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            questionRetrieval();
+                                            correctTrigger();
+                                        }
+                                    },1000);
+
                                 }
                                 else{
-                                    wrongTrigger();
+                                    gameText2.setBackgroundColor(Color.parseColor("#E57373"));
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            questionRetrieval();
+                                            wrongTrigger();
+                                        }
+                                    },1000);
                                 }
                             }
                         }
@@ -367,12 +456,31 @@ public class single_game extends AppCompatActivity {
                 gameText3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        gameText1.setEnabled(false);
+                        gameText2.setEnabled(false);
+                        gameText3.setEnabled(false);
                         if(gameTextConvert3.equals(post.getAnswer())){
-                            questionRetrieval();
-                            correctTrigger();
+                            //Transfer to review page
+                            resultTransfer(questionText1.getText().toString(), gameTextConvert3);
+                            gameText3.setBackgroundColor(Color.parseColor("#33691E"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    correctTrigger();
+                                }
+                            },1000);
+
                         }
                         else{
-                            wrongTrigger();
+                            gameText3.setBackgroundColor(Color.parseColor("#E57373"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    wrongTrigger();
+                                }
+                            },1000);
                         }
                     }
                 });
@@ -387,7 +495,6 @@ public class single_game extends AppCompatActivity {
         mFirebaseDatabaseReference.addValueEventListener(postListener);
 
     }
-
 
     public void scoreCollect(final Long scoreObtain){
         mFirebaseScoreReference = FirebaseDatabase.getInstance().getReference()
@@ -414,18 +521,43 @@ public class single_game extends AppCompatActivity {
 
     //    Correct Trigger
     public void correctTrigger(){
-        Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
+        mFirebaseResultReference = FirebaseDatabase.getInstance().getReference()
+                .child("result_review/"+mFirebaseUser.getUid());
+
+        mFirebaseResultReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                numCrt = numCrt + 1;
+                result_push resultTotal = new result_push(null,null,null,numCrt,null);
+                mFirebaseResultReference.child("total_crt").setValue(resultTotal);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        scoreAcc = scoreAcc + 10L;
         singleBar.setProgress(singleBar.getProgress()+10);
         if(singleBar.getProgress()>=100){
-            scoreCollect(50L);
+            scoreCollect(scoreAcc);
+            gameText1.setEnabled(false);
+            gameText2.setEnabled(false);
+            gameText3.setEnabled(false);
             AlertDialog alertDialog = new AlertDialog.Builder(single_game.this).create();
             alertDialog.setTitle("Result");
-            alertDialog.setMessage("You have won and gained 50 points!!");
+            alertDialog.setCancelable(false);
+            alertDialog.setMessage("You've gained "+scoreAcc+" points!!");
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                             finish();
+                            timeTransfer();
+                            timerHandler.removeCallbacks(timerRunnable);
+                            Intent intent = new Intent("guan.pcihearten.result_page");
+                            startActivity(intent);
                         }
                     });
             alertDialog.show();
@@ -435,9 +567,78 @@ public class single_game extends AppCompatActivity {
 
     //    Wrong Trigger
     public void wrongTrigger(){
-        Toast.makeText(this, "Wrong!", Toast.LENGTH_SHORT).show();
-        singleBar.setProgress(singleBar.getProgress()-5);
+        mFirebaseResultReference = FirebaseDatabase.getInstance().getReference()
+                .child("result_review/"+mFirebaseUser.getUid());
+
+        mFirebaseResultReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                numWrg = numWrg + 1;
+                result_push resultTotal = new result_push(null,null,null,null,numWrg);
+                mFirebaseResultReference.child("total_wrg").setValue(resultTotal);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        singleBar.setProgress(singleBar.getProgress()+10);
+        if(singleBar.getProgress()>=100){
+            scoreCollect(scoreAcc);
+            AlertDialog alertDialog = new AlertDialog.Builder(single_game.this).create();
+            alertDialog.setTitle("Result");
+            alertDialog.setMessage("You gained "+scoreAcc+" points!!");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            finish();
+                            timeTransfer();
+                            timerHandler.removeCallbacks(timerRunnable);
+                            Intent intent = new Intent("guan.pcihearten.result_page");
+                            startActivity(intent);
+                        }
+                    });
+            alertDialog.show();
+        }
     }
+
+    public void timeTransfer(){
+        mFirebaseResultReference = FirebaseDatabase.getInstance().getReference()
+                .child("result_review/"+mFirebaseUser.getUid());
+
+        mFirebaseResultReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                result_push resultTotal = new result_push(null,null,"Total Time: "+gameTime.getText().toString(), null, null);
+                mFirebaseResultReference.child("game_time").setValue(resultTotal);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    //    Sets the game tIme
+    //runs without a timer by reposting this handler at the end of the runnable
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            long millis = System.currentTimeMillis() - startTime;
+            int seconds = (int) (millis / 1000);
+            int minutes = seconds / 60;
+            seconds = seconds % 60;
+
+            gameTime.setText(String.format("%d:%02d", minutes, seconds));
+
+            timerHandler.postDelayed(this, 500);
+        }
+    };
 
 
 

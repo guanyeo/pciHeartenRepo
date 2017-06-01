@@ -10,10 +10,60 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="guan.pcihearten.result_page">
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/result_bar"
+        android:clickable="true"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:padding="10dp"
+            >
+                <TextView
+                    android:id="@+id/result_time_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="Total Time: 0:00"
+                    android:textColor="@color/gameText"
+                    android:textSize="18sp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+            <TextView
+                android:id="@+id/result_tt_crt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="Total Correct: 0"
+                android:textColor="@color/gameText"
+                android:textSize="18sp"
+                android:layout_below="@+id/result_time_txt"
+                />
+            <TextView
+                android:id="@+id/result_tt_wrg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="Total Wrong: 0"
+                android:textColor="@color/gameText"
+                android:textSize="18sp"
+                android:layout_below="@+id/result_tt_crt"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/result_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/result_bar"
         android:textColor="@color/black"
         />
 

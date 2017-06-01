@@ -9,16 +9,20 @@ public class result_push {
     private String id;
     private String answer;
     private String question;
-    private Long questionTag;
+    private String time;
+    private Long total_correct;
+    private Long total_wrong;
 
 
     public result_push() {
     }
 
-    public result_push(String question, String answer, Long questionTag){
+    public result_push(String question, String answer, String time, Long total_correct, Long total_wrong){
         this.question = question;
         this.answer = answer;
-        this.questionTag = questionTag;
+        this.time = time;
+        this.total_correct = total_correct;
+        this.total_wrong = total_wrong;
     }
 
     public String getId() {
@@ -45,11 +49,27 @@ public class result_push {
         this.answer = answer;
     }
 
-    public long getQuestionTag() {
-        return questionTag;
+    public String getTime() {
+        return time;
     }
 
-    public void setQuestionTag(long questionTag) {
-        this.questionTag = questionTag;
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public Long getTotal_correct() {
+        return total_correct;
+    }
+
+    public void setTotal_correct(Long total_correct) {
+        this.total_correct = total_correct;
+    }
+
+    public Long getTotal_wrong() {
+        return total_wrong;
+    }
+
+    public void setTotal_wrong(Long total_wrong) {
+        this.total_wrong = total_wrong;
     }
 }

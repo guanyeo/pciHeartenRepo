@@ -702,9 +702,9 @@
     <string name="health_flag">Heart Attack Prevention</string>
     <string name="title_activity_game_room">game_room</string>
     <string name="title_activity_ronso">ronso</string>
-    <string name="conversation_username">40f39530-3701-4e6b-82b7-f7054423268a</string> 
-    <string name="conversation_password">5CyyRJ23KL6M</string>  
-    <string name="workspace_id">458205da-0c0d-4b1d-8c03-dfebeef99793</string> 
+    <string name="conversation_username">7c75e4a3-2d5f-4703-a5cf-0a8d2f8acd1a</string> 
+    <string name="conversation_password">fGqpmNz6VwFb</string>  
+    <string name="workspace_id">2ad060ca-2c50-409b-9093-9e8debfcc3f6</string> 
     <string name="STT_username" />
     <string name="STT_password" />
     <string name="TTS_username" />

@@ -38,12 +38,14 @@ public class game_leaderboard extends AppCompatActivity
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
         public TextView messageTextView;
         public TextView messengerTextView;
+        public TextView rankTextView;
         public CircleImageView messengerImageView;
 //        Individual item for creation of recycler
         public MessageViewHolder(View v) {
             super(v);
             messageTextView = (TextView) itemView.findViewById(R.id.guan_name);
             messengerTextView = (TextView) itemView.findViewById(R.id.guan_score);
+            rankTextView = (TextView) itemView.findViewById(R.id.leaderNum);
             messengerImageView = (CircleImageView) itemView.findViewById(R.id.leaderProf);
 
         }
@@ -62,6 +64,7 @@ public class game_leaderboard extends AppCompatActivity
     private LinearLayoutManager mLinearLayoutManager;
     private SharedPreferences mSharedPreferences;
     public CircleImageView messengerImageView;
+    private int rankCount;
 
 
     //variable declare II
@@ -115,6 +118,7 @@ public class game_leaderboard extends AppCompatActivity
                                               leaderboard_push model, int position) {
                 viewHolder.messageTextView.setText(model.getName());
                 viewHolder.messengerTextView.setText(String.valueOf(Long.parseLong(model.getScore())));
+                viewHolder.rankTextView.setText(Integer.toString(mFirebaseAdapter.getItemCount()-position));
                 if (model.getPhotoUrl() == null) {
                     viewHolder.messengerImageView
                             .setImageDrawable(ContextCompat

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,9 +18,13 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -44,6 +49,16 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
     private GoogleApiClient mGoogleApiClient;
     private TextView resultQues;
     private TextView resultAns;
+    private TextView resTimeText;
+    private TextView gameCrt;
+    private TextView gameWrg;
+
+
+    //   Firebase variable declare
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private String mUsername;
+    private String mPhotoUrl;
 
     // Firebase instance variables
     private DatabaseReference mFirebaseDatabaseReference;
@@ -57,7 +72,7 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_page);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        checkUserStatus();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
@@ -76,7 +91,8 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
                     R.layout.result_item,
                     MessageViewHolder.class,
                     //need to specify which question
-                    mFirebaseDatabaseReference.child("resultTest")
+                    mFirebaseDatabaseReference.child("result_review").child(mFirebaseUser.getUid()).child("done_qa")
+
             ) {
                 @Override
                 protected void populateViewHolder(MessageViewHolder viewHolder, result_push model, int position) {
@@ -88,11 +104,81 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
         mMessageRecyclerView.setAdapter(mFirebaseAdapter);
 
+        mFirebaseDatabaseReference.child("result_review/"+mFirebaseUser.getUid()+"/game_time").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                result_push post = dataSnapshot.getValue(result_push.class);
+                resTimeText = (TextView) findViewById(R.id.result_time_txt);
+                try{
+                    resTimeText.setText(post.getTime());
+                }
+                catch(NullPointerException e){
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mFirebaseDatabaseReference.child("result_review/"+mFirebaseUser.getUid()+"/total_crt").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                result_push post = dataSnapshot.getValue(result_push.class);
+                gameCrt = (TextView) findViewById(R.id.result_tt_crt);
+                try{
+                    gameCrt.setText("Total Correct:"+Long.toString(post.getTotal_correct()));
+                }
+                catch(NullPointerException e){
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mFirebaseDatabaseReference.child("result_review/"+mFirebaseUser.getUid()+"/total_wrg").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                result_push post = dataSnapshot.getValue(result_push.class);
+                gameWrg = (TextView)findViewById(R.id.result_tt_wrg);
+                try{
+                    gameWrg.setText("Total Wrong: "+Long.toString(post.getTotal_wrong()));
+                }
+                catch(NullPointerException e){
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
+
+
+    public void checkUserStatus(){
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mUsername = mFirebaseUser.getDisplayName();
+    }
+
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    protected void onStop() {
+        mFirebaseDatabaseReference.child("result_review").child(mFirebaseUser.getUid()).removeValue();
+        super.onStop();
     }
 }

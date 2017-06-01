@@ -302,9 +302,7 @@ public class mainPage extends AppCompatActivity
             if (!this.initialRequest) {
                 Message inputMessage = new Message();
                 inputMessage.setMessage(inputmessage);
-                Log.d("Input Message", "" + inputmessage);
                 inputMessage.setId("1");
-                Log.d("inputMessage",""+inputmessage);
 //                messageArrayList.add(inputMessage);
 
             } else {
@@ -335,14 +333,13 @@ public class mainPage extends AppCompatActivity
 
                                 ArrayList responseList = (ArrayList) response.getOutput().get("text");
                                 if (null != responseList && responseList.size() > 0) {
-                                    outMessage.setMessage((String) responseList.get(0));
+                                    outMessage.setMessage("@"+mUsername+", "+(String) responseList.get(0));
                                     FriendlyMessage friendlyMessage = new
                                             FriendlyMessage((String) responseList.get(0),
-                                            "WatsonBot",
-                                            "http://teeshirtdivision.com/wp-content/uploads/2016/01/2072LOGO.jpg");
+                                            "9S",
+                                            "http://cdn.acfrg.com/i/0_0_fit_ffffff__png/ACfrG/productpics_fullsize/2/229190a.jpg");
                                     mFirebaseDatabaseReference.child(MESSAGES_CHILD)
                                             .push().setValue(friendlyMessage);
-                                    Log.d("Output Message", "" + (String) responseList.get(0));
                                     outMessage.setId("2");
                                 }
 //                                messageArrayList.add(outMessage);
@@ -523,7 +520,7 @@ public class mainPage extends AppCompatActivity
                 startActivity(intent);
             }
             else{
-                Intent intent = new Intent("guan.pcihearten.result_page");
+                Intent intent = new Intent("guan.pcihearten.read_tab");
                 startActivity(intent);
             }
 
