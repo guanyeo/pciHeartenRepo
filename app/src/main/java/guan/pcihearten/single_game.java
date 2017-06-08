@@ -132,7 +132,7 @@ public class single_game extends AppCompatActivity {
     public void questionRetrieval(){
 //        check if BM or ENG
         languageSceen readFlag = new languageSceen();
-//        generate a token to randomize the question
+//       no loop
         try {
             randomQuestionToken = (int) quesList.get(currQues);
         }
@@ -399,7 +399,7 @@ public class single_game extends AppCompatActivity {
                                             questionRetrieval();
                                             correctTrigger();
                                         }
-                                    },1000);
+                                    },1500);
                                 }
                                 else{
                                     gameText1.setBackgroundColor(Color.parseColor("#E57373"));
@@ -409,7 +409,7 @@ public class single_game extends AppCompatActivity {
                                             questionRetrieval();
                                             wrongTrigger();
                                         }
-                                    },1000);
+                                    },1500);
 
                                 }
                             }
@@ -435,7 +435,7 @@ public class single_game extends AppCompatActivity {
                                             questionRetrieval();
                                             correctTrigger();
                                         }
-                                    },1000);
+                                    },1500);
 
                                 }
                                 else{
@@ -446,7 +446,7 @@ public class single_game extends AppCompatActivity {
                                             questionRetrieval();
                                             wrongTrigger();
                                         }
-                                    },1000);
+                                    },1500);
                                 }
                             }
                         }
@@ -469,7 +469,7 @@ public class single_game extends AppCompatActivity {
                                     questionRetrieval();
                                     correctTrigger();
                                 }
-                            },1000);
+                            },1500);
 
                         }
                         else{
@@ -480,7 +480,7 @@ public class single_game extends AppCompatActivity {
                                     questionRetrieval();
                                     wrongTrigger();
                                 }
-                            },1000);
+                            },1500);
                         }
                     }
                 });
@@ -588,7 +588,8 @@ public class single_game extends AppCompatActivity {
             scoreCollect(scoreAcc);
             AlertDialog alertDialog = new AlertDialog.Builder(single_game.this).create();
             alertDialog.setTitle("Result");
-            alertDialog.setMessage("You gained "+scoreAcc+" points!!");
+            alertDialog.setMessage("You've gained "+scoreAcc+" points!!");
+            alertDialog.setCancelable(false);
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {

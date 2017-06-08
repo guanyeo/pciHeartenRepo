@@ -91,7 +91,7 @@
             android:layout_centerInParent="true"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:max="100"
-            android:progress="33"
+            android:progress="0"
           />
 
         <TextView
@@ -108,12 +108,23 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/rank_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Rank Test"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        android:textStyle="italic"
+        android:layout_below="@id/status_bar_p1"/>
+
     <android.support.v7.widget.CardView
         android:id="@+id/achieve_card_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/status_bar_p1"
-        android:layout_marginTop="16dp">
+        android:layout_below="@+id/rank_banner"
+       >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -131,28 +142,60 @@
                 />
 
             <TextView
-                android:id="@+id/achieve_title"
+                android:id="@+id/rank_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_toRightOf="@+id/achieve_img"
-                android:layout_marginLeft="15dp"
                 android:textSize="18sp"
                 android:textColor="@color/gameText"
-                android:text="Read Achievement"
+                android:text="EASY"
+                />
+
+            <ProgressBar
+                android:id="@+id/rank_bar"
+                android:layout_below="@+id/rank_title"
+                android:layout_toRightOf="@id/achieve_img"
+                android:layout_toLeftOf="@+id/rank_button"
+                android:layout_marginLeft="15dp"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/rank_bar_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0/5"
+                android:textAlignment="center"
+                android:textColor="@color/gameText"
+                android:layout_alignLeft="@id/rank_bar"
+                android:layout_alignTop="@id/rank_bar"
+                android:layout_alignRight="@id/rank_bar"
+                android:layout_alignBottom="@id/rank_bar"/>
+
+            <ImageView
+                android:id="@+id/rank_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/blue"
                 />
 
             <TextView
-                android:id="@+id/achieve_desc"
+                android:id="@+id/rank_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start reading daily to get achievement."
-                android:layout_below="@id/achieve_title"
+                android:layout_toRightOf="@+id/achieve_img"
+                android:layout_toLeftOf="@+id/rank_button"
+                android:text="Read everyday to fill up bar to attempt test."
+                android:layout_below="@id/rank_bar"
                 android:layout_marginLeft="15dp"
                 android:textColor="@color/gameText"
-                android:layout_toRightOf="@+id/achieve_img"
-
                 android:textSize="14sp"
                 android:textStyle="normal|italic" />
 
@@ -161,12 +204,22 @@
 
     </android.support.v7.widget.CardView>
 
+    <TextView
+        android:id="@+id/achieve_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Achievement"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        android:textStyle="italic"
+        android:layout_below="@id/achieve_card_1"/>
+
     <android.support.v7.widget.CardView
         android:id="@+id/achieve_card_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/achieve_card_1"
-        android:layout_marginTop="16dp">
+        android:layout_below="@+id/achieve_banner"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"

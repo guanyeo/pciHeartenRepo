@@ -65,6 +65,7 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
     private FirebaseRecyclerAdapter<result_push, result_page.MessageViewHolder>
             mFirebaseAdapter;
     private DatabaseReference resultReference;
+    private DatabaseReference mRankReference;
 
 
     @Override
@@ -161,6 +162,8 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
             }
         });
 
+        rankResult();
+
     }
 
 
@@ -168,6 +171,38 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mUsername = mFirebaseUser.getDisplayName();
+    }
+
+    public void rankResult(){
+        mRankReference = FirebaseDatabase.getInstance().getReference()
+                .child("unique_user").child("-" + mFirebaseUser.getUid()).child("rank_info");
+
+        mFirebaseDatabaseReference.child("result_review/"+mFirebaseUser.getUid()+"/total_crt").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user_profile rankFlag = new user_profile();
+                result_push post = dataSnapshot.getValue(result_push.class);
+
+                if(rankFlag.getCurrentRank().equals("EASY")){
+                    if(post.getTotal_correct().intValue()>=5){
+                        mRankReference.child("rank_level").setValue("CLIMB");
+                    }
+                }
+
+                if(rankFlag.getCurrentRank().equals("MEDIUM")){
+                }
+
+                if(rankFlag.getCurrentRank().equals("HARD")){
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 

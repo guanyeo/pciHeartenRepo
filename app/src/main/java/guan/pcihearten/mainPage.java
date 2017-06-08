@@ -122,6 +122,7 @@ public class mainPage extends AppCompatActivity
     private DatabaseReference mUserDBReference;
     private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>
             mFirebaseAdapter;
+    private DatabaseReference mReadReference;
     private FirebaseAnalytics mFirebaseAnalytics;
 
 
@@ -466,7 +467,9 @@ public class mainPage extends AppCompatActivity
                 }
                 else{
                     leaderboard_push guantesto1 = new leaderboard_push(mUsername, "000000", 0L, mPhotoUrl);
+                    read_push guantesto2 = new read_push(0L, "CLIMB");
                     mUserDBReference.child("-"+mFirebaseUser.getUid()).setValue(guantesto1);
+                    mUserDBReference.child("-"+mFirebaseUser.getUid()).child("rank_info").setValue(guantesto2);
 
                 }
 
@@ -487,31 +490,49 @@ public class mainPage extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_information) {
-
-//            // [START image_view_event]
-//            Bundle bundle = new Bundle();
-//            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, mUsername+" selected read.");
-//            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-//            // [END image_view_event]
+            mReadReference = FirebaseDatabase.getInstance().getReference()
+                    .child("unique_user").child("-" + mFirebaseUser.getUid()).child("rank_info");
 
             //            Set off daily read counter
             SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
             Cursor countFlag = mydatabase.rawQuery("SELECT flag FROM read_counter",null);
-            Cursor counterCount = mydatabase.rawQuery("SELECT counter FROM read_counter",null);
             try{
                 countFlag.moveToFirst();
-                counterCount.moveToFirst();
-
                 if(countFlag.getInt(0)==0){
-                    mydatabase.execSQL("UPDATE read_counter SET flag = 1");
-//                    UPDATE COUNTER
-                    counterStore = counterCount.getInt(0)+1;
-                    mydatabase.execSQL("UPDATE read_counter SET counter = '" + counterStore + "' ");
+
+                    mReadReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
+                            read_push readPost = dataSnapshot.getValue(read_push.class);
+
+                            if(readPost.getRead_total().intValue() == 4){
+                                mReadReference.child("rank_level").setValue("EASY");
+                            }
+                            else if(readPost.getRead_total().intValue() == 9){
+                                mReadReference.child("rank_level").setValue("MEDIUM");
+                            }
+                            else if(readPost.getRead_total().intValue() == 14){
+                                mReadReference.child("rank_level").setValue("HARD");
+                            }
+
+                            if(readPost.getRank_level().equals("CLIMB")) {
+                                mydatabase.execSQL("UPDATE read_counter SET flag = 1");
+                                mReadReference.child("read_total").setValue(readPost.getRead_total() + 1L);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
                 }
             }
             finally {
                 countFlag.close();
-                counterCount.close();
             }
 
             languageSceen readFlag = new languageSceen();

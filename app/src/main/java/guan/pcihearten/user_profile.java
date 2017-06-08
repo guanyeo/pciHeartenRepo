@@ -1,18 +1,18 @@
 package guan.pcihearten;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.ContactsContract;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,8 +22,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -49,16 +47,23 @@ public class user_profile extends AppCompatActivity {
     private Long expBarLever;
     private DatabaseReference mFirebaseScore;
     private DatabaseReference mFirebasePlayed;
+    private DatabaseReference mReadReference;
 
 //  Achievement Variable
-    private ImageView achievementPic1;
-    private TextView achievementTitle1;
-    private TextView achievementDesc1;
+    private ImageView rankPic;
+    private TextView rankTitle;
+    private TextView rankDesc;
+    private ImageView rankButton;
+    private ProgressBar rankBar;
+    private TextView rankBarText;
+    private int rankTotal;
+    private static final int MAX_PROGRESS  = 5;
+    private static String currentRank;
 
     private ImageView achievementPic2;
     private TextView achievementTitle2;
     private TextView achievementDesc2;
-
+    private int x;
 
 
     @Override
@@ -150,90 +155,227 @@ public class user_profile extends AppCompatActivity {
     }
 
     public void achievementList(){
-        achievementPic1 = (ImageView)findViewById(R.id.achieve_img);
-        achievementPic2 = (ImageView)findViewById(R.id.achieve_img_2);
-        achievementTitle1 = (TextView) findViewById(R.id.achieve_title);
+        rankPic = (ImageView)findViewById(R.id.achieve_img);
+        rankTitle = (TextView) findViewById(R.id.rank_title);
+        rankDesc = (TextView) findViewById(R.id.rank_desc);
+        rankBarText = (TextView)findViewById(R.id.rank_bar_text);
+        rankButton = (ImageView)findViewById(R.id.rank_button);
+        rankBar = (ProgressBar)findViewById(R.id.rank_bar);
+
         achievementTitle2 = (TextView) findViewById(R.id.achieve_title_2);
-        achievementDesc1 = (TextView) findViewById(R.id.achieve_desc);
+        achievementPic2 = (ImageView)findViewById(R.id.achieve_img_2);
         achievementDesc2 = (TextView) findViewById(R.id.achieve_desc_2);
-//      Check how many times user have read
-        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
-        Cursor countFlag = mydatabase.rawQuery("SELECT * FROM read_counter",null);
-        languageSceen readFlag = new languageSceen();
-        try{
-            countFlag.moveToFirst();
-            if(countFlag.getInt(0)>=1 &&  countFlag.getInt(0)<=5){
 
 
-                if (readFlag.getLanguageSelected() == "bm") {
-                    achievementTitle1.setText("Pembaca muda");
-                    achievementDesc1.setText("Baca sekurang-kurang " + countFlag.getInt(0) + " kali.");
-                    Glide.with(user_profile.this)
-                            .load("https://img.clipartfest.com/3f6eff016cd68f2bf541d5a187dd06e3_bronze-trophy-cup-award-bronze-trophy-clipart_538-600.png")
-                            .into(achievementPic1);
-                }
-                else {
-                    achievementTitle1.setText("Beginner Reader");
-                    achievementDesc1.setText("You've read at least " + countFlag.getInt(0) + " time(s).");
-                    Glide.with(user_profile.this)
-                            .load("https://img.clipartfest.com/3f6eff016cd68f2bf541d5a187dd06e3_bronze-trophy-cup-award-bronze-trophy-clipart_538-600.png")
-                            .into(achievementPic1);
-                }
-            }
-            if(countFlag.getInt(0)>=6 && countFlag.getInt(0)<=10){
-                if (readFlag.getLanguageSelected() == "bm") {
-                    achievementTitle1.setText("Pembaca sederhana");
-                    achievementDesc1.setText("Baca sekurang-kurang " + countFlag.getInt(0) + " kali.");
-                    Glide.with(user_profile.this)
-                            .load("https://img.clipartfest.com/ff0ecbbaaf2b325322b456dab4904cc8_quality-silver-trophy-cups-silver-trophy-clipart_600-740.jpeg")
-                            .into(achievementPic1);
-                }
-                else {
-                    achievementTitle1.setText("Intermediate Reader");
-                    achievementDesc1.setText("You've read atleast " + countFlag.getInt(0) + " times.");
-                    Glide.with(user_profile.this)
-                            .load("https://img.clipartfest.com/ff0ecbbaaf2b325322b456dab4904cc8_quality-silver-trophy-cups-silver-trophy-clipart_600-740.jpeg")
-                            .into(achievementPic1);
-                }
+
+        mReadReference = FirebaseDatabase.getInstance().getReference()
+                .child("unique_user").child("-" + mFirebaseUser.getUid()).child("rank_info");
+        mReadReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                languageSceen readFlag = new languageSceen();
+                read_push readPost  = dataSnapshot.getValue(read_push.class);
+
+                    if(readPost.getRead_total().intValue()>=1 &&  readPost.getRead_total().intValue()<=5){
+                        if (readFlag.getLanguageSelected() == "bm") {
+                            rankTitle.setText("Pembaca muda");
+                            rankDesc.setText("Baca sekurang-kurang " + readPost.getRead_total().intValue() + " kali.");
+                            try {
+                                Glide.with(user_profile.this)
+                                        .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                        .into(rankPic);
+                            }
+                            catch (IllegalArgumentException e){
+
+                            }
+                        }
+                        else {
+                            rankBar.setProgress(readPost.getRead_total().intValue());
+                            rankBar.setMax(MAX_PROGRESS);
+                            rankBarText.setText(readPost.getRead_total().intValue()+"/"+MAX_PROGRESS);
+                            rankTotal = 5 - readPost.getRead_total().intValue();
+                            rankTitle.setText("Easy");
+
+                            if(rankTotal!=0){
+                                rankDesc.setText("Read " + rankTotal + " time(s) to start the test.");
+                            }
+                            else {
+                                rankButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        AlertDialog alertDialog = new AlertDialog.Builder(user_profile.this).create();
+                                        alertDialog.setTitle("Easy Challenge");
+                                        alertDialog.setCancelable(false);
+                                        alertDialog.setMessage("You are about to challenge easy mode.\nGet atleast 5 correct to proceed to next rank.");
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        });
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "YES",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        proceedRank("EASY");
+                                                        getCurrentRank();
+                                                        dialog.dismiss();
+                                                        finish();
+                                                        Intent intent = new Intent("guan.pcihearten.single_game");
+                                                        startActivity(intent);
+                                                    }
+                                                });
+                                        alertDialog.show();
+                                    }
+                                });
+                                rankDesc.setText("You can participate in the test now.");
+                            }
+
+                            try {
+                                Glide.with(user_profile.this)
+                                        .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                        .into(rankPic);
+                            }
+                            catch (IllegalArgumentException e){
+
+                            }
+                        }
+                    }
+                    if(readPost.getRead_total().intValue()>=6 && readPost.getRead_total().intValue()<=10){
+                        if (readFlag.getLanguageSelected() == "bm") {
+                            rankTitle.setText("Pembaca sederhana");
+                            rankDesc.setText("Baca sekurang-kurang " + readPost.getRead_total().intValue() + " kali.");
+                            try {
+                                Glide.with(user_profile.this)
+                                        .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                        .into(rankPic);
+                            }
+                            catch (IllegalArgumentException e){
+
+                            }
+                        }
+                        else {
+                            rankBar.setProgress(readPost.getRead_total().intValue());
+                            rankBar.setMax(MAX_PROGRESS*2);
+                            rankBarText.setText(readPost.getRead_total().intValue()+"/"+MAX_PROGRESS*2);
+                            rankTotal = 10 - readPost.getRead_total().intValue();
+                            rankTitle.setText("INTERMEDIATE");
+
+                            if(rankTotal!=0){
+                                rankDesc.setText("Read " + rankTotal + " time(s) to start the test.");
+                            }
+                            else {
+                                rankButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Toast.makeText(user_profile.this, "NIBBA", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                rankDesc.setText("You can participate in the test now.");
+                            }
+                            try {
+                                Glide.with(user_profile.this)
+                                        .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                        .into(rankPic);
+                            }
+                            catch (IllegalArgumentException e){
+
+                            }
+                        }
+                    }
+
+                    if(readPost.getRead_total().intValue()>=11 && readPost.getRead_total().intValue()<=15){
+                        if (readFlag.getLanguageSelected() == "bm") {
+                            rankTitle.setText("Gah, Megah, Gemilang");
+                            rankDesc.setText("Baca sekurang-kurang " +readPost.getRead_total().intValue() + " kali.");
+                            try {
+                                Glide.with(user_profile.this)
+                                        .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                        .into(rankPic);
+                            }
+                            catch (IllegalArgumentException e){
+
+                            }
+                        }
+                        else {
+                            rankBar.setProgress(readPost.getRead_total().intValue());
+                            rankBar.setMax(MAX_PROGRESS*3);
+                            rankBarText.setText(readPost.getRead_total().intValue()+"/"+MAX_PROGRESS*3);
+                            rankTotal = 15 - readPost.getRead_total().intValue();
+                            rankTitle.setText("HARD");
+
+                            if(rankTotal!=0){
+                                rankDesc.setText("Read " + rankTotal + " time(s) to start the test.");
+                            }
+                            else {
+                                rankButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Toast.makeText(user_profile.this, "NIBBA", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                rankDesc.setText("You can participate in the test now.");
+                            }
+                            try {
+                                Glide.with(user_profile.this)
+                                        .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                        .into(rankPic);
+                            }
+                            catch (IllegalArgumentException e){
+
+                            }
+                        }
+                    }
+
+                    if(readPost.getRead_total().intValue()>=16){
+                        if (readFlag.getLanguageSelected() == "bm") {
+                            rankTitle.setText("Luar Biasa");
+                            rankDesc.setText("Tahniah!!!");
+                            try {
+                                Glide.with(user_profile.this)
+                                        .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                        .into(rankPic);
+                            }
+                            catch (IllegalArgumentException e){
+
+                            }
+                        }
+                        else {
+                            rankBar.setProgress(readPost.getRead_total().intValue());
+                            rankBar.setMax(MAX_PROGRESS*100);
+                            rankBarText.setText(readPost.getRead_total().intValue()+"/"+MAX_PROGRESS*100);
+                            rankTotal = 69 - readPost.getRead_total().intValue();
+                            rankTitle.setText("Congrajulation");
+
+                            if(rankTotal!=0){
+                                rankDesc.setText("Read " + rankTotal + " time(s) to start the test.");
+                            }
+                            else {
+                                rankButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Toast.makeText(user_profile.this, "NIBBA", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                rankDesc.setText("You can participate in the test now.");
+                            }
+                            try {
+                                Glide.with(user_profile.this)
+                                        .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                        .into(rankPic);
+                            }
+                            catch (IllegalArgumentException e){
+
+                            }
+                        }
+                    }
             }
 
-            if(countFlag.getInt(0)>=11 && countFlag.getInt(0)<=15){
-                if (readFlag.getLanguageSelected() == "bm") {
-                    achievementTitle1.setText("Gah, Megah, Gemilang");
-                    achievementDesc1.setText("Baca sekurang-kurang " + countFlag.getInt(0) + " kali.");
-                    Glide.with(user_profile.this)
-                            .load("http://www.psdgraphics.com/file/gold-trophy.jpg")
-                            .into(achievementPic1);
-                }
-                else {
-                    achievementTitle1.setText("Going on strong");
-                    achievementDesc1.setText("You've read atleast " + countFlag.getInt(0) + " times.");
-                    Glide.with(user_profile.this)
-                            .load("http://www.psdgraphics.com/file/gold-trophy.jpg")
-                            .into(achievementPic1);
-                }
-            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-            if(countFlag.getInt(0)>=16){
-                if (readFlag.getLanguageSelected() == "bm") {
-                    achievementTitle1.setText("Luar Biasa");
-                    achievementDesc1.setText("Tahniah!!!");
-                    Glide.with(user_profile.this)
-                            .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
-                            .into(achievementPic1);
-                }
-                else {
-                    achievementTitle1.setText("Legendary");
-                    achievementDesc1.setText("Well done!!! Don't stop reading!!!");
-                    Glide.with(user_profile.this)
-                            .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
-                            .into(achievementPic1);
-                }
             }
-        }
-        finally {
-            countFlag.close();
-        }
+        });
+
 
 //            Achievement for game completed
         mFirebasePlayed =  FirebaseDatabase.getInstance().getReference().child("unique_user").child("-"+mFirebaseUser.getUid());
@@ -247,15 +389,25 @@ public class user_profile extends AppCompatActivity {
                     if (readFlag.getLanguageSelected() == "bm") {
                         achievementTitle2.setText("Pelawan Baharu");
                         achievementDesc2.setText("Petanding dalam arena sekurang-kurang " + scoreRetrieve.getPlayed() + " kali.");
-                        Glide.with(user_profile.this)
-                                .load("http://www.clipartkid.com/images/723/we-will-also-be-developing-our-scientific-enquiry-skills-by-RmQTp1-clipart.png")
-                                .into(achievementPic2);
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .into(achievementPic2);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
                     } else {
                         achievementTitle2.setText("Green Horn");
                         achievementDesc2.setText("Participate in arena atleast " + scoreRetrieve.getPlayed() + " times.");
-                        Glide.with(user_profile.this)
-                                .load("http://www.clipartkid.com/images/723/we-will-also-be-developing-our-scientific-enquiry-skills-by-RmQTp1-clipart.png")
-                                .into(achievementPic2);
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .into(achievementPic2);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
                     }
                 }
 
@@ -264,15 +416,25 @@ public class user_profile extends AppCompatActivity {
                     if (readFlag.getLanguageSelected() == "bm") {
                         achievementTitle2.setText("Pelawan Mahir");
                         achievementDesc2.setText("Petanding dalam arena sekurang-kurang " + scoreRetrieve.getPlayed() + " kali.");
-                        Glide.with(user_profile.this)
-                                .load("http://www.dennislewis.org/wp-content/uploads/2010/01/image3.jpg")
-                                .into(achievementPic2);
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .into(achievementPic2);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
                     } else {
                         achievementTitle2.setText("Intermediate Challenger");
                         achievementDesc2.setText("Participate in arena atleast " + scoreRetrieve.getPlayed() + " times.");
-                        Glide.with(user_profile.this)
-                                .load("http://www.dennislewis.org/wp-content/uploads/2010/01/image3.jpg")
-                                .into(achievementPic2);
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .into(achievementPic2);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
                     }
                 }
 
@@ -281,15 +443,25 @@ public class user_profile extends AppCompatActivity {
                     if (readFlag.getLanguageSelected() == "bm") {
                         achievementTitle2.setText("Pelawan Gagah");
                         achievementDesc2.setText("Petanding dalam arena sekurang-kurang " + scoreRetrieve.getPlayed() + " kali.");
-                        Glide.with(user_profile.this)
-                                .load("http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg")
-                                .into(achievementPic2);
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .into(achievementPic2);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
                     } else {
                         achievementTitle2.setText("Strong Challenger");
                         achievementDesc2.setText("Participate in arena atleast " + scoreRetrieve.getPlayed() + " times.");
-                        Glide.with(user_profile.this)
-                                .load("http://www.defenders.org/sites/default/files/styles/large/public/tiger-dirk-freder-isp.jpg")
-                                .into(achievementPic2);
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .into(achievementPic2);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
                     }
                 }
 
@@ -298,15 +470,25 @@ public class user_profile extends AppCompatActivity {
                     if (readFlag.getLanguageSelected() == "bm") {
                         achievementTitle2.setText("Pelawan Lagenda");
                         achievementDesc2.setText("Tahniah!!!");
-                        Glide.with(user_profile.this)
-                                .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
-                                .into(achievementPic2);
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .into(achievementPic2);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
                     } else {
                         achievementTitle2.setText("Legend");
                         achievementDesc2.setText("Congratulation!!!");
-                        Glide.with(user_profile.this)
-                                .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
-                                .into(achievementPic2);
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .into(achievementPic2);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
                     }
                 }
 
@@ -317,14 +499,15 @@ public class user_profile extends AppCompatActivity {
 
             }
         });
-
-
-
-
     }
 
-
-
+    //Get the current rank and proceed to game
+    private void proceedRank(String rank){
+        currentRank = rank;
+    }
+    public static String getCurrentRank(){
+        return currentRank;
+    }
 
 
 }

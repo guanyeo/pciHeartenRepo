@@ -2,6 +2,8 @@ package guan.pcihearten;
 
 
 public class leaderboard_push {
+    //unused
+    private Long read_total;
 
     private String id;
     private String name;
@@ -64,6 +66,13 @@ public class leaderboard_push {
     }
 
 
+    public void setRead_total(Long read_total) {
+        this.read_total = read_total;
+    }
+
+    public Long getRead_total() {
+        return read_total;
+    }
 }
 
 

@@ -51,16 +51,8 @@ public class languageSceen extends AppCompatActivity {
     private void changeLanguante(String lang){
         languageSelected = lang;
     }
-
     public static String getLanguageSelected(){
         return languageSelected;
     }
-
-
-
-
-
-
-
 
 }

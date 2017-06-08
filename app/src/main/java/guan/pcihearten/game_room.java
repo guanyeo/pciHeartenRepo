@@ -79,9 +79,11 @@ private static final String TAG = "Game Room";
 
 
 //    For random usage
-    private List arrList = new ArrayList();
     private List holderList = new ArrayList();
     private Random rand = new Random();
+//    no loop
+    private List quesList = new ArrayList();
+    private int currQues = 0;
 
     //Status bar
     private TextView p1Name;
@@ -96,7 +98,8 @@ private static final String TAG = "Game Room";
     private Long numWrg = 0L;
 
 
-//    For Calculation score
+
+    //    For Calculation score
     private Long scoreStore;
     private Long totalQues;
 
@@ -198,15 +201,19 @@ private static final String TAG = "Game Room";
 //        check if BM or ENG
         languageSceen readFlag = new languageSceen();
         totalTransfer();
-//        generate a token to randomize the question
+//       no loop
         try {
-            randomQuestionToken = rand.nextInt((int) (long) totalQues) + 1;
-            Log.d("","before catch"+totalQues);
+            randomQuestionToken = (int) quesList.get(currQues);
         }
-        catch (NullPointerException e){
+        catch (IndexOutOfBoundsException e){
+            //use to prevent loop getting out of bound by 1 iteration
+            currQues = currQues-1;
             randomQuestionToken = rand.nextInt(3) + 1;
-            Log.d("","after catch"+totalQues);
+            totalTransfer();
         }
+        //Use for iterate loop
+        currQues = currQues+1;
+
 
         // Reset color of question and function
         gameText1.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -284,6 +291,13 @@ private static final String TAG = "Game Room";
             public void onDataChange(DataSnapshot dataSnapshot) {
                     leaderboard_push totalTally = dataSnapshot.getValue(leaderboard_push.class);
                     totalQues = totalTally.getTotal();
+
+                for(int x= totalQues.intValue(); x>0; x--){
+                    if(x!=randomQuestionToken){
+                        quesList.add(x);
+                    }
+                }
+                Collections.shuffle(quesList);
             }
 
             @Override
@@ -619,6 +633,7 @@ private static final String TAG = "Game Room";
                                 gameText3.setEnabled(false);
                                 AlertDialog alertDialog = new AlertDialog.Builder(game_room.this).create();
                                 alertDialog.setTitle("Result");
+                                alertDialog.setCancelable(false);
                                 alertDialog.setMessage("You have lost!");
                                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                         new DialogInterface.OnClickListener() {
@@ -639,6 +654,7 @@ private static final String TAG = "Game Room";
                                 gameText3.setEnabled(false);
                                 AlertDialog alertDialog = new AlertDialog.Builder(game_room.this).create();
                                 alertDialog.setTitle("Result");
+                                alertDialog.setCancelable(false);
                                 alertDialog.setMessage("You have lost!");
                                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                         new DialogInterface.OnClickListener() {
@@ -658,6 +674,7 @@ private static final String TAG = "Game Room";
                                 gameText3.setEnabled(false);
                                 AlertDialog alertDialog = new AlertDialog.Builder(game_room.this).create();
                                 alertDialog.setTitle("Result");
+                                alertDialog.setCancelable(false);
                                 alertDialog.setMessage("You have won!");
                                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                         new DialogInterface.OnClickListener() {
@@ -843,6 +860,7 @@ private static final String TAG = "Game Room";
                             mConditionReference.removeValue();
                             AlertDialog alertDialog = new AlertDialog.Builder(game_room.this).create();
                             alertDialog.setTitle("Result");
+                            alertDialog.setCancelable(false);
                             alertDialog.setMessage("Your opponent has left.");
                             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                     new DialogInterface.OnClickListener() {
