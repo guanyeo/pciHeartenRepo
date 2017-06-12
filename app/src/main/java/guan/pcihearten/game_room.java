@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,7 @@ private static final String TAG = "Game Room";
     private TextView questionText1;
     private TextView gameText2;
     private TextView gameText3;
+    private ImageView questionImg;
 
 
 
@@ -144,6 +146,7 @@ private static final String TAG = "Game Room";
         gameText1 = (TextView) findViewById(R.id.game_card_text_4);
         gameText2 = (TextView) findViewById(R.id.game_card_text_5);
         gameText3 = (TextView) findViewById(R.id.game_card_text_6);
+        questionImg = (ImageView) findViewById(R.id.question_img);
 
 //        Cast layout for characther statBar
         p1Name = (TextView) findViewById(R.id.name_p1);
@@ -243,6 +246,16 @@ private static final String TAG = "Game Room";
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
                 questionText1.setText(post.getQuestion());
+                //Load image of question
+                try {
+                    Glide.with(game_room.this)
+                            .load(post.getPhotoUrl())
+                            .into(questionImg);
+                    questionImg.setVisibility(View.VISIBLE);
+                }
+                catch(NullPointerException e){
+                    questionImg.setVisibility(View.GONE);
+                }
 
                 answerRetrieval1(Long.valueOf(randomQuestionToken));
                 answerRetrieval2(Long.valueOf(randomQuestionToken));
@@ -444,7 +457,7 @@ private static final String TAG = "Game Room";
                                 // If the answer is correct
                                 if(gameTextConvert1.equals(post.getAnswer())){
                                     //Transfer to review page
-                                    resultTransfer(questionText1.getText().toString(), gameTextConvert1);
+                                    resultTransfer(questionText1.getText().toString(), gameTextConvert1, post.getQuesPhoto());
                                     gameText1.setBackgroundColor(Color.parseColor("#33691E"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
@@ -480,7 +493,7 @@ private static final String TAG = "Game Room";
                                 gameText3.setEnabled(false);
                                 if(gameTextConvert2.equals(post.getAnswer())){
                                     //Transfer to review page
-                                    resultTransfer(questionText1.getText().toString(), gameTextConvert2);
+                                    resultTransfer(questionText1.getText().toString(), gameTextConvert2, post.getQuesPhoto());
                                     gameText2.setBackgroundColor(Color.parseColor("#33691E"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
@@ -514,7 +527,7 @@ private static final String TAG = "Game Room";
                         gameText3.setEnabled(false);
                         if(gameTextConvert3.equals(post.getAnswer())){
                             //Transfer to review page
-                            resultTransfer(questionText1.getText().toString(), gameTextConvert3);
+                            resultTransfer(questionText1.getText().toString(), gameTextConvert3, post.getQuesPhoto());
                             gameText3.setBackgroundColor(Color.parseColor("#33691E"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -747,7 +760,7 @@ private static final String TAG = "Game Room";
                         p2Hp.setProgress((int) (long) p2HpHolder);
                         //if correct increment result correct
                         numCrt = numCrt + 1;
-                        result_push resultTotal = new result_push(null,null,null,numCrt,null);
+                        result_push resultTotal = new result_push(null, null,null,null,numCrt,null);
                         mFirebaseResultReference.child("total_crt").setValue(resultTotal);
                     }
                     if (mUsername.equals(post.getP2())) {
@@ -757,7 +770,7 @@ private static final String TAG = "Game Room";
                         p1Hp.setProgress((int) (long) p1HpHolder);
                         //if correct increment result correct
                         numCrt = numCrt + 1;
-                        result_push resultTotal = new result_push(null,null,null,numCrt,null);
+                        result_push resultTotal = new result_push(null, null,null,null,numCrt,null);
                         mFirebaseResultReference.child("total_crt").setValue(resultTotal);
                     }
                 }
@@ -798,7 +811,7 @@ private static final String TAG = "Game Room";
                         p2Hp.setProgress((int) (long) p2HpHolder);
                         //if wrong note down result wrong
                         numWrg = numWrg + 1;
-                        result_push resultTotal = new result_push(null,null,null,null,numWrg);
+                        result_push resultTotal = new result_push(null, null,null,null,null,numWrg);
                         mFirebaseResultReference.child("total_wrg").setValue(resultTotal);
                     }
                     if (!(mUsername.equals(post.getP2()))) {
@@ -808,7 +821,7 @@ private static final String TAG = "Game Room";
                         p1Hp.setProgress((int) (long) p1HpHolder);
                         //if wrong note down result wrong
                         numWrg = numWrg + 1;
-                        result_push resultTotal = new result_push(null,null,null,null,numWrg);
+                        result_push resultTotal = new result_push(null, null,null,null,null,numWrg);
                         mFirebaseResultReference.child("total_wrg").setValue(resultTotal);
                     }
                 }
@@ -826,14 +839,14 @@ private static final String TAG = "Game Room";
 
     }
 
-    public void resultTransfer(final String q, final String a){
+    public void resultTransfer(final String q, final String a, final String qp){
         mFirebaseResultReference = FirebaseDatabase.getInstance().getReference()
                 .child("result_review/"+mFirebaseUser.getUid());
 
         mFirebaseResultReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                result_push resultTotal = new result_push(q,a,null,null,null);
+                result_push resultTotal = new result_push(q,a, qp, null,null,null);
                 mFirebaseResultReference.child("done_qa").push().setValue(resultTotal);
             }
 

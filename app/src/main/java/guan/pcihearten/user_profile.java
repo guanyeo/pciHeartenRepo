@@ -258,7 +258,7 @@ public class user_profile extends AppCompatActivity {
                             rankBar.setMax(MAX_PROGRESS*2);
                             rankBarText.setText(readPost.getRead_total().intValue()+"/"+MAX_PROGRESS*2);
                             rankTotal = 10 - readPost.getRead_total().intValue();
-                            rankTitle.setText("INTERMEDIATE");
+                            rankTitle.setText("Medium");
 
                             if(rankTotal!=0){
                                 rankDesc.setText("Read " + rankTotal + " time(s) to start the test.");
@@ -267,7 +267,28 @@ public class user_profile extends AppCompatActivity {
                                 rankButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Toast.makeText(user_profile.this, "NIBBA", Toast.LENGTH_SHORT).show();
+                                        AlertDialog alertDialog = new AlertDialog.Builder(user_profile.this).create();
+                                        alertDialog.setTitle("Medium Challenge");
+                                        alertDialog.setCancelable(false);
+                                        alertDialog.setMessage("You are about to challenge medium mode.\nGet atleast 8 correct to proceed to next rank.");
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        });
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "YES",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        proceedRank("MEDIUM");
+                                                        getCurrentRank();
+                                                        dialog.dismiss();
+                                                        finish();
+                                                        Intent intent = new Intent("guan.pcihearten.single_game");
+                                                        startActivity(intent);
+                                                    }
+                                                });
+                                        alertDialog.show();
                                     }
                                 });
                                 rankDesc.setText("You can participate in the test now.");
@@ -301,7 +322,7 @@ public class user_profile extends AppCompatActivity {
                             rankBar.setMax(MAX_PROGRESS*3);
                             rankBarText.setText(readPost.getRead_total().intValue()+"/"+MAX_PROGRESS*3);
                             rankTotal = 15 - readPost.getRead_total().intValue();
-                            rankTitle.setText("HARD");
+                            rankTitle.setText("Hard");
 
                             if(rankTotal!=0){
                                 rankDesc.setText("Read " + rankTotal + " time(s) to start the test.");
@@ -310,7 +331,28 @@ public class user_profile extends AppCompatActivity {
                                 rankButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Toast.makeText(user_profile.this, "NIBBA", Toast.LENGTH_SHORT).show();
+                                        AlertDialog alertDialog = new AlertDialog.Builder(user_profile.this).create();
+                                        alertDialog.setTitle("Hard Challenge");
+                                        alertDialog.setCancelable(false);
+                                        alertDialog.setMessage("You are about to challenge hard mode.\nGet all correct to proceed win.");
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        });
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "YES",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        proceedRank("HARD");
+                                                        getCurrentRank();
+                                                        dialog.dismiss();
+                                                        finish();
+                                                        Intent intent = new Intent("guan.pcihearten.single_game");
+                                                        startActivity(intent);
+                                                    }
+                                                });
+                                        alertDialog.show();
                                     }
                                 });
                                 rankDesc.setText("You can participate in the test now.");
@@ -344,19 +386,15 @@ public class user_profile extends AppCompatActivity {
                             rankBar.setMax(MAX_PROGRESS*100);
                             rankBarText.setText(readPost.getRead_total().intValue()+"/"+MAX_PROGRESS*100);
                             rankTotal = 69 - readPost.getRead_total().intValue();
+                            rankBar.setVisibility(View.INVISIBLE);
+                            rankBarText.setVisibility(View.INVISIBLE);
                             rankTitle.setText("Congrajulation");
 
                             if(rankTotal!=0){
-                                rankDesc.setText("Read " + rankTotal + " time(s) to start the test.");
+                                rankDesc.setText("You've completed all the test keep up the good work.");
                             }
                             else {
-                                rankButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Toast.makeText(user_profile.this, "NIBBA", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                                rankDesc.setText("You can participate in the test now.");
+                                rankDesc.setText("You've completed all the test keep up the good work.");
                             }
                             try {
                                 Glide.with(user_profile.this)

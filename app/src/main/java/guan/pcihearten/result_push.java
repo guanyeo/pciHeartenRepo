@@ -12,14 +12,17 @@ public class result_push {
     private String time;
     private Long total_correct;
     private Long total_wrong;
+    private String photoUrl;
+    private String quesPhoto;
 
 
     public result_push() {
     }
 
-    public result_push(String question, String answer, String time, Long total_correct, Long total_wrong){
+    public result_push(String question, String answer, String quesPhoto, String time, Long total_correct, Long total_wrong){
         this.question = question;
         this.answer = answer;
+        this.quesPhoto = quesPhoto;
         this.time = time;
         this.total_correct = total_correct;
         this.total_wrong = total_wrong;
@@ -71,5 +74,21 @@ public class result_push {
 
     public void setTotal_wrong(Long total_wrong) {
         this.total_wrong = total_wrong;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public String getQuesPhoto() {
+        return quesPhoto;
+    }
+
+    public void setQuesPhoto(String quesPhoto) {
+        this.quesPhoto = quesPhoto;
     }
 }

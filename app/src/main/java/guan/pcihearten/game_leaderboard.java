@@ -1,9 +1,6 @@
 package guan.pcihearten;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -83,7 +80,7 @@ public class game_leaderboard extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guan_test);
+        setContentView(R.layout.activity_leaderboard);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //Set Default Username Anon
         mUsername = ANONYMOUS;
@@ -108,7 +105,7 @@ public class game_leaderboard extends AppCompatActivity
         mFirebaseAdapter = new FirebaseRecyclerAdapter<leaderboard_push,
                 MessageViewHolder>(
                 leaderboard_push.class,
-                R.layout.guan_item,
+                R.layout.leaderboard_item,
                 MessageViewHolder.class,
                 mFirebaseDatabaseReference.child("unique_user")
                 .orderByChild("score")

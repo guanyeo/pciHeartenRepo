@@ -8,6 +8,9 @@ public class game_data {
     private String id;
     private String answer;
     private String question;
+    private String photoUrl;
+    private String quesPhoto;
+    private String state;
 
     private String choice1;
     private String choice2;
@@ -67,9 +70,27 @@ public class game_data {
     }
 
 
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
 
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 
+    public String getQuesPhoto() {
+        return quesPhoto;
+    }
 
+    public void setQuesPhoto(String quesPhoto) {
+        this.quesPhoto = quesPhoto;
+    }
 
+    public String getState() {
+        return state;
+    }
 
+    public void setState(String state) {
+        this.state = state;
+    }
 }

@@ -3,14 +3,17 @@ package guan.pcihearten;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.client.Firebase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.auth.api.Auth;
@@ -36,22 +39,33 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
         public TextView resultQuestionView;
         public TextView resultAnswerView;
+        public ImageView resultQuesImg;
+        public TextView resultQuestionViewWrg;
+        public TextView resultAnswerViewWrg;
+        public ImageView resultQuesImgWrg;
         public MessageViewHolder(View v) {
             super(v);
             resultQuestionView = (TextView) itemView.findViewById(R.id.result_q);
             resultAnswerView = (TextView) itemView.findViewById(R.id.result_a);
+            resultQuesImg = (ImageView)itemView.findViewById(R.id.result_imgq);
+
+            resultQuestionViewWrg = (TextView) itemView.findViewById(R.id.result_q_wrg);
+            resultAnswerViewWrg = (TextView) itemView.findViewById(R.id.result_a_wrg);
+            resultQuesImgWrg = (ImageView)itemView.findViewById(R.id.result_imgq_wrg);
         }
     }
 
+
     private RecyclerView mMessageRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
+    private RecyclerView mMessageRecyclerViewWrg;
+    private LinearLayoutManager mLinearLayoutManagerWrg;
     private SharedPreferences mSharedPreferences;
     private GoogleApiClient mGoogleApiClient;
-    private TextView resultQues;
-    private TextView resultAns;
     private TextView resTimeText;
     private TextView gameCrt;
     private TextView gameWrg;
+
 
 
     //   Firebase variable declare
@@ -64,6 +78,8 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
     private DatabaseReference mFirebaseDatabaseReference;
     private FirebaseRecyclerAdapter<result_push, result_page.MessageViewHolder>
             mFirebaseAdapter;
+ /*   private FirebaseRecyclerAdapter<result_push, result_page.WrongViewHolder>
+            mWrongAdapter;*/
     private DatabaseReference resultReference;
     private DatabaseReference mRankReference;
 
@@ -83,9 +99,6 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
         mLinearLayoutManager = new LinearLayoutManager(this);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        resultQues = (TextView)findViewById(R.id.result_q);
-        resultAns = (TextView) findViewById(R.id.result_a);
-
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
             mFirebaseAdapter = new FirebaseRecyclerAdapter<result_push, MessageViewHolder>(
                     result_push.class,
@@ -99,12 +112,55 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
                 protected void populateViewHolder(MessageViewHolder viewHolder, result_push model, int position) {
                     viewHolder.resultQuestionView.setText(model.getQuestion());
                     viewHolder.resultAnswerView.setText(model.getAnswer());
+                    if (model.getQuesPhoto() == null) {
+                        Glide.with(result_page.this)
+                                .load("")
+                                .into(viewHolder.resultQuesImg);
+                    } else {
+                        Glide.with(result_page.this)
+                                .load(model.getQuesPhoto())
+                                .into(viewHolder.resultQuesImg);
+                    }
                 }
             };
 
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
         mMessageRecyclerView.setAdapter(mFirebaseAdapter);
 
+        //Wroong version of recycler
+        mMessageRecyclerViewWrg = (RecyclerView) findViewById(R.id.result_recycler_wrg);
+        mLinearLayoutManagerWrg = new LinearLayoutManager(this);
+        mMessageRecyclerViewWrg.setLayoutManager(mLinearLayoutManagerWrg);
+
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<result_push, MessageViewHolder>(
+                result_push.class,
+                R.layout.result_item_wrg,
+                MessageViewHolder.class,
+                //need to specify which question
+                mFirebaseDatabaseReference.child("result_review").child(mFirebaseUser.getUid()).child("wrong_qa")
+
+        ) {
+            @Override
+            protected void populateViewHolder(MessageViewHolder viewHolder, result_push model, int position) {
+                viewHolder.resultQuestionViewWrg.setText(model.getQuestion());
+                viewHolder.resultAnswerViewWrg.setText(model.getAnswer());
+                if (model.getQuesPhoto() == null) {
+                    Glide.with(result_page.this)
+                            .load("")
+                            .into(viewHolder.resultQuesImgWrg);
+                } else {
+                    Glide.with(result_page.this)
+                            .load(model.getQuesPhoto())
+                            .into(viewHolder.resultQuesImgWrg);
+                }
+            }
+        };
+
+        mMessageRecyclerViewWrg.setLayoutManager(mLinearLayoutManagerWrg);
+        mMessageRecyclerViewWrg.setAdapter(mFirebaseAdapter);
+
+        //check for total time
         mFirebaseDatabaseReference.child("result_review/"+mFirebaseUser.getUid()+"/game_time").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -183,16 +239,30 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
                 user_profile rankFlag = new user_profile();
                 result_push post = dataSnapshot.getValue(result_push.class);
 
-                if(rankFlag.getCurrentRank().equals("EASY")){
-                    if(post.getTotal_correct().intValue()>=5){
-                        mRankReference.child("rank_level").setValue("CLIMB");
+                try {
+
+                    if (rankFlag.getCurrentRank().equals("EASY")) {
+                        if (post.getTotal_correct().intValue() >= 5) {
+                            mRankReference.child("rank_level").setValue("CLIMB");
+                            mRankReference.child("read_total").setValue(6);
+                        }
+                    }
+
+                    if (rankFlag.getCurrentRank().equals("MEDIUM")) {
+                        if (post.getTotal_correct().intValue() >= 8) {
+                            mRankReference.child("rank_level").setValue("CLIMB");
+                            mRankReference.child("read_total").setValue(11);
+                        }
+                    }
+
+                    if (rankFlag.getCurrentRank().equals("HARD")) {
+                        if (post.getTotal_correct().intValue() >= 10) {
+                            mRankReference.child("rank_level").setValue("CLIMB");
+                            mRankReference.child("read_total").setValue(16);
+                        }
                     }
                 }
-
-                if(rankFlag.getCurrentRank().equals("MEDIUM")){
-                }
-
-                if(rankFlag.getCurrentRank().equals("HARD")){
+                catch (NullPointerException e){
 
                 }
             }
