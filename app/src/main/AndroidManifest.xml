@@ -300,13 +300,17 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".user_profile">
+
+        <activity android:name=".user_profile"
+                android:label="@string/title_activity_delete_this"
+                android:theme="@style/AppTheme.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="guan.pcihearten.user_profile" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity android:name=".single_game">
             <intent-filter>
                 <action android:name="guan.pcihearten.single_game" />
@@ -328,6 +332,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#5E35B1</color>
-    <color name="colorPrimaryDark">#3949AB</color>
-    <color name="colorAccent">#1E88E5</color>
+    <color name="colorPrimary">#33691e</color>
+    <color name="colorPrimaryDark">#bf360c</color>
+    <color name="colorAccent">#bf360c</color>
 
     <color name="colorCard">#fffafa</color>
     <color name="stepColor">#000</color>
@@ -22,6 +22,8 @@
     <color name="gameCard">#FF1744</color>
     <color name="gameText">#000</color>
     <color name="hp_bar">#4cc14a</color>
+
+    <color name="tab_colour">#629749</color>
 
 
 </resources>

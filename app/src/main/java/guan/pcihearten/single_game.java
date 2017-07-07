@@ -422,7 +422,7 @@ public class single_game extends AppCompatActivity {
                                 if(gameTextConvert1.equals(post.getAnswer())){
                                     //Transfer to review page
                                     resultTransfer(questionText1.getText().toString(), gameTextConvert1,post.getQuesPhoto());
-                                    gameText1.setBackgroundColor(Color.parseColor("#33691E"));
+                                    gameText1.setBackgroundColor(Color.parseColor("#619648"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
@@ -433,7 +433,7 @@ public class single_game extends AppCompatActivity {
                                 }
                                 else{
                                     wrongTransfer(questionText1.getText().toString(), gameTextConvert1,post.getQuesPhoto());
-                                    gameText1.setBackgroundColor(Color.parseColor("#E57373"));
+                                    gameText1.setBackgroundColor(Color.parseColor("#f9683a"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
@@ -459,7 +459,7 @@ public class single_game extends AppCompatActivity {
                                 if(gameTextConvert2.equals(post.getAnswer())){
                                     //Transfer to review page
                                     resultTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto());
-                                    gameText2.setBackgroundColor(Color.parseColor("#33691E"));
+                                    gameText2.setBackgroundColor(Color.parseColor("#619648"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
@@ -471,7 +471,7 @@ public class single_game extends AppCompatActivity {
                                 }
                                 else{
                                     wrongTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto());
-                                    gameText2.setBackgroundColor(Color.parseColor("#E57373"));
+                                    gameText2.setBackgroundColor(Color.parseColor("#f9683a"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
@@ -494,7 +494,7 @@ public class single_game extends AppCompatActivity {
                         if(gameTextConvert3.equals(post.getAnswer())){
                             //Transfer to review page
                             resultTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto());
-                            gameText3.setBackgroundColor(Color.parseColor("#33691E"));
+                            gameText3.setBackgroundColor(Color.parseColor("#619648"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -506,7 +506,7 @@ public class single_game extends AppCompatActivity {
                         }
                         else{
                             wrongTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto());
-                            gameText3.setBackgroundColor(Color.parseColor("#E57373"));
+                            gameText3.setBackgroundColor(Color.parseColor("#f9683a"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {

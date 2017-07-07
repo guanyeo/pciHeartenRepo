@@ -41,7 +41,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#DF1E23"
+            android:background="#f9683a"
             android:padding="16dp">
             <TextView
                 android:id="@+id/result_a_wrg"

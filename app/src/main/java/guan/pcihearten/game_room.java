@@ -458,24 +458,25 @@ private static final String TAG = "Game Room";
                                 if(gameTextConvert1.equals(post.getAnswer())){
                                     //Transfer to review page
                                     resultTransfer(questionText1.getText().toString(), gameTextConvert1, post.getQuesPhoto());
-                                    gameText1.setBackgroundColor(Color.parseColor("#33691E"));
+                                    gameText1.setBackgroundColor(Color.parseColor("#619648"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
                                             questionRetrieval();
                                             correctTrigger();
                                         }
-                                    },1000);
+                                    },1500);
                                 }
                                 else{
-                                    gameText1.setBackgroundColor(Color.parseColor("#E57373"));
+                                    wrongTransfer(questionText1.getText().toString(), gameTextConvert1,post.getQuesPhoto());
+                                    gameText1.setBackgroundColor(Color.parseColor("#f9683a"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
                                             questionRetrieval();
                                             wrongTrigger();
                                         }
-                                    },1000);
+                                    },1500);
 
                                 }
                             }
@@ -494,25 +495,26 @@ private static final String TAG = "Game Room";
                                 if(gameTextConvert2.equals(post.getAnswer())){
                                     //Transfer to review page
                                     resultTransfer(questionText1.getText().toString(), gameTextConvert2, post.getQuesPhoto());
-                                    gameText2.setBackgroundColor(Color.parseColor("#33691E"));
+                                    gameText2.setBackgroundColor(Color.parseColor("#619648"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
                                             questionRetrieval();
                                             correctTrigger();
                                         }
-                                    },1000);
+                                    },1500);
 
                                 }
                                 else{
-                                    gameText2.setBackgroundColor(Color.parseColor("#E57373"));
+                                    wrongTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto());
+                                    gameText2.setBackgroundColor(Color.parseColor("#f9683a"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
                                             questionRetrieval();
                                             wrongTrigger();
                                         }
-                                    },1000);
+                                    },1500);
                                 }
                             }
                         }
@@ -528,25 +530,26 @@ private static final String TAG = "Game Room";
                         if(gameTextConvert3.equals(post.getAnswer())){
                             //Transfer to review page
                             resultTransfer(questionText1.getText().toString(), gameTextConvert3, post.getQuesPhoto());
-                            gameText3.setBackgroundColor(Color.parseColor("#33691E"));
+                            gameText3.setBackgroundColor(Color.parseColor("#619648"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     questionRetrieval();
                                     correctTrigger();
                                 }
-                            },1000);
+                            },1500);
 
                         }
                         else{
-                            gameText3.setBackgroundColor(Color.parseColor("#E57373"));
+                            wrongTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto());
+                            gameText3.setBackgroundColor(Color.parseColor("#f9683a"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     questionRetrieval();
                                     wrongTrigger();
                                 }
-                            },1000);
+                            },1500);
                         }
                     }
                 });
@@ -857,6 +860,23 @@ private static final String TAG = "Game Room";
         });
     }
 
+    public void wrongTransfer(final String q, final String a, final String qp){
+        mFirebaseResultReference = FirebaseDatabase.getInstance().getReference()
+                .child("result_review/"+mFirebaseUser.getUid());
+        mFirebaseResultReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                result_push resultTotal = new result_push(q,a, qp, null, null, null);
+                mFirebaseResultReference.child("wrong_qa").push().setValue(resultTotal);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 //    Check if match is cancelled
     public void matchCondition(){
         mConditionReference = FirebaseDatabase.getInstance().getReference()
@@ -944,7 +964,6 @@ private static final String TAG = "Game Room";
                 buffer_data post = dataSnapshot.getValue(buffer_data.class);
                 try {
                     if(!(post.getState().equals(null)) && (post.getState().equals("onGoing"))) {
-                        Log.d("Cancelled","Minus points for "+mFirebaseUser.getUid());
                         scoreCollect(-50L);
                         mFirebaseDatabaseReference.child("state")
                                 .setValue("cancelled");

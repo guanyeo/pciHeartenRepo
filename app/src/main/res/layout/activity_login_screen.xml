@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="guan.pcihearten.loginScreen"
+    android:background="#fff"
     android:padding="40dp">
 
     <Button

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:context="guan.pcihearten.languageSceen"
-
+    android:background="#fff"
     android:padding="40dp"
    >
     <Button
@@ -14,8 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/btn_eng"
-        android:background="#2196F3"
-        android:textColor="#FFFFFF"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="#fff"
         android:layout_marginBottom="20dp"
         android:layout_above="@+id/btn_bm"
         android:layout_alignParentLeft="true"
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/btn_bm"
-        android:background="#2196F3"
+        android:background="@color/colorPrimaryDark"
         android:textColor="#fff"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

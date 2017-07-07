@@ -1,5 +1,6 @@
 package guan.pcihearten;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -7,8 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,7 +31,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class user_profile extends AppCompatActivity {
 //    profile variable
     private String mUsername;
-    private TextView mProfileName;
     private CircleImageView mAvatar;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
@@ -48,8 +50,9 @@ public class user_profile extends AppCompatActivity {
     private DatabaseReference mFirebaseScore;
     private DatabaseReference mFirebasePlayed;
     private DatabaseReference mReadReference;
+    private DatabaseReference mPhotoReference;
 
-//  Achievement Variable
+//  Read Rank Variable
     private ImageView rankPic;
     private TextView rankTitle;
     private TextView rankDesc;
@@ -60,17 +63,28 @@ public class user_profile extends AppCompatActivity {
     private static final int MAX_PROGRESS  = 5;
     private static String currentRank;
 
+//  Fight Achievement
     private ImageView achievementPic2;
-    private TextView achievementTitle2;
-    private TextView achievementDesc2;
-    private int x;
+
+    //Achievement Dialog
+    private TextView dialogTitle;
+    private ProgressBar dialogBar;
+    private TextView dialogBarText;
+    private TextView dialogDesc;
+    private Long dialogLeft;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.prime_user_profile);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         checkUserStatus();
+        toolbar.setTitle(mUsername);
+        setSupportActionBar(toolbar);
+
+
+
         statProfile();
         expRate();
         achievementList();
@@ -111,14 +125,30 @@ public class user_profile extends AppCompatActivity {
     }
 
     public void statProfile(){
-        mProfileName = (TextView)findViewById(R.id.profile_name);
         mAvatar = (CircleImageView) findViewById(R.id.profile_avatar);
 
-        mProfileName.setText(mUsername);
+        mPhotoReference = FirebaseDatabase.getInstance().getReference()
+                .child("unique_user").child("-"+mFirebaseUser.getUid());
 
-        Glide.with(user_profile.this)
-                .load(mPhotoUrl)
-                .into(mAvatar);
+        //Static photo
+        mPhotoReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                leaderboard_push photoRetrieve = dataSnapshot.getValue(leaderboard_push.class);
+                mPhotoUrl = photoRetrieve.getPhotoUrl();
+                Glide.with(user_profile.this)
+                        .load(mPhotoUrl)
+                        .into(mAvatar);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
     }
 
     public void expRate(){
@@ -162,9 +192,7 @@ public class user_profile extends AppCompatActivity {
         rankButton = (ImageView)findViewById(R.id.rank_button);
         rankBar = (ProgressBar)findViewById(R.id.rank_bar);
 
-        achievementTitle2 = (TextView) findViewById(R.id.achieve_title_2);
         achievementPic2 = (ImageView)findViewById(R.id.achieve_img_2);
-        achievementDesc2 = (TextView) findViewById(R.id.achieve_desc_2);
 
 
 
@@ -198,8 +226,14 @@ public class user_profile extends AppCompatActivity {
 
                             if(rankTotal!=0){
                                 rankDesc.setText("Read " + rankTotal + " time(s) to start the test.");
+                                Glide.with(user_profile.this)
+                                        .load("http://i.imgur.com/ccJ6doA.png")
+                                        .into(rankButton);
                             }
                             else {
+                                Glide.with(user_profile.this)
+                                        .load("http://i.imgur.com/POy298s.png")
+                                        .into(rankButton);
                                 rankButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -232,7 +266,7 @@ public class user_profile extends AppCompatActivity {
 
                             try {
                                 Glide.with(user_profile.this)
-                                        .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                        .load("http://i.imgur.com/ybWcker.png")
                                         .into(rankPic);
                             }
                             catch (IllegalArgumentException e){
@@ -262,8 +296,14 @@ public class user_profile extends AppCompatActivity {
 
                             if(rankTotal!=0){
                                 rankDesc.setText("Read " + rankTotal + " time(s) to start the test.");
+                                Glide.with(user_profile.this)
+                                        .load("http://i.imgur.com/ccJ6doA.png")
+                                        .into(rankButton);
                             }
                             else {
+                                Glide.with(user_profile.this)
+                                        .load("http://i.imgur.com/POy298s.png")
+                                        .into(rankButton);
                                 rankButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -295,7 +335,7 @@ public class user_profile extends AppCompatActivity {
                             }
                             try {
                                 Glide.with(user_profile.this)
-                                        .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                        .load("http://i.imgur.com/yV7Q4BV.png")
                                         .into(rankPic);
                             }
                             catch (IllegalArgumentException e){
@@ -326,8 +366,14 @@ public class user_profile extends AppCompatActivity {
 
                             if(rankTotal!=0){
                                 rankDesc.setText("Read " + rankTotal + " time(s) to start the test.");
+                                Glide.with(user_profile.this)
+                                        .load("http://i.imgur.com/ccJ6doA.png")
+                                        .into(rankButton);
                             }
                             else {
+                                Glide.with(user_profile.this)
+                                        .load("http://i.imgur.com/POy298s.png")
+                                        .into(rankButton);
                                 rankButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -359,7 +405,7 @@ public class user_profile extends AppCompatActivity {
                             }
                             try {
                                 Glide.with(user_profile.this)
-                                        .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                        .load("http://i.imgur.com/92JV4od.png")
                                         .into(rankPic);
                             }
                             catch (IllegalArgumentException e){
@@ -386,9 +432,9 @@ public class user_profile extends AppCompatActivity {
                             rankBar.setMax(MAX_PROGRESS*100);
                             rankBarText.setText(readPost.getRead_total().intValue()+"/"+MAX_PROGRESS*100);
                             rankTotal = 69 - readPost.getRead_total().intValue();
-                            rankBar.setVisibility(View.INVISIBLE);
+                            rankBar.setVisibility(View.GONE);
                             rankBarText.setVisibility(View.INVISIBLE);
-                            rankTitle.setText("Congrajulation");
+                            rankTitle.setText("Congratulation");
 
                             if(rankTotal!=0){
                                 rankDesc.setText("You've completed all the test keep up the good work.");
@@ -398,7 +444,7 @@ public class user_profile extends AppCompatActivity {
                             }
                             try {
                                 Glide.with(user_profile.this)
-                                        .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                        .load("http://i.imgur.com/Ew1oBrB.png")
                                         .into(rankPic);
                             }
                             catch (IllegalArgumentException e){
@@ -420,113 +466,156 @@ public class user_profile extends AppCompatActivity {
         mFirebasePlayed.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                leaderboard_push scoreRetrieve = dataSnapshot.getValue(leaderboard_push.class);
+                final leaderboard_push scoreRetrieve = dataSnapshot.getValue(leaderboard_push.class);
 
-                if(scoreRetrieve.getPlayed()>=1 && scoreRetrieve.getPlayed()<=5) {
+                if(scoreRetrieve.getPlayed()==0 ){
                     languageSceen readFlag = new languageSceen();
                     if (readFlag.getLanguageSelected() == "bm") {
-                        achievementTitle2.setText("Pelawan Baharu");
-                        achievementDesc2.setText("Petanding dalam arena sekurang-kurang " + scoreRetrieve.getPlayed() + " kali.");
                         try {
                             Glide.with(user_profile.this)
-                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .load("http://i.imgur.com/FzHvrMG.png")
                                     .into(achievementPic2);
                         }
                         catch(IllegalArgumentException e){
 
                         }
                     } else {
-                        achievementTitle2.setText("Green Horn");
-                        achievementDesc2.setText("Participate in arena atleast " + scoreRetrieve.getPlayed() + " times.");
                         try {
                             Glide.with(user_profile.this)
-                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .load("http://i.imgur.com/FzHvrMG.png")
                                     .into(achievementPic2);
                         }
                         catch(IllegalArgumentException e){
 
                         }
+                        achievementPic2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialogLeft = 5L - scoreRetrieve.getPlayed();
+                                achievementDialog("Cry Baby", "Participate in multiplayer " + dialogLeft + " time(s) to reach next rank.",scoreRetrieve.getPlayed(),5);
+                            }
+                        });
                     }
                 }
 
-                if(scoreRetrieve.getPlayed()>=6 && scoreRetrieve.getPlayed()<=10) {
+                if(scoreRetrieve.getPlayed()>=1 && scoreRetrieve.getPlayed()<=4) {
                     languageSceen readFlag = new languageSceen();
                     if (readFlag.getLanguageSelected() == "bm") {
-                        achievementTitle2.setText("Pelawan Mahir");
-                        achievementDesc2.setText("Petanding dalam arena sekurang-kurang " + scoreRetrieve.getPlayed() + " kali.");
                         try {
                             Glide.with(user_profile.this)
-                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .load("http://i.imgur.com/LI70wNE.png")
                                     .into(achievementPic2);
                         }
                         catch(IllegalArgumentException e){
 
                         }
                     } else {
-                        achievementTitle2.setText("Intermediate Challenger");
-                        achievementDesc2.setText("Participate in arena atleast " + scoreRetrieve.getPlayed() + " times.");
                         try {
                             Glide.with(user_profile.this)
-                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .load("http://i.imgur.com/LI70wNE.png")
                                     .into(achievementPic2);
                         }
                         catch(IllegalArgumentException e){
 
                         }
+                        achievementPic2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialogLeft = 5L - scoreRetrieve.getPlayed();
+                                achievementDialog("Wimpy Kid", "Participate in multiplayer " + dialogLeft + " time(s) to reach next rank.",scoreRetrieve.getPlayed(),5);
+                            }
+                        });
                     }
                 }
 
-                if(scoreRetrieve.getPlayed()>=11 && scoreRetrieve.getPlayed()<=15) {
+                if(scoreRetrieve.getPlayed()>=5 && scoreRetrieve.getPlayed()<=9) {
                     languageSceen readFlag = new languageSceen();
                     if (readFlag.getLanguageSelected() == "bm") {
-                        achievementTitle2.setText("Pelawan Gagah");
-                        achievementDesc2.setText("Petanding dalam arena sekurang-kurang " + scoreRetrieve.getPlayed() + " kali.");
                         try {
                             Glide.with(user_profile.this)
-                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .load("http://i.imgur.com/qDrLqoE.png")
                                     .into(achievementPic2);
                         }
                         catch(IllegalArgumentException e){
 
                         }
                     } else {
-                        achievementTitle2.setText("Strong Challenger");
-                        achievementDesc2.setText("Participate in arena atleast " + scoreRetrieve.getPlayed() + " times.");
                         try {
                             Glide.with(user_profile.this)
-                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .load("http://i.imgur.com/qDrLqoE.png")
                                     .into(achievementPic2);
                         }
                         catch(IllegalArgumentException e){
 
                         }
+                        achievementPic2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialogLeft = 10L - scoreRetrieve.getPlayed();
+                                achievementDialog("Strong Man", "Participate in arena atleast " + dialogLeft + " times.",scoreRetrieve.getPlayed(),10);
+
+                            }
+                        });
                     }
                 }
 
-                if(scoreRetrieve.getPlayed()>=16) {
+                if(scoreRetrieve.getPlayed()>=10 && scoreRetrieve.getPlayed()<=14) {
                     languageSceen readFlag = new languageSceen();
                     if (readFlag.getLanguageSelected() == "bm") {
-                        achievementTitle2.setText("Pelawan Lagenda");
-                        achievementDesc2.setText("Tahniah!!!");
                         try {
                             Glide.with(user_profile.this)
-                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .load("http://i.imgur.com/VywCBqu.png")
                                     .into(achievementPic2);
                         }
                         catch(IllegalArgumentException e){
 
                         }
                     } else {
-                        achievementTitle2.setText("Legend");
-                        achievementDesc2.setText("Congratulation!!!");
                         try {
                             Glide.with(user_profile.this)
-                                    .load("http://www.tiffany.com/shared/images/engagement/flawless-diamond.png")
+                                    .load("http://i.imgur.com/VywCBqu.png")
                                     .into(achievementPic2);
                         }
                         catch(IllegalArgumentException e){
 
                         }
+                        achievementPic2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialogLeft = 15L - scoreRetrieve.getPlayed();
+                                achievementDialog("Brave Knight", "Participate in multiplayer " + dialogLeft + " time(s) to reach next rank.",scoreRetrieve.getPlayed(),15);
+                            }
+                        });
+                    }
+                }
+
+                if(scoreRetrieve.getPlayed()>=15) {
+                    languageSceen readFlag = new languageSceen();
+                    if (readFlag.getLanguageSelected() == "bm") {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/Yau2WY7.png")
+                                    .into(achievementPic2);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                    } else {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/Yau2WY7.png")
+                                    .into(achievementPic2);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                        achievementPic2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialogLeft = 999L - scoreRetrieve.getPlayed();
+                                achievementDialog("The King", "Participate in multiplayer " + dialogLeft + " time(s) to reach next rank.",scoreRetrieve.getPlayed(),999);
+                            }
+                        });
                     }
                 }
 
@@ -537,6 +626,24 @@ public class user_profile extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    public void achievementDialog(String title, String desc, long p, int max){
+        final Dialog dialog = new Dialog(user_profile.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.achieve_dialog);
+        dialog.setCancelable(true);
+        dialogTitle = (TextView) dialog.findViewById(R.id.dialog_title);
+        dialogDesc  = (TextView) dialog.findViewById(R.id.dialog_desc);
+        dialogBar = (ProgressBar)dialog.findViewById(R.id.dialog_bar);
+        dialogBarText = (TextView)dialog.findViewById(R.id.dialog_bar_text);
+        dialogTitle.setText(title);
+        dialogDesc.setText(desc);
+        dialogBar.setProgress((int)p);
+        dialogBar.setMax(max);
+        dialogBarText.setText(p+"/"+max);
+        dialog.show();
     }
 
     //Get the current rank and proceed to game

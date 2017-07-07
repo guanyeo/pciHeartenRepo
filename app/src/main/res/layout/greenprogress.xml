@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="10dp"
+    android:layout_width="match_parent">
+    <item android:id="@android:id/background"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <shape android:layout_height="match_parent"
+            android:layout_width="match_parent">
+            <corners android:radius="5dip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <gradient
+                android:startColor="#ff9d9e9d"
+                android:centerColor="#ff5a5d5a"
+                android:centerY="0.75"
+                android:endColor="#ff747674"
+                android:angle="270"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </shape>
+    </item>
+
+    <item android:id="@android:id/secondaryProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <clip android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <shape android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <corners android:radius="5dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <gradient
+                    android:startColor="#80ffd300"
+                    android:centerColor="#80ffb600"
+                    android:centerY="0.75"
+                    android:endColor="#a0ffcb00"
+                    android:angle="270"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </shape>
+        </clip>
+    </item>
+    <item
+        android:id="@android:id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <clip android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <shape android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <corners
+                    android:radius="5dip"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <gradient
+                    android:startColor="#33FF33"
+                    android:endColor="#008000"
+                    android:angle="270"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

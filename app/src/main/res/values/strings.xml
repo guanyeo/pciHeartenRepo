@@ -710,5 +710,6 @@
     <string name="TTS_username" />
     <string name="TTS_password" />
     <string name="mobileanalytics_apikey" />
+    <string name="title_activity_delete_this">delete_this</string>
 
 </resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:padding="16dp"
+    >
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:text="Multiplayer Achievement"
+        />
+
+    <ProgressBar
+        android:id="@+id/dialog_bar"
+        android:layout_below="@+id/dialog_title"
+        android:layout_marginLeft="15dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="15" />
+
+    <TextView
+        android:id="@+id/dialog_bar_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0/15"
+        android:textAlignment="center"
+        android:textColor="@color/gameText"
+        android:layout_alignLeft="@id/dialog_bar"
+        android:layout_alignTop="@id/dialog_bar"
+        android:layout_alignRight="@id/dialog_bar"
+        android:layout_alignBottom="@id/dialog_bar"/>
+
+    <TextView
+        android:id="@+id/dialog_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start playing in 1v1 Multiplayer to get achievement."
+        android:layout_below="@id/dialog_bar_text"
+        android:layout_marginLeft="15dp"
+        android:textColor="#000"
+        android:textSize="14sp" />
+
+</RelativeLayout>

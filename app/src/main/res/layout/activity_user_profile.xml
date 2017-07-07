@@ -6,18 +6,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="#33691e"
     >
+
 <RelativeLayout
     android:id="@+id/activity_user_profile"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="guan.pcihearten.user_profile">
-
-
 
     <RelativeLayout
         android:id="@+id/status_bar_p1"
@@ -26,16 +23,16 @@
         android:padding="10dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:background="#003d00"
+        >
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/frame_avatar">
+
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/frame_avatar">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="100dp"
@@ -47,37 +44,55 @@
                 android:layout_alignParentStart="true" />
         </RelativeLayout>
 
-            <RelativeLayout
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp"
+            android:maxHeight="50dp"
+            android:layout_below="@id/frame_avatar"
+            android:layout_marginBottom="10dp"
+            >
+            <TextView
+                android:id="@+id/profile_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal">
-
-                <TextView
-                    android:id="@+id/profile_level"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lv. 1"
-                    android:textAlignment="center"
-                    android:background="@drawable/level_layer"
-                    android:padding="3dp"
-                    android:textStyle="bold"
-                    android:textColor="#000"/>
-            </RelativeLayout>
+                android:text="Lv. 1"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="#000"
+                />
+        </android.support.v7.widget.CardView>
 
 
-
-        </FrameLayout>
 
         <TextView
             android:id="@+id/profile_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textColor="#fff"
             android:layout_marginTop="15dp"
             android:layout_toRightOf="@+id/frame_avatar"
             android:layout_marginLeft="15dp"
-            android:text="Player Name"/>
+            android:text="Player Name"
+            android:visibility="invisible"
+            />
+
+
+
+        <ImageView
+            android:id="@+id/exp_diamond"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_toRightOf="@id/frame_avatar"
+            android:layout_below="@id/profile_name"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/exp_diamond"
+            />
 
         <ProgressBar
             android:id="@+id/profile_exp"
@@ -86,27 +101,39 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:indeterminate="false"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
             android:layout_centerInParent="true"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:max="100"
             android:progress="0"
-          />
+            />
 
         <TextView
             android:id="@+id/profile_exp_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/frame_avatar"
+            android:layout_marginLeft="40dp"
             android:text="0/100"
-            android:textAlignment="center"
-            android:textColor="@color/gameText"
-            android:layout_alignLeft="@id/profile_exp"
-            android:layout_alignTop="@id/profile_exp"
-            android:layout_alignRight="@id/profile_exp"
-            android:layout_alignBottom="@id/profile_exp"/>
+            android:textColor="#fff"
+            android:layout_below="@id/profile_exp"
+            />
+        <TextView
+            android:id="@+id/profile_exp_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/profile_exp_word"
+            android:layout_marginLeft="75dp"
+            android:text="EXP"
+            android:textColor="#fff"
+            android:layout_below="@id/profile_exp"
+            />
+
 
     </RelativeLayout>
+
+
 
     <TextView
         android:id="@+id/rank_banner"
@@ -114,9 +141,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="Rank Test"
-        android:textColor="@color/black"
+        android:textColor="#fff"
         android:textSize="36sp"
         android:textStyle="italic"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_below="@id/status_bar_p1"/>
 
     <android.support.v7.widget.CardView
@@ -124,12 +153,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rank_banner"
+        app:cardCornerRadius="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
        >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorCard"
+            android:background="#fff"
             android:padding="16dp">
 
             <ImageView
@@ -138,7 +170,7 @@
                 android:layout_height="50dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/default_book"
+                android:src="@drawable/school"
                 />
 
             <TextView
@@ -150,7 +182,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_toRightOf="@+id/achieve_img"
                 android:textSize="18sp"
-                android:textColor="@color/gameText"
+                android:textColor="#000"
                 android:text="EASY"
                 />
 
@@ -183,7 +215,6 @@
                 android:layout_marginLeft="15dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:background="@color/blue"
                 />
 
             <TextView
@@ -195,9 +226,9 @@
                 android:text="Read everyday to fill up bar to attempt test."
                 android:layout_below="@id/rank_bar"
                 android:layout_marginLeft="15dp"
-                android:textColor="@color/gameText"
                 android:textSize="14sp"
-                android:textStyle="normal|italic" />
+                android:textColor="#000"
+              />
 
 
         </RelativeLayout>
@@ -209,8 +240,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Achievement"
-        android:textColor="@color/black"
+        android:textColor="#fff"
         android:textSize="36sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:textStyle="italic"
         android:layout_below="@id/achieve_card_1"/>
 
@@ -218,53 +251,49 @@
         android:id="@+id/achieve_card_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
         android:layout_below="@+id/achieve_banner"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorCard"
-            android:padding="16dp">
+            android:padding="16dp"
+            >
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/achieve_img_3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/school"
+        />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/achieve_img_4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/school"
+            />
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/achieve_img_2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_alignParentStart="true"
+                android:src="@drawable/school"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/default_shield"
-                />
-
-            <TextView
-                android:id="@+id/achieve_title_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_toRightOf="@+id/achieve_img_2"
-                android:layout_marginLeft="15dp"
-                android:textSize="18sp"
-                android:textColor="@color/gameText"
-                android:text="Multiplayer Achievement"
-                />
-
-            <TextView
-                android:id="@+id/achieve_desc_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Start playing in 1v1 Multiplayer to get achievement."
-                android:layout_below="@id/achieve_title_2"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/gameText"
-                android:layout_toRightOf="@+id/achieve_img_2"
-                android:textSize="14sp"
-                android:textStyle="normal|italic" />
-
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
+
+
 
 </RelativeLayout>
 </ScrollView>

@@ -39,5 +39,8 @@
         android:layout_below="@+id/wait_text"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:text="Play without opponent."/>
+        android:padding="10dp"
+        android:text="Play without opponent"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="#fff"/>
 </RelativeLayout>

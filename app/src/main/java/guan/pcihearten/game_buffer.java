@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -212,8 +213,24 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
             return;
         } else {
             mUsername = mFirebaseUser.getDisplayName();
+
             if (mFirebaseUser.getPhotoUrl() != null) {
-                mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
+                DatabaseReference mPhotoReference = FirebaseDatabase.getInstance().getReference()
+                        .child("unique_user").child("-" + mFirebaseUser.getUid());
+                //Static photo
+                mPhotoReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        leaderboard_push photoRetrieve = dataSnapshot.getValue(leaderboard_push.class);
+                        mPhotoUrl = photoRetrieve.getPhotoUrl();
+                        Log.d("",""+mPhotoUrl);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         }
     }

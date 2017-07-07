@@ -15,8 +15,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/content_ronso"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:padding="15dp"
+    android:background="#33691e"
     >
 
     <RelativeLayout
@@ -34,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
+            android:textColor="#fff"
             android:text="Player 1"/>
 
         <ProgressBar
@@ -74,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
+            android:textColor="#fff"
             android:text="Player 2"/>
 
         <ProgressBar
@@ -107,13 +110,15 @@
         android:id="@+id/scrollquest"
         android:layout_below="@+id/status_bar_p2">
 
+
         <android.support.v7.widget.CardView
             android:id="@+id/question_card"
             android:clickable="true"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="30dp"
+            app:cardCornerRadius="15dp"
             >
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -155,7 +160,8 @@
         android:layout_below="@id/scrollquest"
          android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="15dp"
+
+        app:cardCornerRadius="15dp"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -173,14 +179,36 @@
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
+    <ImageView
+        android:id="@+id/pole1"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/pole"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="35dp"
+        android:layout_below="@id/game_card_4"
+        />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/pole"
+        android:layout_below="@id/game_card_4"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="35dp"
+        />
+
+
     <android.support.v7.widget.CardView
         android:id="@+id/game_card_5"
         android:clickable="true"
         android:layout_height="@dimen/card_game_height"
         android:layout_width="match_parent"
-        android:layout_below="@id/game_card_4"
+        android:layout_below="@id/pole1"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        app:cardCornerRadius="15dp"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -198,15 +226,37 @@
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
+    <ImageView
+        android:id="@+id/pole2"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/pole"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="35dp"
+        android:layout_below="@id/game_card_5"
+        />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/pole"
+        android:layout_below="@id/game_card_5"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="35dp"
+        />
+
+
     <android.support.v7.widget.CardView
         android:id="@+id/game_card_6"
         android:clickable="true"
         android:layout_height="@dimen/card_game_height"
         android:layout_width="match_parent"
-        android:layout_below="@id/game_card_5"
+        android:layout_below="@id/pole2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="15dp"
+        app:cardCornerRadius="15dp"
         >
         <RelativeLayout
             android:layout_width="match_parent"
