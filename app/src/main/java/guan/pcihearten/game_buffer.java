@@ -78,7 +78,6 @@ public class game_buffer extends AppCompatActivity implements GoogleApiClient.On
         checkUserStatus();
         openPlayer();
         secondPlayer();
-
         singlePlayer();
     }
 

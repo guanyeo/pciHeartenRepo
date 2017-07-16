@@ -1,6 +1,7 @@
 package guan.pcihearten;
 
 import android.app.AlarmManager;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +29,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
+import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -38,10 +40,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.firebase.client.Firebase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,11 +54,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -99,6 +107,8 @@ public class mainPage extends AppCompatActivity
     private FirebaseUser mFirebaseUser;
     private int counterStore;
     private TextView bufferText;
+    private Long daily_calc;
+    private Button dailyButton;
 
 
 //    Watson Credential
@@ -118,11 +128,9 @@ public class mainPage extends AppCompatActivity
 
 
     // Firebase instance variables
-    private DatabaseReference mFirebaseDatabaseReference;
-    private DatabaseReference mUserDBReference;
+    private DatabaseReference mUserDBReference, mPhotoReference, mReadReference, mFirebaseDatabaseReference, mChatAchievement, mDailyBase;
     private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>
             mFirebaseAdapter;
-    private DatabaseReference mReadReference;
     private FirebaseAnalytics mFirebaseAnalytics;
 
 
@@ -227,6 +235,7 @@ public class mainPage extends AppCompatActivity
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                increaseChat();
                 sendMessage();
                 FriendlyMessage friendlyMessage = new
                         FriendlyMessage(mMessageEditText.getText().toString(),
@@ -275,7 +284,7 @@ public class mainPage extends AppCompatActivity
         }
 
         checkUserStatus();
-        readDailyCounter();
+        chatImage();
     }
 
     public void checkUserStatus(){
@@ -290,11 +299,34 @@ public class mainPage extends AppCompatActivity
         } else {
             mUsername = mFirebaseUser.getDisplayName();
             if (mFirebaseUser.getPhotoUrl() != null) {
-                mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
+
             }
-            userDB();
+
         }
 
+    }
+
+    public void chatImage(){
+        mPhotoReference = FirebaseDatabase.getInstance().getReference()
+                .child("unique_user").child("-"+mFirebaseUser.getUid());
+        //Static photo
+        mPhotoReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                leaderboard_push photoRetrieve = dataSnapshot.getValue(leaderboard_push.class);
+                try {
+                    mPhotoUrl = photoRetrieve.getPhotoUrl();
+                }
+                catch (NullPointerException e){
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void sendMessage() {
@@ -365,20 +397,24 @@ public class mainPage extends AppCompatActivity
         }
     }
 
-    public void initUniqueUsername(){
-        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db", MODE_PRIVATE, null);
-        Cursor retrieveUname = mydatabase.rawQuery("SELECT uname FROM unique_user", null);
+    public void increaseChat(){
+        mChatAchievement  = FirebaseDatabase.getInstance().getReference()
+                .child("unique_user").child("-"+mFirebaseUser.getUid());
 
-        try {
-            retrieveUname.moveToFirst();
-            String unameString = retrieveUname.getString(0);
-            mUsername = unameString;
-        }
-        finally {
-            retrieveUname.close();
-        }
+        mChatAchievement.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                leaderboard_push chatCounter = dataSnapshot.getValue(leaderboard_push.class);
+                mChatAchievement.child("talk").setValue(chatCounter.getTalk()+1L);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
+
 
     public void readDailyCounter(){
         // Construct an intent that will execute the AlarmReceiver
@@ -405,9 +441,6 @@ public class mainPage extends AppCompatActivity
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, resetTime,
                 AlarmManager.INTERVAL_DAY, pIntent);
     }
-
-
-
 
 
     @Override
@@ -456,23 +489,38 @@ public class mainPage extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void userDB(){
-        mUserDBReference = FirebaseDatabase.getInstance().getReference()
-                .child("unique_user");
-        mUserDBReference.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void dailyTime(){
+        mDailyBase = FirebaseDatabase.getInstance().getReference()
+                .child("unique_user").child("-" + mFirebaseUser.getUid()).child("rank_info");
+        mDailyBase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild("-"+mFirebaseUser.getUid())) {
+                final read_push readPost = dataSnapshot.getValue(read_push.class);
+                daily_calc = readPost.getNew_time() - readPost.getOld_time();
 
+                if(daily_calc>=86400000){
+                    //For them to participate in test
+                    if(readPost.getRead_total().intValue() == 4){
+                        mDailyBase.child("rank_level").setValue("EASY");
+                    }
+                    else if(readPost.getRead_total().intValue() == 9){
+                        mDailyBase.child("rank_level").setValue("MEDIUM");
+                    }
+                    else if(readPost.getRead_total().intValue() == 14){
+                        mDailyBase.child("rank_level").setValue("HARD");
+                    }
+                    //If its climb check-in will increase the read_total
+                    if(readPost.getRank_level().equals("CLIMB")) {
+                        mDailyBase.child("read_total").setValue(readPost.getRead_total() + 1L);
+                    }
+
+                    mDailyBase.child("old_time").setValue(readPost.getNew_time());
+                    Intent intent = new Intent("guan.pcihearten.single_game");
+                    startActivity(intent);
                 }
                 else{
-                    leaderboard_push guantesto1 = new leaderboard_push(mUsername, "000000", 0L, mPhotoUrl);
-                    read_push guantesto2 = new read_push(0L, "CLIMB");
-                    mUserDBReference.child("-"+mFirebaseUser.getUid()).setValue(guantesto1);
-                    mUserDBReference.child("-"+mFirebaseUser.getUid()).child("rank_info").setValue(guantesto2);
-
+                    Toast.makeText(mainPage.this, "You've checked in today, try again tomorrow", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
@@ -480,6 +528,8 @@ public class mainPage extends AppCompatActivity
 
             }
         });
+
+
     }
 
 
@@ -493,57 +543,36 @@ public class mainPage extends AppCompatActivity
             mReadReference = FirebaseDatabase.getInstance().getReference()
                     .child("unique_user").child("-" + mFirebaseUser.getUid()).child("rank_info");
 
-            //            Set off daily read counter
-            SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
-            Cursor countFlag = mydatabase.rawQuery("SELECT flag FROM read_counter",null);
-            try{
-                countFlag.moveToFirst();
-                if(countFlag.getInt(0)==0){
-
                     mReadReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db",MODE_PRIVATE,null);
-                            read_push readPost = dataSnapshot.getValue(read_push.class);
+                        public void onDataChange(final DataSnapshot dataSnapshot) {
+                            final read_push readPost = dataSnapshot.getValue(read_push.class);
 
-                            if(readPost.getRead_total().intValue() == 4){
-                                mReadReference.child("rank_level").setValue("EASY");
-                            }
-                            else if(readPost.getRead_total().intValue() == 9){
-                                mReadReference.child("rank_level").setValue("MEDIUM");
-                            }
-                            else if(readPost.getRead_total().intValue() == 14){
-                                mReadReference.child("rank_level").setValue("HARD");
-                            }
+                            //To enter a new time
+                            System.out.println(dataSnapshot.getValue());
+                            mReadReference.child("new_time").setValue(ServerValue.TIMESTAMP);
 
-                            if(readPost.getRank_level().equals("CLIMB")) {
-                                mydatabase.execSQL("UPDATE read_counter SET flag = 1");
-                                mReadReference.child("read_total").setValue(readPost.getRead_total() + 1L);
-                            }
+                            //open up a dialog
+                            final Dialog dialog = new Dialog(mainPage.this);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setContentView(R.layout.daily_dialog);
+                            dialog.setCancelable(true);
+                            dailyButton = (Button)dialog.findViewById(R.id.daily_start);
+                            dialog.show();
+                            dailyButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dailyTime();
+                                }
+                            });
+
+
                         }
-
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
 
                         }
                     });
-
-
-                }
-            }
-            finally {
-                countFlag.close();
-            }
-
-            languageSceen readFlag = new languageSceen();
-            if (readFlag.getLanguageSelected() == "bm") {
-                Intent intent = new Intent("guan.pcihearten.read_tab_bm");
-                startActivity(intent);
-            }
-            else{
-                Intent intent = new Intent("guan.pcihearten.read_tab");
-                startActivity(intent);
-            }
 
         } else if (id == R.id.nav_prepci) {
             Intent intent = new Intent("guan.pcihearten.game_buffer");
@@ -557,10 +586,7 @@ public class mainPage extends AppCompatActivity
             Intent intent = new Intent("guan.pcihearten.user_profile");
             startActivity(intent);
 
-        } else if (id == R.id.nav_health) {
-
         }
-        
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -10,8 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,6 +29,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.net.MalformedURLException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -47,10 +53,7 @@ public class user_profile extends AppCompatActivity {
     private ProgressBar expBar;
     private TextView expWord;
     private Long expBarLever;
-    private DatabaseReference mFirebaseScore;
-    private DatabaseReference mFirebasePlayed;
-    private DatabaseReference mReadReference;
-    private DatabaseReference mPhotoReference;
+    private DatabaseReference mFirebaseScore, mFirebasePlayed, mReadReference, mPhotoReference, mFirebaseTalk, mFirebaseAccCrt;
 
 //  Read Rank Variable
     private ImageView rankPic;
@@ -64,7 +67,7 @@ public class user_profile extends AppCompatActivity {
     private static String currentRank;
 
 //  Fight Achievement
-    private ImageView achievementPic2;
+    private ImageView achievementPic2, achievementPic3, achievementPic4;
 
     //Achievement Dialog
     private TextView dialogTitle;
@@ -72,6 +75,10 @@ public class user_profile extends AppCompatActivity {
     private TextView dialogBarText;
     private TextView dialogDesc;
     private Long dialogLeft;
+
+    //Change Avatar dialog
+    private EditText dialogEdit;
+    private Button dialogSave;
 
 
     @Override
@@ -82,6 +89,7 @@ public class user_profile extends AppCompatActivity {
         checkUserStatus();
         toolbar.setTitle(mUsername);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
@@ -146,9 +154,6 @@ public class user_profile extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
     public void expRate(){
@@ -193,8 +198,8 @@ public class user_profile extends AppCompatActivity {
         rankBar = (ProgressBar)findViewById(R.id.rank_bar);
 
         achievementPic2 = (ImageView)findViewById(R.id.achieve_img_2);
-
-
+        achievementPic3 = (ImageView)findViewById(R.id.achieve_img_3);
+        achievementPic4 = (ImageView)findViewById(R.id.achieve_img_4);
 
         mReadReference = FirebaseDatabase.getInstance().getReference()
                 .child("unique_user").child("-" + mFirebaseUser.getUid()).child("rank_info");
@@ -612,12 +617,144 @@ public class user_profile extends AppCompatActivity {
                         achievementPic2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                dialogLeft = 999L - scoreRetrieve.getPlayed();
-                                achievementDialog("The King", "Participate in multiplayer " + dialogLeft + " time(s) to reach next rank.",scoreRetrieve.getPlayed(),999);
+                                achievementDialog("The King", "You've completed the achievement.",15,15);
                             }
                         });
                     }
                 }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //Achievement For Chatting
+        mFirebaseTalk =  FirebaseDatabase.getInstance().getReference().child("unique_user").child("-"+mFirebaseUser.getUid());
+        mFirebaseTalk.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final leaderboard_push scoreRetrieve = dataSnapshot.getValue(leaderboard_push.class);
+
+                if(scoreRetrieve.getTalk()>=0 && scoreRetrieve.getTalk()<=9){
+                    languageSceen readFlag = new languageSceen();
+                    if (readFlag.getLanguageSelected() == "bm") {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/09rAtxR.png")
+                                    .into(achievementPic3);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                    } else {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/09rAtxR.png")
+                                    .into(achievementPic3);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                        achievementPic3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialogLeft = 10L - scoreRetrieve.getTalk();
+                                achievementDialog("Silent", "Talk in chat " + dialogLeft + " time(s) to reach next rank.",scoreRetrieve.getTalk(),10);
+                            }
+                        });
+                    }
+                }
+
+                if(scoreRetrieve.getTalk()>=10 && scoreRetrieve.getTalk()<=19){
+                    languageSceen readFlag = new languageSceen();
+                    if (readFlag.getLanguageSelected() == "bm") {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/XeK4UP5.png")
+                                    .into(achievementPic3);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                    } else {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/XeK4UP5.png")
+                                    .into(achievementPic3);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                        achievementPic3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialogLeft = 20L - scoreRetrieve.getTalk();
+                                achievementDialog("Conversationalist", "Talk in chat " + dialogLeft + " time(s) to reach next rank.",scoreRetrieve.getTalk(),20);
+                            }
+                        });
+                    }
+                }
+
+                if(scoreRetrieve.getTalk()>=20 && scoreRetrieve.getTalk()<=29){
+                    languageSceen readFlag = new languageSceen();
+                    if (readFlag.getLanguageSelected() == "bm") {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/iqWRdap.png")
+                                    .into(achievementPic3);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                    } else {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/iqWRdap.png")
+                                    .into(achievementPic3);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                        achievementPic3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialogLeft = 30L - scoreRetrieve.getTalk();
+                                achievementDialog("Megaphone", "Talk in chat " + dialogLeft + " time(s) to reach next rank.",scoreRetrieve.getTalk(),30);
+                            }
+                        });
+                    }
+                }
+
+                if(scoreRetrieve.getTalk()>=30){
+                    languageSceen readFlag = new languageSceen();
+                    if (readFlag.getLanguageSelected() == "bm") {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/2NJKej4.png")
+                                    .into(achievementPic3);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                    } else {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/2NJKej4.png")
+                                    .into(achievementPic3);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                        achievementPic3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                achievementDialog("Chatterbox", "You've completed the achievement",30,30);
+                            }
+                        });
+                    }
+                }
+
 
             }
 
@@ -627,6 +764,141 @@ public class user_profile extends AppCompatActivity {
             }
         });
 
+        //Achievement for Acculmulative Correct
+        mFirebaseAccCrt =  FirebaseDatabase.getInstance().getReference().child("unique_user").child("-"+mFirebaseUser.getUid());
+        mFirebaseAccCrt.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final leaderboard_push accCrtRetrieve = dataSnapshot.getValue(leaderboard_push.class);
+
+                if(accCrtRetrieve.getAccCrt()>=0 && accCrtRetrieve.getAccCrt()<=9){
+                    languageSceen readFlag = new languageSceen();
+                    if (readFlag.getLanguageSelected() == "bm") {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/WQwr7n7.png")
+                                    .into(achievementPic4);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                    } else {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/WQwr7n7.png")
+                                    .into(achievementPic4);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                        achievementPic4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialogLeft = 10L - accCrtRetrieve.getAccCrt();
+                                achievementDialog("Inaccurate", "Get correct in quiz " + dialogLeft + " time(s) to reach next rank.",accCrtRetrieve.getAccCrt(),10);
+                            }
+                        });
+                    }
+                }
+
+                if(accCrtRetrieve.getAccCrt()>=10 && accCrtRetrieve.getAccCrt()<=19){
+                    languageSceen readFlag = new languageSceen();
+                    if (readFlag.getLanguageSelected() == "bm") {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/A1zVDvX.png")
+                                    .into(achievementPic4);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                    } else {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("http://i.imgur.com/A1zVDvX.png")
+                                    .into(achievementPic4);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                        achievementPic4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialogLeft = 20L - accCrtRetrieve.getAccCrt();
+                                achievementDialog("Accurate", "Get correct in quiz " + dialogLeft + " time(s) to reach next rank.",accCrtRetrieve.getAccCrt(),20);
+                            }
+                        });
+                    }
+                }
+
+                if(accCrtRetrieve.getAccCrt()>=20 && accCrtRetrieve.getAccCrt()<=29){
+                    languageSceen readFlag = new languageSceen();
+                    if (readFlag.getLanguageSelected() == "bm") {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("https://firebasestorage.googleapis.com/v0/b/pcihearten.appspot.com/o/user_profile%2FaccCrt_achieve%2Fh8eqGJP.png?alt=media&token=43865f42-9896-43f5-a8ea-d42500427dc7")
+                                    .into(achievementPic4);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                    } else {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("https://firebasestorage.googleapis.com/v0/b/pcihearten.appspot.com/o/user_profile%2FaccCrt_achieve%2Fh8eqGJP.png?alt=media&token=43865f42-9896-43f5-a8ea-d42500427dc7")
+                                    .into(achievementPic4);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                        achievementPic4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialogLeft = 30L - accCrtRetrieve.getAccCrt();
+                                achievementDialog("Precise", "Get correct in quiz " + dialogLeft + " time(s) to reach next rank.",accCrtRetrieve.getAccCrt(),30);
+                            }
+                        });
+                    }
+                }
+
+
+                if(accCrtRetrieve.getAccCrt()>=30){
+                    languageSceen readFlag = new languageSceen();
+                    if (readFlag.getLanguageSelected() == "bm") {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("https://firebasestorage.googleapis.com/v0/b/pcihearten.appspot.com/o/user_profile%2FaccCrt_achieve%2Ffull_puzzle.png?alt=media&token=639a18c9-2819-417b-aede-64766514a84c")
+                                    .into(achievementPic4);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                    } else {
+                        try {
+                            Glide.with(user_profile.this)
+                                    .load("https://firebasestorage.googleapis.com/v0/b/pcihearten.appspot.com/o/user_profile%2FaccCrt_achieve%2Ffull_puzzle.png?alt=media&token=639a18c9-2819-417b-aede-64766514a84c")
+                                    .into(achievementPic4);
+                        }
+                        catch(IllegalArgumentException e){
+
+                        }
+                        achievementPic4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                achievementDialog("Perfect", "You've completed the achievement.",30, 30);
+                            }
+                        });
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void achievementDialog(String title, String desc, long p, int max){
@@ -644,6 +916,48 @@ public class user_profile extends AppCompatActivity {
         dialogBar.setMax(max);
         dialogBarText.setText(p+"/"+max);
         dialog.show();
+    }
+
+    public void changeProfilePic(String url){
+        final Dialog dialog = new Dialog(user_profile.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.avatar_dialog);
+        dialog.setCancelable(true);
+        dialogTitle = (TextView) dialog.findViewById(R.id.dialog_title);
+        dialogEdit = (EditText) dialog.findViewById(R.id.dialog_edit);
+        dialog.show();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_profile, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menu_profile) {
+            final Dialog dialog = new Dialog(user_profile.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.avatar_dialog);
+            dialog.setCancelable(true);
+            dialogEdit = (EditText)dialog.findViewById(R.id.dialog_edit);
+            dialogSave = (Button)dialog.findViewById(R.id.save_avatar);
+            dialog.show();
+
+            dialogSave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPhotoReference = FirebaseDatabase.getInstance().getReference()
+                            .child("unique_user").child("-"+mFirebaseUser.getUid());
+                    mPhotoReference.child("photoUrl").setValue(dialogEdit.getText().toString());
+                    dialog.dismiss();
+                }
+            });
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //Get the current rank and proceed to game

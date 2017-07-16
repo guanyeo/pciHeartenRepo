@@ -16,6 +16,8 @@ public class game_data {
     private String choice2;
     private String choice3;
 
+    private String choice1Photo, choice2Photo, choice3Photo;
+
 
     public game_data(){
 
@@ -92,5 +94,29 @@ public class game_data {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getChoice1Photo() {
+        return choice1Photo;
+    }
+
+    public void setChoice1Photo(String choice1Photo) {
+        this.choice1Photo = choice1Photo;
+    }
+
+    public String getChoice2Photo() {
+        return choice2Photo;
+    }
+
+    public void setChoice2Photo(String choice2Photo) {
+        this.choice2Photo = choice2Photo;
+    }
+
+    public String getChoice3Photo() {
+        return choice3Photo;
+    }
+
+    public void setChoice3Photo(String choice3Photo) {
+        this.choice3Photo = choice3Photo;
     }
 }

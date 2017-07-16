@@ -47,7 +47,7 @@ public class single_game extends AppCompatActivity {
     private TextView questionText1;
     private TextView gameText2;
     private TextView gameText3;
-    private ImageView questionImg;
+    private ImageView questionImg, choice1Img, choice2Img, choice3Img;
     private ProgressBar singleBar;
     private TextView gameTime;
     private Long numCrt = 0L;
@@ -66,13 +66,10 @@ public class single_game extends AppCompatActivity {
 
 
     // Firebase instance variables
-    private DatabaseReference mFirebaseDatabaseReference;
-    private DatabaseReference mFirebaseScoreReference;
     private DatabaseReference mConditionReference;
     private DatabaseReference mTriggerReference;
     private DatabaseReference mPlayedReference;
-    private DatabaseReference mTotalQuestionReference;
-    private DatabaseReference mFirebaseResultReference;
+    private DatabaseReference mTotalQuestionReference, mFirebaseResultReference, mFirebaseScoreReference, mFirebaseDatabaseReference, mCrtAchieve;
 
     //    For random usage
     private List holderList = new ArrayList();
@@ -98,6 +95,10 @@ public class single_game extends AppCompatActivity {
         singleBar = (ProgressBar) findViewById(R.id.single_game_bar);
         gameTime = (TextView) findViewById(R.id.game_time);
         questionImg = (ImageView) findViewById(R.id.question_img);
+        choice1Img = (ImageView)findViewById(R.id.choice1_img);
+        choice2Img = (ImageView)findViewById(R.id.choice2_img);
+        choice3Img = (ImageView)findViewById(R.id.choice3_img);
+
 
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
@@ -156,6 +157,10 @@ public class single_game extends AppCompatActivity {
         gameText1.setEnabled(true);
         gameText2.setEnabled(true);
         gameText3.setEnabled(true);
+
+        choice1Img.setEnabled(true);
+        choice2Img.setEnabled(true);
+        choice3Img.setEnabled(true);
 
         //        Where to retrieve
         if(readFlag.getLanguageSelected()=="bm") {
@@ -302,9 +307,35 @@ public class single_game extends AppCompatActivity {
                 // Get Post object and use the values to update the UI
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
+                //choice 1
                 gameText1.setText(post.getChoice1());
+                //choice 2
                 gameText2.setText(post.getChoice2());
+                //choice 3
                 gameText3.setText(post.getChoice3());
+                //Load choice Img
+                try {
+                    Glide.with(single_game.this)
+                            .load(post.getChoice1Photo())
+                            .into(choice1Img);
+                    choice1Img.setVisibility(View.VISIBLE);
+
+                    Glide.with(single_game.this)
+                            .load(post.getChoice2Photo())
+                            .into(choice2Img);
+                    choice2Img.setVisibility(View.VISIBLE);
+
+                    Glide.with(single_game.this)
+                            .load(post.getChoice3Photo())
+                            .into(choice3Img);
+                    choice3Img.setVisibility(View.VISIBLE);
+                }
+                catch(NullPointerException e){
+                    Toast.makeText(single_game.this, "asdasds", Toast.LENGTH_SHORT).show();
+                    choice1Img.setVisibility(View.GONE);
+                    choice2Img.setVisibility(View.GONE);
+                    choice3Img.setVisibility(View.GONE);
+                }
 
                 // [END_EXCLUDE]
             }
@@ -321,72 +352,23 @@ public class single_game extends AppCompatActivity {
         mFirebaseDatabaseReference.addValueEventListener(postListener);
 
     }
-    public void answerRetrieval2 (long answerDir){
-        languageSceen readFlag = new languageSceen();
-//        Where to retrieve
-        if(readFlag.getLanguageSelected()=="bm") {
-            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                    .child("game_data/game_answer_bm/answer" + answerDir);
-        }else {
-            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                    .child("game_data/game_answer/answer" + answerDir);
-        }
-//        Retrieve data
-        ValueEventListener postListener = new ValueEventListener() {
+
+    public void accCrtAchieve(){
+        mCrtAchieve  = FirebaseDatabase.getInstance().getReference()
+                .child("unique_user").child("-"+mFirebaseUser.getUid());
+        mCrtAchieve.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                game_data post = dataSnapshot.getValue(game_data.class);
-                // [START_EXCLUDE]
-                gameText2.setText(post.getChoice2());
-                // [END_EXCLUDE]
+                leaderboard_push crtCounter = dataSnapshot.getValue(leaderboard_push.class);
+                mCrtAchieve.child("accCrt").setValue(crtCounter.getAccCrt()+1L);
+
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // [START_EXCLUDE]
-                Toast.makeText(single_game.this, "Failed to load post.",
-                        Toast.LENGTH_SHORT).show();
-                // [END_EXCLUDE]
-            }
-        };
-        mFirebaseDatabaseReference.addValueEventListener(postListener);
 
-    }
-    public void answerRetrieval3 (long answerDir){
-        languageSceen readFlag = new languageSceen();
-//        Where to retrieve
-        if(readFlag.getLanguageSelected()=="bm") {
-            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                    .child("game_data/game_answer_bm/answer" + answerDir);
-        }
-        else {
-            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                    .child("game_data/game_answer/answer" + answerDir);
-        }
-//        Retrieve data
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                game_data post = dataSnapshot.getValue(game_data.class);
-                // [START_EXCLUDE]
-                gameText3.setText(post.getChoice3());
-                // [END_EXCLUDE]
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // [START_EXCLUDE]
-                Toast.makeText(single_game.this, "Failed to load post.",
-                        Toast.LENGTH_SHORT).show();
-                // [END_EXCLUDE]
-            }
-        };
-        mFirebaseDatabaseReference.addValueEventListener(postListener);
-
+        });
     }
 
     //Code to check if button clicked is correct
@@ -418,6 +400,11 @@ public class single_game extends AppCompatActivity {
                                 gameText1.setEnabled(false);
                                 gameText2.setEnabled(false);
                                 gameText3.setEnabled(false);
+
+                                choice1Img.setEnabled(false);
+                                choice2Img.setEnabled(false);
+                                choice3Img.setEnabled(false);
+
                                 // If the answer is correct
                                 if(gameTextConvert1.equals(post.getAnswer())){
                                     //Transfer to review page
@@ -448,6 +435,47 @@ public class single_game extends AppCompatActivity {
                 );
 
 
+                choice1Img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // If the answer is correct
+                        gameText1.setEnabled(false);
+                        gameText2.setEnabled(false);
+                        gameText3.setEnabled(false);
+
+                        choice1Img.setEnabled(false);
+                        choice2Img.setEnabled(false);
+                        choice3Img.setEnabled(false);
+                        // If the answer is correct
+                        if(gameTextConvert1.equals(post.getAnswer())){
+                            //Transfer to review page
+                            resultTransfer(questionText1.getText().toString(), gameTextConvert1, post.getQuesPhoto());
+                            gameText1.setBackgroundColor(Color.parseColor("#619648"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    correctTrigger();
+                                }
+                            },1500);
+                        }
+                        else{
+                            wrongTransfer(questionText1.getText().toString(), gameTextConvert1,post.getQuesPhoto());
+                            gameText1.setBackgroundColor(Color.parseColor("#f9683a"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    wrongTrigger();
+                                }
+                            },1500);
+
+                        }
+                    }
+                });
+
+
+
 
                 gameText2.setOnClickListener(
                         new View.OnClickListener() {
@@ -456,6 +484,11 @@ public class single_game extends AppCompatActivity {
                                 gameText1.setEnabled(false);
                                 gameText2.setEnabled(false);
                                 gameText3.setEnabled(false);
+
+                                choice1Img.setEnabled(false);
+                                choice2Img.setEnabled(false);
+                                choice3Img.setEnabled(false);
+
                                 if(gameTextConvert2.equals(post.getAnswer())){
                                     //Transfer to review page
                                     resultTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto());
@@ -484,6 +517,44 @@ public class single_game extends AppCompatActivity {
                         }
                 );
 
+                choice2Img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        gameText1.setEnabled(false);
+                        gameText2.setEnabled(false);
+                        gameText3.setEnabled(false);
+
+                        choice1Img.setEnabled(false);
+                        choice2Img.setEnabled(false);
+                        choice3Img.setEnabled(false);
+
+                        if(gameTextConvert2.equals(post.getAnswer())){
+                            //Transfer to review page
+                            resultTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto());
+                            gameText2.setBackgroundColor(Color.parseColor("#619648"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    correctTrigger();
+                                }
+                            },1500);
+
+                        }
+                        else{
+                            wrongTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto());
+                            gameText2.setBackgroundColor(Color.parseColor("#f9683a"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    wrongTrigger();
+                                }
+                            },1500);
+                        }
+                    }
+                });
+
 
                 gameText3.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -491,6 +562,48 @@ public class single_game extends AppCompatActivity {
                         gameText1.setEnabled(false);
                         gameText2.setEnabled(false);
                         gameText3.setEnabled(false);
+
+                        choice1Img.setEnabled(false);
+                        choice2Img.setEnabled(false);
+                        choice3Img.setEnabled(false);
+
+                        if(gameTextConvert3.equals(post.getAnswer())){
+                            //Transfer to review page
+                            resultTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto());
+                            gameText3.setBackgroundColor(Color.parseColor("#619648"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    correctTrigger();
+                                }
+                            },1500);
+
+                        }
+                        else{
+                            wrongTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto());
+                            gameText3.setBackgroundColor(Color.parseColor("#f9683a"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    wrongTrigger();
+                                }
+                            },1500);
+                        }
+                    }
+                });
+
+                choice3Img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        gameText1.setEnabled(false);
+                        gameText2.setEnabled(false);
+                        gameText3.setEnabled(false);
+                        choice1Img.setEnabled(false);
+                        choice2Img.setEnabled(false);
+                        choice3Img.setEnabled(false);
+
                         if(gameTextConvert3.equals(post.getAnswer())){
                             //Transfer to review page
                             resultTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto());
@@ -570,9 +683,11 @@ public class single_game extends AppCompatActivity {
 
             }
         });
-
         scoreAcc = scoreAcc + 10L;
         singleBar.setProgress(singleBar.getProgress()+10);
+
+        //Accumulate Correct
+        accCrtAchieve();
         if(singleBar.getProgress()>=100){
             scoreCollect(scoreAcc);
             gameText1.setEnabled(false);

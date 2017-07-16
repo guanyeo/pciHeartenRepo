@@ -60,6 +60,9 @@ public class loginScreen extends AppCompatActivity implements
 
     private EditText uniqueUsernameEdit;
     private Button oneTimeBtn;
+    private String mUsername;
+    private String mPhotoUrl;
+    private DatabaseReference mUserDBReference;
 
 
     @Override
@@ -129,6 +132,9 @@ public class loginScreen extends AppCompatActivity implements
                             Toast.makeText(loginScreen.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
+                            //Store db in firebase
+                            checkUserStatus();
+                            userDB();
                             startActivity(new Intent(loginScreen.this, mainPage.class));
                             finish();
                         }
@@ -144,6 +150,43 @@ public class loginScreen extends AppCompatActivity implements
                 signIn();
                 break;
         }
+    }
+
+
+    private void checkUserStatus(){
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+        mUsername = mFirebaseUser.getDisplayName();
+        mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
+
+    }
+
+
+    public void userDB(){
+        mUserDBReference = FirebaseDatabase.getInstance().getReference()
+                .child("unique_user");
+        mUserDBReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild("-"+mFirebaseUser.getUid())) {
+
+                }
+                else{
+                    leaderboard_push guantesto1 = new leaderboard_push(mUsername, "000000", 0L, mPhotoUrl, 0L, 0L);
+                    read_push guantesto2 = new read_push(0L, "CLIMB", 0L, 0L);
+                    mUserDBReference.child("-"+mFirebaseUser.getUid()).setValue(guantesto1);
+                    mUserDBReference.child("-"+mFirebaseUser.getUid()).child("rank_info").setValue(guantesto2);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void signIn() {
@@ -179,7 +222,6 @@ public class loginScreen extends AppCompatActivity implements
             int checkInsert = Integer.parseInt(readCounter);
             if(checkInsert == 0) {
                 mydatabase.execSQL("INSERT INTO read_counter VALUES (0, 0)");
-                Log.d("", "Herees the read counter "+readCounter);
             }
         }
         finally {

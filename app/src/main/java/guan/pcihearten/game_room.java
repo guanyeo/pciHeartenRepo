@@ -63,7 +63,7 @@ private static final String TAG = "Game Room";
     private TextView questionText1;
     private TextView gameText2;
     private TextView gameText3;
-    private ImageView questionImg;
+    private ImageView questionImg, choice1Img, choice2Img, choice3Img;
 
 
 
@@ -122,7 +122,7 @@ private static final String TAG = "Game Room";
     private DatabaseReference mTriggerReference;
     private DatabaseReference mPlayedReference;
     private DatabaseReference mTotalQuestionReference;
-    private DatabaseReference mFirebaseResultReference;
+    private DatabaseReference mFirebaseResultReference, mCrtAchieve, mStatFirebase;
 
 
     @Override
@@ -147,6 +147,9 @@ private static final String TAG = "Game Room";
         gameText2 = (TextView) findViewById(R.id.game_card_text_5);
         gameText3 = (TextView) findViewById(R.id.game_card_text_6);
         questionImg = (ImageView) findViewById(R.id.question_img);
+        choice1Img = (ImageView)findViewById(R.id.choice1_img);
+        choice2Img = (ImageView)findViewById(R.id.choice2_img);
+        choice3Img = (ImageView)findViewById(R.id.choice3_img);
 
 //        Cast layout for characther statBar
         p1Name = (TextView) findViewById(R.id.name_p1);
@@ -258,8 +261,7 @@ private static final String TAG = "Game Room";
                 }
 
                 answerRetrieval1(Long.valueOf(randomQuestionToken));
-                answerRetrieval2(Long.valueOf(randomQuestionToken));
-                answerRetrieval3(Long.valueOf(randomQuestionToken));
+
 
                 checkCorrect(randomQuestionToken);
 
@@ -341,73 +343,31 @@ private static final String TAG = "Game Room";
                 game_data post = dataSnapshot.getValue(game_data.class);
                 // [START_EXCLUDE]
                 gameText1.setText(post.getChoice1());
-                // [END_EXCLUDE]
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // [START_EXCLUDE]
-                Toast.makeText(game_room.this, "Failed to load post.",
-                        Toast.LENGTH_SHORT).show();
-                // [END_EXCLUDE]
-            }
-        };
-        mFirebaseDatabaseReference.addValueEventListener(postListener);
-
-    }
-    public void answerRetrieval2 (long answerDir){
-        languageSceen readFlag = new languageSceen();
-//        Where to retrieve
-        if(readFlag.getLanguageSelected()=="bm") {
-            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                    .child("game_data/game_answer_bm/answer" + answerDir);
-        }else {
-            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                    .child("game_data/game_answer/answer" + answerDir);
-        }
-//        Retrieve data
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                game_data post = dataSnapshot.getValue(game_data.class);
-                // [START_EXCLUDE]
                 gameText2.setText(post.getChoice2());
-                // [END_EXCLUDE]
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // [START_EXCLUDE]
-                Toast.makeText(game_room.this, "Failed to load post.",
-                        Toast.LENGTH_SHORT).show();
-                // [END_EXCLUDE]
-            }
-        };
-        mFirebaseDatabaseReference.addValueEventListener(postListener);
-
-    }
-    public void answerRetrieval3 (long answerDir){
-        languageSceen readFlag = new languageSceen();
-//        Where to retrieve
-        if(readFlag.getLanguageSelected()=="bm") {
-            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                    .child("game_data/game_answer_bm/answer" + answerDir);
-        }
-        else {
-            mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                    .child("game_data/game_answer/answer" + answerDir);
-        }
-//        Retrieve data
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                game_data post = dataSnapshot.getValue(game_data.class);
-                // [START_EXCLUDE]
                 gameText3.setText(post.getChoice3());
+
+                //Load choice Img
+                try {
+                    Glide.with(game_room.this)
+                            .load(post.getChoice1Photo())
+                            .into(choice1Img);
+                    choice1Img.setVisibility(View.VISIBLE);
+
+                    Glide.with(game_room.this)
+                            .load(post.getChoice2Photo())
+                            .into(choice2Img);
+                    choice2Img.setVisibility(View.VISIBLE);
+
+                    Glide.with(game_room.this)
+                            .load(post.getChoice3Photo())
+                            .into(choice3Img);
+                    choice3Img.setVisibility(View.VISIBLE);
+                }
+                catch(NullPointerException e){
+                    choice1Img.setVisibility(View.GONE);
+                    choice2Img.setVisibility(View.GONE);
+                    choice3Img.setVisibility(View.GONE);
+                }
                 // [END_EXCLUDE]
             }
             @Override
@@ -454,6 +414,9 @@ private static final String TAG = "Game Room";
                                 gameText1.setEnabled(false);
                                 gameText2.setEnabled(false);
                                 gameText3.setEnabled(false);
+                                choice1Img.setEnabled(false);
+                                choice2Img.setEnabled(false);
+                                choice3Img.setEnabled(false);
                                 // If the answer is correct
                                 if(gameTextConvert1.equals(post.getAnswer())){
                                     //Transfer to review page
@@ -483,6 +446,45 @@ private static final String TAG = "Game Room";
                         }
                 );
 
+                choice1Img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // If the answer is correct
+                        gameText1.setEnabled(false);
+                        gameText2.setEnabled(false);
+                        gameText3.setEnabled(false);
+
+                        choice1Img.setEnabled(false);
+                        choice2Img.setEnabled(false);
+                        choice3Img.setEnabled(false);
+                        // If the answer is correct
+                        if(gameTextConvert1.equals(post.getAnswer())){
+                            //Transfer to review page
+                            resultTransfer(questionText1.getText().toString(), gameTextConvert1, post.getQuesPhoto());
+                            gameText1.setBackgroundColor(Color.parseColor("#619648"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    correctTrigger();
+                                }
+                            },1500);
+                        }
+                        else{
+                            wrongTransfer(questionText1.getText().toString(), gameTextConvert1,post.getQuesPhoto());
+                            gameText1.setBackgroundColor(Color.parseColor("#f9683a"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    wrongTrigger();
+                                }
+                            },1500);
+
+                        }
+                    }
+                });
+
 
 
                 gameText2.setOnClickListener(
@@ -492,6 +494,10 @@ private static final String TAG = "Game Room";
                                 gameText1.setEnabled(false);
                                 gameText2.setEnabled(false);
                                 gameText3.setEnabled(false);
+
+                                choice1Img.setEnabled(false);
+                                choice2Img.setEnabled(false);
+                                choice3Img.setEnabled(false);
                                 if(gameTextConvert2.equals(post.getAnswer())){
                                     //Transfer to review page
                                     resultTransfer(questionText1.getText().toString(), gameTextConvert2, post.getQuesPhoto());
@@ -520,6 +526,44 @@ private static final String TAG = "Game Room";
                         }
                 );
 
+                choice2Img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        gameText1.setEnabled(false);
+                        gameText2.setEnabled(false);
+                        gameText3.setEnabled(false);
+
+                        choice1Img.setEnabled(false);
+                        choice2Img.setEnabled(false);
+                        choice3Img.setEnabled(false);
+
+                        if(gameTextConvert2.equals(post.getAnswer())){
+                            //Transfer to review page
+                            resultTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto());
+                            gameText2.setBackgroundColor(Color.parseColor("#619648"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    correctTrigger();
+                                }
+                            },1500);
+
+                        }
+                        else{
+                            wrongTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto());
+                            gameText2.setBackgroundColor(Color.parseColor("#f9683a"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    wrongTrigger();
+                                }
+                            },1500);
+                        }
+                    }
+                });
+
 
                 gameText3.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -527,9 +571,50 @@ private static final String TAG = "Game Room";
                         gameText1.setEnabled(false);
                         gameText2.setEnabled(false);
                         gameText3.setEnabled(false);
+
+                        choice1Img.setEnabled(false);
+                        choice2Img.setEnabled(false);
+                        choice3Img.setEnabled(false);
                         if(gameTextConvert3.equals(post.getAnswer())){
                             //Transfer to review page
                             resultTransfer(questionText1.getText().toString(), gameTextConvert3, post.getQuesPhoto());
+                            gameText3.setBackgroundColor(Color.parseColor("#619648"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    correctTrigger();
+                                }
+                            },1500);
+
+                        }
+                        else{
+                            wrongTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto());
+                            gameText3.setBackgroundColor(Color.parseColor("#f9683a"));
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    questionRetrieval();
+                                    wrongTrigger();
+                                }
+                            },1500);
+                        }
+                    }
+                });
+
+                choice3Img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        gameText1.setEnabled(false);
+                        gameText2.setEnabled(false);
+                        gameText3.setEnabled(false);
+                        choice1Img.setEnabled(false);
+                        choice2Img.setEnabled(false);
+                        choice3Img.setEnabled(false);
+
+                        if(gameTextConvert3.equals(post.getAnswer())){
+                            //Transfer to review page
+                            resultTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto());
                             gameText3.setBackgroundColor(Color.parseColor("#619648"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -591,7 +676,7 @@ private static final String TAG = "Game Room";
 
 //   Player status bar
     public void statBar(){
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference()
+        mStatFirebase = FirebaseDatabase.getInstance().getReference()
                 .child("game_buffer").child(game_key);
 
 
@@ -636,10 +721,9 @@ private static final String TAG = "Game Room";
                         if(post.getState().equals("onGoing")) {
 //                            Increase counter for played
                             increasePlayed();
-                            mFirebaseDatabaseReference.child("state").setValue("complete");
+                            mStatFirebase.child("state").setValue("complete");
                         }
-                        mFirebaseDatabaseReference.removeEventListener(this);
-                        Log.d("Escape?","2nd Death");
+                        mStatFirebase.removeEventListener(this);
 
 //                      Evaluate if player just died
                             if (p1Hp.getProgress() <= 0 && post.getP1().equals(mUsername)) {
@@ -706,8 +790,8 @@ private static final String TAG = "Game Room";
                                     alertDialog.show();
                                 }
                             }
-                        mFirebaseDatabaseReference.child("p1Hp").setValue(null);
-                        mFirebaseDatabaseReference.child("p2Hp").setValue(null);
+                        mStatFirebase.child("p1Hp").setValue(null);
+                        mStatFirebase.child("p2Hp").setValue(null);
                     }
                     try {
 //                Sets the avatar
@@ -734,7 +818,7 @@ private static final String TAG = "Game Room";
             }
         };
 
-        mFirebaseDatabaseReference.addValueEventListener(statListener);
+        mStatFirebase.addValueEventListener(statListener);
 
 
     }
@@ -750,7 +834,7 @@ private static final String TAG = "Game Room";
         mFirebaseResultReference = FirebaseDatabase.getInstance().getReference()
                 .child("result_review/"+mFirebaseUser.getUid());
 
-
+        accCrtAchieve();
         mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -951,6 +1035,25 @@ private static final String TAG = "Game Room";
             }
         });
     }
+
+    public void accCrtAchieve(){
+        mCrtAchieve  = FirebaseDatabase.getInstance().getReference()
+                .child("unique_user").child("-"+mFirebaseUser.getUid());
+        mCrtAchieve.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                leaderboard_push crtCounter = dataSnapshot.getValue(leaderboard_push.class);
+                mCrtAchieve.child("accCrt").setValue(crtCounter.getAccCrt()+1L);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
 
     @Override

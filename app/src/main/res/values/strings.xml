@@ -18,13 +18,13 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <!-- On Create Options Menu -->
-    <string name="action_settings">Quit</string>
+    <string name="action_settings">Log Out</string>
     <!-- Nav -->
-    <string name="nav_bar_title_string">PCI Info</string>
-    <string name="nav_information_string">Read</string>
+    <string name="nav_bar_title_string">MVTutor</string>
+    <string name="nav_information_string">Check In</string>
     <string name="nav_prepci_string">1v1 Multiplayer</string>
     <string name="nav_pciprocedure_string">Leaderboard</string>
-    <string name="nav_postpci_string">Patient Info</string>
+    <string name="nav_postpci_string">User Info</string>
     <string name="nav_prevent_string">Shop</string>
     <string name="nav_status_string">Status</string>
     <string name="nav_mock_string">Mock Test</string>
@@ -711,5 +711,6 @@
     <string name="TTS_password" />
     <string name="mobileanalytics_apikey" />
     <string name="title_activity_delete_this">delete_this</string>
+    <string name="title_activity_kazu">kazu</string>
 
 </resources>

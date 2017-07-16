@@ -75,13 +75,11 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
     private String mPhotoUrl;
 
     // Firebase instance variables
-    private DatabaseReference mFirebaseDatabaseReference;
+    private DatabaseReference mFirebaseDatabaseReference, mRankReference, mCrtAchieve;
     private FirebaseRecyclerAdapter<result_push, result_page.MessageViewHolder>
             mFirebaseAdapter;
  /*   private FirebaseRecyclerAdapter<result_push, result_page.WrongViewHolder>
             mWrongAdapter;*/
-    private DatabaseReference resultReference;
-    private DatabaseReference mRankReference;
 
 
     @Override
@@ -219,7 +217,6 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
         });
 
         rankResult();
-
     }
 
 

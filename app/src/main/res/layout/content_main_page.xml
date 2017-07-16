@@ -34,7 +34,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
             android:layout_weight="1"/>
 
         <Button
@@ -66,6 +65,6 @@
         android:layout_centerVertical="true"
         android:layout_margin="50dp"
         android:textSize="18sp"
-        android:text="Hello, thanks for using PCI Info mobile app. Get started by typing in the chat. Have fun and enjoy your stay."/>
+        android:text="Hello, thanks for using MVTutor. Get started by typing in the chat. Have fun and enjoy your stay."/>
 
 </RelativeLayout>

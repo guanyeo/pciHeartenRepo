@@ -13,6 +13,8 @@ public class read_push {
     private Long read_total;
     private String rank_level;
     private String photoUrl;
+    private Long old_time;
+    private Long new_time;
 
 
 
@@ -23,9 +25,11 @@ public class read_push {
     public read_push() {
     }
 
-    public read_push(Long read_total, String rank_level){
+    public read_push(Long read_total, String rank_level, Long old_time, Long new_time){
         this.read_total = read_total;
         this.rank_level = rank_level;
+        this.old_time = old_time;
+        this.new_time = new_time;
     }
 
     public Long getRead_total() {
@@ -78,5 +82,21 @@ public class read_push {
 
     public String getPhotoUrl() {
         return photoUrl;
+    }
+
+    public Long getOld_time() {
+        return old_time;
+    }
+
+    public void setOld_time(Long old_time) {
+        this.old_time = old_time;
+    }
+
+    public Long getNew_time() {
+        return new_time;
+    }
+
+    public void setNew_time(Long new_time) {
+        this.new_time = new_time;
     }
 }

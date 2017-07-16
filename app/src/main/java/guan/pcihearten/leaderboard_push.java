@@ -11,6 +11,8 @@ public class leaderboard_push {
     private Long played;
     private Long total;
     private String photoUrl;
+    private Long talk;
+    private Long accCrt;
 
 
 
@@ -18,11 +20,13 @@ public class leaderboard_push {
         //Constructor needed
     }
 
-    public leaderboard_push(String name, String score, Long played, String photoUrl) {
+    public leaderboard_push(String name, String score, Long played, String photoUrl, Long talk, Long accCrt) {
         this.name = name;
         this.score = score;
         this.played = played;
         this.photoUrl = photoUrl;
+        this.talk = talk;
+        this.accCrt = accCrt;
     }
 
     public String getId() {
@@ -72,6 +76,23 @@ public class leaderboard_push {
 
     public Long getRead_total() {
         return read_total;
+    }
+
+    public Long getTalk() {
+        return talk;
+    }
+
+    public void setTalk(Long talk) {
+        this.talk = talk;
+    }
+
+
+    public Long getAccCrt() {
+        return accCrt;
+    }
+
+    public void setAccCrt(Long accCrt) {
+        this.accCrt = accCrt;
     }
 }
 

@@ -285,7 +285,7 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
                 taskProcess(postDrawer, 4);
             }
             markFlag();
-        } else if (id == R.id.nav_health) {
+        } /*else if (id == R.id.nav_health) {
             languageSceen mainFlag = new languageSceen();
             if (mainFlag.getLanguageSelected()=="bm")
             {
@@ -300,7 +300,7 @@ public class main_page_no_chat extends AppCompatActivity implements NavigationVi
                 taskProcess(healthDrawer, 5);
             }
             markFlag();
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

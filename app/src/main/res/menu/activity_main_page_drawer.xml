@@ -6,7 +6,7 @@
         <item
             android:id="@+id/nav_information"
             android:title="@string/nav_information_string"
-            android:icon="@mipmap/read_selection"/>
+            android:icon="@drawable/calendar"/>
         <item
             android:id="@+id/nav_prepci"
             android:title="@string/nav_prepci_string"
@@ -19,10 +19,6 @@
             android:id="@+id/nav_postpci"
             android:title="@string/nav_postpci_string"
             android:icon="@drawable/player_info_selection"/>
-        <item
-            android:id="@+id/nav_health"
-            android:title="@string/nav_prevent_string"
-            android:icon="@drawable/shop_selection"/>
     </group>
 
 
