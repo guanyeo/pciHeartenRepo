@@ -52,6 +52,13 @@
                 android:text="Answer"
                 android:textSize="16sp"
                 android:textColor="@color/stepColor"/>
+
+            <ImageView
+                android:id="@+id/crt_img"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/result_a"
+                />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

@@ -118,20 +118,6 @@ public class single_game extends AppCompatActivity {
 
     }
 
-    //    [Retrieve name from client DB]
-    public void initUniqueUser(){
-        SQLiteDatabase mydatabase = openOrCreateDatabase("pci.db", MODE_PRIVATE, null);
-        Cursor retrieveUname = mydatabase.rawQuery("SELECT uname FROM unique_user", null);
-
-        try {
-            retrieveUname.moveToFirst();
-            String unameString = retrieveUname.getString(0);
-            mUsername = unameString;
-        }
-        finally {
-            retrieveUname.close();
-        }
-    }
 
     //Retrieve question from data
     public void questionRetrieval(){
@@ -227,14 +213,14 @@ public class single_game extends AppCompatActivity {
         holderList.remove(removeSelected);
     }
 
-    public void resultTransfer(final String q, final String a, final String qp){
+    public void resultTransfer(final String q, final String a, final String qp, final String cp){
         mFirebaseResultReference = FirebaseDatabase.getInstance().getReference()
                 .child("result_review/"+mFirebaseUser.getUid());
 
         mFirebaseResultReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                result_push resultTotal = new result_push(q,a, qp, null, null, null);
+                result_push resultTotal = new result_push(q,a, qp, null, null, null, cp);
                 mFirebaseResultReference.child("done_qa").push().setValue(resultTotal);
             }
 
@@ -245,13 +231,13 @@ public class single_game extends AppCompatActivity {
         });
     }
 
-    public void wrongTransfer(final String q, final String a, final String qp){
+    public void wrongTransfer(final String q, final String a, final String qp, final String cp){
         mFirebaseResultReference = FirebaseDatabase.getInstance().getReference()
                 .child("result_review/"+mFirebaseUser.getUid());
         mFirebaseResultReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                result_push resultTotal = new result_push(q,a, qp, null, null, null);
+                result_push resultTotal = new result_push(q,a, qp, null, null, null, cp);
                 mFirebaseResultReference.child("wrong_qa").push().setValue(resultTotal);
             }
 
@@ -331,7 +317,6 @@ public class single_game extends AppCompatActivity {
                     choice3Img.setVisibility(View.VISIBLE);
                 }
                 catch(NullPointerException e){
-                    Toast.makeText(single_game.this, "asdasds", Toast.LENGTH_SHORT).show();
                     choice1Img.setVisibility(View.GONE);
                     choice2Img.setVisibility(View.GONE);
                     choice3Img.setVisibility(View.GONE);
@@ -408,7 +393,7 @@ public class single_game extends AppCompatActivity {
                                 // If the answer is correct
                                 if(gameTextConvert1.equals(post.getAnswer())){
                                     //Transfer to review page
-                                    resultTransfer(questionText1.getText().toString(), gameTextConvert1,post.getQuesPhoto());
+                                    resultTransfer(questionText1.getText().toString(), gameTextConvert1,post.getQuesPhoto(), post.getChoice1Photo());
                                     gameText1.setBackgroundColor(Color.parseColor("#619648"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
@@ -419,7 +404,7 @@ public class single_game extends AppCompatActivity {
                                     },1500);
                                 }
                                 else{
-                                    wrongTransfer(questionText1.getText().toString(), gameTextConvert1,post.getQuesPhoto());
+                                    wrongTransfer(questionText1.getText().toString(), gameTextConvert1,post.getQuesPhoto(), post.getChoice1Photo());
                                     gameText1.setBackgroundColor(Color.parseColor("#f9683a"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
@@ -449,7 +434,7 @@ public class single_game extends AppCompatActivity {
                         // If the answer is correct
                         if(gameTextConvert1.equals(post.getAnswer())){
                             //Transfer to review page
-                            resultTransfer(questionText1.getText().toString(), gameTextConvert1, post.getQuesPhoto());
+                            resultTransfer(questionText1.getText().toString(), gameTextConvert1, post.getQuesPhoto(), post.getChoice1Photo());
                             gameText1.setBackgroundColor(Color.parseColor("#619648"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -460,7 +445,7 @@ public class single_game extends AppCompatActivity {
                             },1500);
                         }
                         else{
-                            wrongTransfer(questionText1.getText().toString(), gameTextConvert1,post.getQuesPhoto());
+                            wrongTransfer(questionText1.getText().toString(), gameTextConvert1,post.getQuesPhoto(), post.getChoice1Photo());
                             gameText1.setBackgroundColor(Color.parseColor("#f9683a"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -491,7 +476,7 @@ public class single_game extends AppCompatActivity {
 
                                 if(gameTextConvert2.equals(post.getAnswer())){
                                     //Transfer to review page
-                                    resultTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto());
+                                    resultTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto(), post.getChoice2Photo());
                                     gameText2.setBackgroundColor(Color.parseColor("#619648"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
@@ -503,7 +488,7 @@ public class single_game extends AppCompatActivity {
 
                                 }
                                 else{
-                                    wrongTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto());
+                                    wrongTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto(), post.getChoice2Photo());
                                     gameText2.setBackgroundColor(Color.parseColor("#f9683a"));
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
@@ -530,7 +515,7 @@ public class single_game extends AppCompatActivity {
 
                         if(gameTextConvert2.equals(post.getAnswer())){
                             //Transfer to review page
-                            resultTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto());
+                            resultTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto(), post.getChoice2Photo());
                             gameText2.setBackgroundColor(Color.parseColor("#619648"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -542,7 +527,7 @@ public class single_game extends AppCompatActivity {
 
                         }
                         else{
-                            wrongTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto());
+                            wrongTransfer(questionText1.getText().toString(), gameTextConvert2,post.getQuesPhoto(), post.getChoice2Photo());
                             gameText2.setBackgroundColor(Color.parseColor("#f9683a"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -569,7 +554,7 @@ public class single_game extends AppCompatActivity {
 
                         if(gameTextConvert3.equals(post.getAnswer())){
                             //Transfer to review page
-                            resultTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto());
+                            resultTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto(), post.getChoice3Photo());
                             gameText3.setBackgroundColor(Color.parseColor("#619648"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -581,7 +566,7 @@ public class single_game extends AppCompatActivity {
 
                         }
                         else{
-                            wrongTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto());
+                            wrongTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto(), post.getChoice3Photo());
                             gameText3.setBackgroundColor(Color.parseColor("#f9683a"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -606,7 +591,7 @@ public class single_game extends AppCompatActivity {
 
                         if(gameTextConvert3.equals(post.getAnswer())){
                             //Transfer to review page
-                            resultTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto());
+                            resultTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto(), post.getChoice3Photo());
                             gameText3.setBackgroundColor(Color.parseColor("#619648"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -618,7 +603,7 @@ public class single_game extends AppCompatActivity {
 
                         }
                         else{
-                            wrongTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto());
+                            wrongTransfer(questionText1.getText().toString(), gameTextConvert3,post.getQuesPhoto(), post.getChoice3Photo());
                             gameText3.setBackgroundColor(Color.parseColor("#f9683a"));
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -674,7 +659,7 @@ public class single_game extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 numCrt = numCrt + 1;
-                result_push resultTotal = new result_push(null, null,null,null,numCrt,null);
+                result_push resultTotal = new result_push(null, null,null,null,numCrt,null, null);
                 mFirebaseResultReference.child("total_crt").setValue(resultTotal);
             }
 
@@ -722,7 +707,7 @@ public class single_game extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 numWrg = numWrg + 1;
-                result_push resultTotal = new result_push(null, null,null,null,null,numWrg);
+                result_push resultTotal = new result_push(null, null,null,null,null,numWrg, null);
                 mFirebaseResultReference.child("total_wrg").setValue(resultTotal);
             }
 
@@ -760,7 +745,7 @@ public class single_game extends AppCompatActivity {
         mFirebaseResultReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                result_push resultTotal = new result_push(null, null,null,"Total Time: "+gameTime.getText().toString(), null, null);
+                result_push resultTotal = new result_push(null, null,null,"Total Time: "+gameTime.getText().toString(), null, null, null);
                 mFirebaseResultReference.child("game_time").setValue(resultTotal);
             }
 

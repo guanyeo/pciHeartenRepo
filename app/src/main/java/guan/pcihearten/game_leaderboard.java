@@ -155,44 +155,6 @@ public class game_leaderboard extends AppCompatActivity
 
     }
 
-
-
-
-    public void guanTest(){
-        //set text to current username
-       //  guanName.setText(mUsername);
-
-       //Another data retrieval method
-        guanReference = FirebaseDatabase.getInstance().getReference()
-                .child("unique_user");
-
-
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                leaderboard_push post = dataSnapshot.getValue(leaderboard_push.class);
-
-
-                // [START_EXCLUDE]
-                Log.d("get_score value", ""+ post.getScore());
-                // [END_EXCLUDE]
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // [START_EXCLUDE]
-                Toast.makeText(game_leaderboard.this, "Failed to load post.",
-                        Toast.LENGTH_SHORT).show();
-                // [END_EXCLUDE]
-            }
-        };
-        guanReference.addValueEventListener(postListener);
-        //[End of Data] **/
-    }
-
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(TAG, "onConnectionFailed:" + connectionResult);

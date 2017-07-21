@@ -1,7 +1,7 @@
 <resources>
     <!-- Resource set -->
     <!-- Language page -->
-    <string name="app_name">PCI Info</string>
+    <string name="app_name">MVTutor</string>
     <string name="btn_english_string">English</string>
     <string name="btn_bm_string">Bahasa Malaysia</string>
     <string name="title_activity_login_screen">Sign in</string>

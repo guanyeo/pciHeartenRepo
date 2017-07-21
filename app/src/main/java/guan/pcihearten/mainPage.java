@@ -366,10 +366,10 @@ public class mainPage extends AppCompatActivity
 
                                 ArrayList responseList = (ArrayList) response.getOutput().get("text");
                                 if (null != responseList && responseList.size() > 0) {
-                                    outMessage.setMessage("@"+mUsername+", "+(String) responseList.get(0));
+                                    outMessage.setMessage("Hey "+mUsername+", "+(String) responseList.get(0));
                                     FriendlyMessage friendlyMessage = new
                                             FriendlyMessage((String) responseList.get(0),
-                                            "9S",
+                                            "Roboto",
                                             "http://cdn.acfrg.com/i/0_0_fit_ffffff__png/ACfrG/productpics_fullsize/2/229190a.jpg");
                                     mFirebaseDatabaseReference.child(MESSAGES_CHILD)
                                             .push().setValue(friendlyMessage);
@@ -491,11 +491,11 @@ public class mainPage extends AppCompatActivity
 
     public void dailyTime(){
         mDailyBase = FirebaseDatabase.getInstance().getReference()
-                .child("unique_user").child("-" + mFirebaseUser.getUid()).child("rank_info");
+                .child("unique_user").child("-" + mFirebaseUser.getUid());
         mDailyBase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                final read_push readPost = dataSnapshot.getValue(read_push.class);
+                final leaderboard_push readPost = dataSnapshot.getValue(leaderboard_push.class);
                 daily_calc = readPost.getNew_time() - readPost.getOld_time();
 
                 if(daily_calc>=86400000){
@@ -541,13 +541,11 @@ public class mainPage extends AppCompatActivity
 
         if (id == R.id.nav_information) {
             mReadReference = FirebaseDatabase.getInstance().getReference()
-                    .child("unique_user").child("-" + mFirebaseUser.getUid()).child("rank_info");
+                    .child("unique_user").child("-" + mFirebaseUser.getUid());
 
                     mReadReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(final DataSnapshot dataSnapshot) {
-                            final read_push readPost = dataSnapshot.getValue(read_push.class);
-
                             //To enter a new time
                             System.out.println(dataSnapshot.getValue());
                             mReadReference.child("new_time").setValue(ServerValue.TIMESTAMP);

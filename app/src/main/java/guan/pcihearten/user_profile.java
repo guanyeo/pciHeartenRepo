@@ -185,8 +185,6 @@ public class user_profile extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     public void achievementList(){
@@ -202,7 +200,7 @@ public class user_profile extends AppCompatActivity {
         achievementPic4 = (ImageView)findViewById(R.id.achieve_img_4);
 
         mReadReference = FirebaseDatabase.getInstance().getReference()
-                .child("unique_user").child("-" + mFirebaseUser.getUid()).child("rank_info");
+                .child("unique_user").child("-" + mFirebaseUser.getUid());
         mReadReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -230,7 +228,7 @@ public class user_profile extends AppCompatActivity {
                             rankTitle.setText("Easy");
 
                             if(rankTotal!=0){
-                                rankDesc.setText("Read " + rankTotal + " time(s) to start the test.");
+                                rankDesc.setText("Check in " + rankTotal + " time(s) to start the test.");
                                 Glide.with(user_profile.this)
                                         .load("http://i.imgur.com/ccJ6doA.png")
                                         .into(rankButton);
@@ -300,7 +298,7 @@ public class user_profile extends AppCompatActivity {
                             rankTitle.setText("Medium");
 
                             if(rankTotal!=0){
-                                rankDesc.setText("Read " + rankTotal + " time(s) to start the test.");
+                                rankDesc.setText("Check in " + rankTotal + " time(s) to start the test.");
                                 Glide.with(user_profile.this)
                                         .load("http://i.imgur.com/ccJ6doA.png")
                                         .into(rankButton);
@@ -370,7 +368,7 @@ public class user_profile extends AppCompatActivity {
                             rankTitle.setText("Hard");
 
                             if(rankTotal!=0){
-                                rankDesc.setText("Read " + rankTotal + " time(s) to start the test.");
+                                rankDesc.setText("Check in " + rankTotal + " time(s) to start the test.");
                                 Glide.with(user_profile.this)
                                         .load("http://i.imgur.com/ccJ6doA.png")
                                         .into(rankButton);
@@ -468,7 +466,7 @@ public class user_profile extends AppCompatActivity {
 
 //            Achievement for game completed
         mFirebasePlayed =  FirebaseDatabase.getInstance().getReference().child("unique_user").child("-"+mFirebaseUser.getUid());
-        mFirebasePlayed.addValueEventListener(new ValueEventListener() {
+        mFirebasePlayed.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final leaderboard_push scoreRetrieve = dataSnapshot.getValue(leaderboard_push.class);
@@ -631,7 +629,7 @@ public class user_profile extends AppCompatActivity {
         });
         //Achievement For Chatting
         mFirebaseTalk =  FirebaseDatabase.getInstance().getReference().child("unique_user").child("-"+mFirebaseUser.getUid());
-        mFirebaseTalk.addValueEventListener(new ValueEventListener() {
+        mFirebaseTalk.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final leaderboard_push scoreRetrieve = dataSnapshot.getValue(leaderboard_push.class);
@@ -766,7 +764,7 @@ public class user_profile extends AppCompatActivity {
 
         //Achievement for Acculmulative Correct
         mFirebaseAccCrt =  FirebaseDatabase.getInstance().getReference().child("unique_user").child("-"+mFirebaseUser.getUid());
-        mFirebaseAccCrt.addValueEventListener(new ValueEventListener() {
+        mFirebaseAccCrt.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final leaderboard_push accCrtRetrieve = dataSnapshot.getValue(leaderboard_push.class);

@@ -92,8 +92,6 @@ public class loginScreen extends AppCompatActivity implements
                 .build();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        createDatabase();
-        initDB();
     }
 
 
@@ -158,7 +156,7 @@ public class loginScreen extends AppCompatActivity implements
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
         mUsername = mFirebaseUser.getDisplayName();
-        mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
+        mPhotoUrl = "https://firebasestorage.googleapis.com/v0/b/pcihearten.appspot.com/o/user_profile%2FaccCrt_achieve%2Fgirl.png?alt=media&token=30df8c18-9ad9-48b9-871f-90cacb7bba14";
 
     }
 
@@ -173,11 +171,8 @@ public class loginScreen extends AppCompatActivity implements
 
                 }
                 else{
-                    leaderboard_push guantesto1 = new leaderboard_push(mUsername, "000000", 0L, mPhotoUrl, 0L, 0L);
-                    read_push guantesto2 = new read_push(0L, "CLIMB", 0L, 0L);
+                    leaderboard_push guantesto1 = new leaderboard_push(mUsername, "000000", 0L, mPhotoUrl, 0L, 0L, 0L, 0L, 0L, "CLIMB");
                     mUserDBReference.child("-"+mFirebaseUser.getUid()).setValue(guantesto1);
-                    mUserDBReference.child("-"+mFirebaseUser.getUid()).child("rank_info").setValue(guantesto2);
-
                 }
 
             }

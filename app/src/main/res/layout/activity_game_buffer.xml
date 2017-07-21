@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/wait_text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/progressBar"
         android:text="Waiting for player 2..."

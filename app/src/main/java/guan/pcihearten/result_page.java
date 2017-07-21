@@ -39,7 +39,7 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
         public TextView resultQuestionView;
         public TextView resultAnswerView;
-        public ImageView resultQuesImg;
+        public ImageView resultQuesImg, crtImg, wrgImg;
         public TextView resultQuestionViewWrg;
         public TextView resultAnswerViewWrg;
         public ImageView resultQuesImgWrg;
@@ -52,6 +52,9 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
             resultQuestionViewWrg = (TextView) itemView.findViewById(R.id.result_q_wrg);
             resultAnswerViewWrg = (TextView) itemView.findViewById(R.id.result_a_wrg);
             resultQuesImgWrg = (ImageView)itemView.findViewById(R.id.result_imgq_wrg);
+
+            crtImg = (ImageView)itemView.findViewById(R.id.crt_img);
+            wrgImg = (ImageView)itemView.findViewById(R.id.wrg_img);
         }
     }
 
@@ -65,7 +68,6 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
     private TextView resTimeText;
     private TextView gameCrt;
     private TextView gameWrg;
-
 
 
     //   Firebase variable declare
@@ -119,6 +121,17 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
                                 .load(model.getQuesPhoto())
                                 .into(viewHolder.resultQuesImg);
                     }
+
+                    if(model.getChoicePhoto() == null){
+                        Glide.with(result_page.this)
+                                .load("")
+                                .into(viewHolder.crtImg);
+                    }
+                    else{
+                        Glide.with(result_page.this)
+                                .load(model.getChoicePhoto())
+                                .into(viewHolder.crtImg);
+                    }
                 }
             };
 
@@ -152,6 +165,17 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
                             .load(model.getQuesPhoto())
                             .into(viewHolder.resultQuesImgWrg);
                 }
+                if(model.getChoicePhoto() == null){
+                    Glide.with(result_page.this)
+                            .load("")
+                            .into(viewHolder.wrgImg);
+                }
+                else{
+                    Glide.with(result_page.this)
+                            .load(model.getChoicePhoto())
+                            .into(viewHolder.wrgImg);
+                }
+
             }
         };
 
@@ -228,7 +252,7 @@ public class result_page extends AppCompatActivity implements GoogleApiClient.On
 
     public void rankResult(){
         mRankReference = FirebaseDatabase.getInstance().getReference()
-                .child("unique_user").child("-" + mFirebaseUser.getUid()).child("rank_info");
+                .child("unique_user").child("-" + mFirebaseUser.getUid());
 
         mFirebaseDatabaseReference.child("result_review/"+mFirebaseUser.getUid()+"/total_crt").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

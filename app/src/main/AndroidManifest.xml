@@ -14,18 +14,22 @@
     <application
         android:name=".pciHearten"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/car_icon2"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".languageSceen">
+        <activity
+            android:name=".languageSceen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".loginScreen">
+        <activity
+            android:name=".loginScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="guan.pcihearten.loginScreen" />
 
@@ -129,12 +133,16 @@
         </activity>
         <activity
             android:name=".game_leaderboard"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="guan.pcihearten.game_leaderboard" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.mainPage" />
         </activity>
         <activity android:name=".pci_mcq" />
         <activity
@@ -321,12 +329,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".result_page">
+        <activity
+            android:name=".result_page"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="guan.pcihearten.result_page" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="guan.pcihearten.mainPage" />
         </activity>
         <activity android:name=".TimerTest">
             <intent-filter>
@@ -335,6 +349,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".recycler_test"></activity>
     </application>
 
 </manifest>
