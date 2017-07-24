@@ -35,6 +35,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -113,7 +114,7 @@ public class mainPage extends AppCompatActivity
 
 //    Watson Credential
     private Context mContext;
-    private String workspace_id;
+    private String workspace_id, botImgUrl;
     private String conversation_username;
     private String conversation_password;
     private String STT_username;
@@ -128,7 +129,8 @@ public class mainPage extends AppCompatActivity
 
 
     // Firebase instance variables
-    private DatabaseReference mUserDBReference, mPhotoReference, mReadReference, mFirebaseDatabaseReference, mChatAchievement, mDailyBase;
+    private DatabaseReference mUserDBReference, mPhotoReference, mReadReference, mFirebaseDatabaseReference,
+            mChatAchievement, mDailyBase, mBotReference;
     private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder>
             mFirebaseAdapter;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -149,9 +151,6 @@ public class mainPage extends AppCompatActivity
 
         //        Get the application context and strings from R.String
         mContext = getApplicationContext();
-        conversation_username = mContext.getString(R.string.conversation_username);
-        conversation_password = mContext.getString(R.string.conversation_password);
-        workspace_id = mContext.getString(R.string.workspace_id);
         STT_username = mContext.getString(R.string.STT_username);
         STT_password = mContext.getString(R.string.STT_password);
         TTS_username = mContext.getString(R.string.TTS_username);
@@ -284,6 +283,7 @@ public class mainPage extends AppCompatActivity
         }
 
         checkUserStatus();
+        initBot();
         chatImage();
     }
 
@@ -304,6 +304,25 @@ public class mainPage extends AppCompatActivity
 
         }
 
+    }
+
+    public void initBot(){
+        mBotReference = FirebaseDatabase.getInstance().getReference().child("watson_credential");
+        mBotReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                watson_push watsonPost = dataSnapshot.getValue(watson_push.class);
+                conversation_username = watsonPost.getWatson_uname();
+                conversation_password = watsonPost.getWatson_pass();
+                workspace_id = watsonPost.getWorkspace_id();
+                botImgUrl = watsonPost.getBot_img();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void chatImage(){
@@ -368,9 +387,9 @@ public class mainPage extends AppCompatActivity
                                 if (null != responseList && responseList.size() > 0) {
                                     outMessage.setMessage("Hey "+mUsername+", "+(String) responseList.get(0));
                                     FriendlyMessage friendlyMessage = new
-                                            FriendlyMessage((String) responseList.get(0),
+                                            FriendlyMessage("Hey "+mUsername+", "+(String) responseList.get(0),
                                             "Roboto",
-                                            "http://cdn.acfrg.com/i/0_0_fit_ffffff__png/ACfrG/productpics_fullsize/2/229190a.jpg");
+                                            botImgUrl);
                                     mFirebaseDatabaseReference.child(MESSAGES_CHILD)
                                             .push().setValue(friendlyMessage);
                                     outMessage.setId("2");
